@@ -1,0 +1,104 @@
+{
+  "opensearch_parameters_version": 1,
+  "about": "These are the default CKAN OpenSearch parameters",
+  "about_url": "http://github.com/nextgeoss/ckanext-opensearch#parameters",
+  "parameters": [
+    {
+      "ckan_name": "q",
+      "os_name": "searchTerms",
+      "namespace": "opensearch",
+      "title": "Search Terms",
+      "minimum": 0
+    },
+    {
+      "ckan_name": "organization",
+      "os_name": "organization",
+      "namespace": "custom",
+      "title": "Organization",
+      "minimum": 0
+    },
+    {
+      "ckan_name": "group",
+      "os_name": "group",
+      "namespace": "custom",
+      "title": "Group",
+      "minimum": 0
+    },
+    {
+      "ckan_name": "tags",
+      "os_name": "tag",
+      "namespace": "custom",
+      "title": "Tag",
+      "minimum": 0,
+      "maximum": "*"
+    },
+    {
+      "ckan_name": "res_format",
+      "os_name": "format",
+      "namespace": "custom",
+      "title": "Resource Format",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "csv",
+            "label": "CSV"
+          },
+          {
+            "value": "kml",
+            "label": "KML"
+          }
+        ]
+    },
+    {
+      "ckan_name": "license_id",
+      "os_name": "licenses",
+      "namespace": "custom",
+      "title": "License",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "cc-by",
+            "label": "Creative Commons Attribution"
+          },
+          {
+            "value": "odc-by",
+            "label": "Open Data Commons Attribution License"
+          }
+        ]
+    },
+    {
+      "ckan_name": "rows",
+      "os_name": "maxResults",
+      "namespace": "opensearch",
+      "title": "Max. Results per Page",
+      "minimum": 0,
+      "min_inclusive": 1,
+      "max_exclusive": 10001
+    },
+    {
+      "ckan_name": "page",
+      "os_name": "startPage",
+      "namespace": "opensearch",
+      "title": "Page Number",
+      "minimum": 0,
+      "min_inclusive": 1,
+      "max_exclusive": 100000000
+    },
+    {
+      "ckan_name": "ext_bbox",
+      "os_name": "box",
+      "namespace": "geo",
+      "title": "Bounding Box",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "-0.489,51.28,0.236,51.686",
+            "label": "Bounding Box of Greater London"
+          }
+        ]
+    }
+  ]
+}
