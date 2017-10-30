@@ -1,0 +1,52 @@
+{
+  "opensearch_parameters_version": 1,
+  "about": "These are the default CKAN OpenSearch parameters",
+  "about_url": "http://github.com/nextgeoss/ckanext-opensearch#parameters",
+  "collection_params_list": [
+    {
+        "name": "Sentinel-1 Level-1 (SLC)",
+        "id": "SENTINEL1_L1_SLC",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-1 Level-1 (GRD)",
+        "id": "SENTINEL1_L1_GRD",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-1 Level-2 (OCN)",
+        "id": "SENTINEL1_L2_OCN",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-2 Level-1C",
+        "id": "SENTINEL2_L1C",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-2 Level-2A",
+        "id": "SENTINEL2_L2A",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 SRAL Level-1 Calibration",
+        "id": "SENTINEL3_SRAL_L1_CAL",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 SRAL Level-1 SRA",
+        "id": "SENTINEL3_SRAL_L1_SRA",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 SRAL Level-2 Land",
+        "id": "SENTINEL3_SRAL_L2_LAN",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 SRAL Level-2 Water",
+        "id": "SENTINEL3_SRAL_L2_WAT",
+        "file": "sentinel_parameters"
+    }
+  ]
+}

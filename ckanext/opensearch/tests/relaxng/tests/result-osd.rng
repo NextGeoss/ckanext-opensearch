@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  -*- rnc -*-
+  Test Purpose:	Verify that the server generates a valid OpenSearch description document.
+-->
+<grammar xmlns:s="http://purl.oclc.org/dsdl/schematron" xmlns:os="http://a9.com/-/spec/opensearch/1.1/" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <ref name="osDocument"/>
+  </start>
+  <define name="osDocument">
+    <element name="os:OpenSearchDescription">
+      <ref name="osDocumentConstruct"/>
+    </element>
+  </define>
+  <define name="osDocumentConstruct">
+    <interleave>
+      <element name="os:ShortName">
+        <data type="string">
+          <param name="maxLength">16</param>
+        </data>
+      </element>
+      <element name="os:Description">
+        <data type="string">
+          <param name="maxLength">1024</param>
+        </data>
+      </element>
+      <zeroOrMore>
+        <element name="os:Url">
+          <ref name="osdUrlAttr"/>
+        </element>
+      </zeroOrMore>
+      <optional>
+        <element name="os:Contact">
+          <data type="string">
+            <param name="pattern">.+@.+</param>
+          </data>
+        </element>
+      </optional>
+      <optional>
+        <element name="os:Tags">
+          <text/>
+        </element>
+      </optional>
+      <optional>
+        <element name="os:LongName">
+          <data type="string">
+            <param name="maxLength">48</param>
+          </data>
+        </element>
+      </optional>
+      <zeroOrMore>
+        <element name="os:Image">
+          <ref name="osdImage"/>
+        </element>
+      </zeroOrMore>
+      <zeroOrMore>
+        <element name="os:Query">
+          <zeroOrMore>
+            <ref name="undefinedAttribute"/>
+          </zeroOrMore>
+          <ref name="osQueryAttr"/>
+        </element>
+      </zeroOrMore>
+      <optional>
+        <element name="os:Developer">
+          <data type="string">
+            <param name="maxLength">64</param>
+          </data>
+        </element>
+      </optional>
+      <optional>
+        <element name="os:Attribution">
+          <data type="string">
+            <param name="maxLength">256</param>
+          </data>
+        </element>
+      </optional>
+      <optional>
+        <element name="os:SyndicationRight">
+          <ref name="osdSyndicationRightValues"/>
+        </element>
+      </optional>
+      <optional>
+        <element name="os:AdultContent">
+          <choice>
+            <value>false</value>
+            <value>true</value>
+          </choice>
+        </element>
+      </optional>
+      <optional>
+        <element name="os:Language">
+          <data type="string">
+            <param name="pattern">[A-Za-z]{1,8}(-[A-Za-z0-9]{1,8})*</param>
+          </data>
+        </element>
+      </optional>
+      <optional>
+        <element name="os:InputEncoding">
+          <text/>
+        </element>
+      </optional>
+      <optional>
+        <element name="os:OutputEncoding">
+          <text/>
+        </element>
+      </optional>
+      <zeroOrMore>
+        <ref name="undefinedAttribute"/>
+      </zeroOrMore>
+      <zeroOrMore>
+        <ref name="extensionElement"/>
+      </zeroOrMore>
+    </interleave>
+  </define>
+  <define name="osdUrlAttr">
+    <attribute name="template"/>
+    <attribute name="type"/>
+    <optional>
+      <attribute name="rel">
+        <ref name="osdRelationValues"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="indexOffset">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pageOffset">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <zeroOrMore>
+      <ref name="undefinedAttribute"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="extensionElement"/>
+    </zeroOrMore>
+  </define>
+  <define name="osdImage">
+    <attribute name="height">
+      <data type="int"/>
+    </attribute>
+    <attribute name="width">
+      <data type="int"/>
+    </attribute>
+    <attribute name="type">
+      <data type="string"/>
+    </attribute>
+    <text/>
+  </define>
+  <include href="../schemas/osquery.rng"/>
+  <define name="osdRelationValues">
+    <choice>
+      <value>results</value>
+      <value>suggestions</value>
+      <value>self</value>
+      <value>collection</value>
+    </choice>
+  </define>
+  <define name="osdSyndicationRightValues">
+    <choice>
+      <value>open</value>
+      <value>limited</value>
+      <value>private</value>
+      <value>closed</value>
+    </choice>
+  </define>
+  <!-- Simple Extension -->
+  <define name="simpleExtensionElement">
+    <element>
+      <anyName>
+        <except>
+          <nsName ns="http://a9.com/-/spec/opensearch/1.1/"/>
+        </except>
+      </anyName>
+      <text/>
+    </element>
+  </define>
+  <!-- Structured Extension -->
+  <define name="structuredExtensionElement">
+    <element>
+      <anyName>
+        <except>
+          <nsName ns="http://a9.com/-/spec/opensearch/1.1/"/>
+        </except>
+      </anyName>
+      <choice>
+        <group>
+          <oneOrMore>
+            <attribute>
+              <anyName/>
+            </attribute>
+          </oneOrMore>
+          <zeroOrMore>
+            <choice>
+              <text/>
+              <ref name="anyElement"/>
+            </choice>
+          </zeroOrMore>
+        </group>
+        <group>
+          <zeroOrMore>
+            <attribute>
+              <anyName/>
+            </attribute>
+          </zeroOrMore>
+          <group>
+            <optional>
+              <text/>
+            </optional>
+            <oneOrMore>
+              <ref name="anyElement"/>
+            </oneOrMore>
+            <zeroOrMore>
+              <choice>
+                <text/>
+                <ref name="anyElement"/>
+              </choice>
+            </zeroOrMore>
+          </group>
+        </group>
+      </choice>
+    </element>
+  </define>
+  <!-- Other Extensibility -->
+  <define name="extensionElement">
+    <choice>
+      <ref name="simpleExtensionElement"/>
+      <ref name="structuredExtensionElement"/>
+    </choice>
+  </define>
+  <define name="undefinedAttribute">
+    <attribute>
+      <anyName>
+        <except>
+          <nsName ns=""/>
+        </except>
+      </anyName>
+    </attribute>
+  </define>
+  <define name="undefinedContent">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="anyForeignElement"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="anyElement">
+    <element>
+      <anyName/>
+      <zeroOrMore>
+        <choice>
+          <attribute>
+            <anyName/>
+          </attribute>
+          <text/>
+          <ref name="anyElement"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+  <define name="anyForeignElement">
+    <element>
+      <anyName>
+        <except>
+          <nsName ns="http://a9.com/-/spec/opensearch/1.1/"/>
+        </except>
+      </anyName>
+      <zeroOrMore>
+        <choice>
+          <attribute>
+            <anyName/>
+          </attribute>
+          <text/>
+          <ref name="anyElement"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+</grammar>
+<!-- EOF -->

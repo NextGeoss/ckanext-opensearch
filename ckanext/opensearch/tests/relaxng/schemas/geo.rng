@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  -*- rnc -*-
+  RELAX NG Compact Syntax Grammar 
+  OpenSearch Query Element as defined in OGC 10-032 for the geo extension
+  
+  OGC OpenSearch Geo and Time Extensions 1.0 is an OGC Standard.
+  Copyright (c) 2014 Open Geospatial Consortium.
+  To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+  
+  Version: 1.0.1
+  
+-->
+<grammar xmlns:geo="http://a9.com/-/opensearch/extensions/geo/1.0/" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="osQueryAttr" combine="interleave">
+    <interleave>
+      <optional>
+        <attribute name="geo:box">
+          <ref name="geobox"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="geo:geometry"/>
+      </optional>
+      <optional>
+        <attribute name="geo:uid"/>
+      </optional>
+      <optional>
+        <attribute name="geo:lat">
+          <data type="double"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="geo:lon">
+          <data type="double"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="geo:radius">
+          <data type="double"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="geo:relation">
+          <ref name="relation"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="geo:name"/>
+      </optional>
+    </interleave>
+  </define>
+  <define name="geobox">
+    <data type="string">
+      <param name="pattern">[\+\-]?[\d]*(.[\d]+)?(,[\+\-]?[\d]*(.[\d]+)?){3}</param>
+    </data>
+  </define>
+  <define name="relation">
+    <choice>
+      <value>intersects</value>
+      <value>contains</value>
+      <value>disjoint</value>
+    </choice>
+  </define>
+</grammar>
+<!-- EOF -->

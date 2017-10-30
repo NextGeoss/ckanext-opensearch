@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  -*- rnc -*-
+  RELAX NG Compact Syntax Grammar 
+  OpenSearch Query Elements as defined in OGC 10-032 for the time extension
+  
+  OGC OpenSearch Geo and Time Extensions 1.0 is an OGC Standard.
+  Copyright (c) 2014 Open Geospatial Consortium.
+  To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+  
+  Version: 1.0.1
+  
+-->
+<grammar xmlns:time="http://a9.com/-/opensearch/extensions/time/1.0/" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="osQueryAttr" combine="interleave">
+    <interleave>
+      <optional>
+        <attribute name="time:start">
+          <ref name="dateTimeString"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="time:end">
+          <ref name="dateTimeString"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="time:relation">
+          <ref name="timerelation"/>
+        </attribute>
+      </optional>
+    </interleave>
+  </define>
+  <define name="timerelation">
+    <choice>
+      <value>intersects</value>
+      <value>contains</value>
+      <value>during</value>
+      <value>disjoint</value>
+      <value>equals</value>
+    </choice>
+  </define>
+  <define name="dateTimeString">
+    <data type="string">
+      <param name="pattern">[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?(Z|[\+\-][0-9]{2}:[0-9]{2}))?</param>
+    </data>
+  </define>
+</grammar>
+<!-- EOF -->

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  -*- rnc -*-
+  RELAX NG Compact Syntax Grammar for
+  OpenSearch Description Document as defined in OGC 10-032 
+  for the time extension
+  
+  OGC OpenSearch Geo and Time Extensions 1.0 is an OGC Standard.
+  Copyright (c) 2014 Open Geospatial Consortium.
+  To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+  
+  Version: 1.0.1
+  
+-->
+<grammar xmlns:s="http://purl.oclc.org/dsdl/schematron" xmlns:os="http://a9.com/-/spec/opensearch/1.1/" xmlns:time="http://a9.com/-/opensearch/extensions/time/1.0/" xmlns="http://relaxng.org/ns/structure/1.0">
+  <include href="time.rng"/>
+  <!--
+    Replacing definitions on RFC4287 plus OpenSearch
+    relative path schemas/opensearch/1.1/ folder
+  -->
+  <include href="osdd.rng">
+    <define name="undefinedAttribute">
+      <attribute>
+        <anyName>
+          <except>
+            <nsName ns=""/>
+            <nsName ns="http://a9.com/-/opensearch/extensions/time/1.0/"/>
+          </except>
+        </anyName>
+      </attribute>
+    </define>
+    <!-- Redefine the Simple Extension to exclude geo:* and time:* elements -->
+    <define name="simpleExtensionElement">
+      <element>
+        <anyName>
+          <except>
+            <nsName ns="http://a9.com/-/spec/opensearch/1.1/"/>
+          </except>
+        </anyName>
+        <text/>
+      </element>
+    </define>
+    <!-- Redefine the Structured Extension to exclude geo:* and time:* elements -->
+    <define name="structuredExtensionElement">
+      <element>
+        <anyName>
+          <except>
+            <nsName ns="http://a9.com/-/spec/opensearch/1.1/"/>
+          </except>
+        </anyName>
+        <choice>
+          <group>
+            <oneOrMore>
+              <attribute>
+                <anyName/>
+              </attribute>
+            </oneOrMore>
+            <zeroOrMore>
+              <choice>
+                <text/>
+                <ref name="anyElement"/>
+              </choice>
+            </zeroOrMore>
+          </group>
+          <group>
+            <zeroOrMore>
+              <attribute>
+                <anyName/>
+              </attribute>
+            </zeroOrMore>
+            <group>
+              <optional>
+                <text/>
+              </optional>
+              <oneOrMore>
+                <ref name="anyElement"/>
+              </oneOrMore>
+              <zeroOrMore>
+                <choice>
+                  <text/>
+                  <ref name="anyElement"/>
+                </choice>
+              </zeroOrMore>
+            </group>
+          </group>
+        </choice>
+      </element>
+    </define>
+    <define name="osDocument">
+      <element name="os:OpenSearchDescription">
+        <s:rule context="os:OpenSearchDescription">
+          <s:assert test="os:Url[@type='application/atom+xml']">An OpenSearch Description Document must have a Url template with  type of ATOM document.</s:assert>
+        </s:rule>
+        <ref name="osDocumentConstruct"/>
+      </element>
+    </define>
+  </include>
+</grammar>
+<!-- EOF -->

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  -*- rnc -*-
+  RELAX NG Compact Syntax Grammar for
+  OpenSearch Query element
+  
+  OGC OpenSearch Geo and Time Extensions 1.0 is an OGC Standard.
+  Copyright (c) 2014 Open Geospatial Consortium.
+  To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+  
+  Version: 1.0.1
+  
+-->
+<grammar xmlns:s="http://purl.oclc.org/dsdl/schematron" xmlns:os="http://a9.com/-/spec/opensearch/1.1/" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="osQueryAttr">
+    <attribute name="role">
+      <ref name="osQueryRoleValues"/>
+    </attribute>
+    <optional>
+      <attribute name="title">
+        <data type="string">
+          <param name="maxLength">256</param>
+        </data>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="searchTerms"/>
+    </optional>
+    <optional>
+      <attribute name="totalResults">
+        <data type="int"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="count"/>
+    </optional>
+    <optional>
+      <attribute name="startIndex"/>
+    </optional>
+    <optional>
+      <attribute name="startPage"/>
+    </optional>
+    <optional>
+      <attribute name="inputEncoding"/>
+    </optional>
+    <optional>
+      <attribute name="outputEncoding"/>
+    </optional>
+    <optional>
+      <attribute name="language"/>
+    </optional>
+  </define>
+  <define name="osQueryRoleValues">
+    <choice>
+      <value>request</value>
+      <value>example</value>
+      <value>related</value>
+      <value>correction</value>
+      <value>subset</value>
+      <value>superset</value>
+    </choice>
+  </define>
+</grammar>
+<!-- EOF -->

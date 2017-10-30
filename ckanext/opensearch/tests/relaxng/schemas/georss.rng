@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  -*- rnc -*-
+  RELAX NG Compact Syntax Grammar for the GEORSS 
+  This defines the conformance to the rules of GEORSS
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+  OGC OpenSearch Geo and Time Extensions 1.0 is an OGC Standard.
+  Copyright (c) 2014 Open Geospatial Consortium.
+  To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+  
+  Version: 1.0.1
+  
+-->
+<grammar ns="http://www.opengis.net/gml" xmlns:georss="http://www.georss.org/georss" xmlns:gml="http://www.opengis.net/gml" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start combine="choice">
+    <ref name="georssElement"/>
+  </start>
+  <define name="georssElement">
+    <choice>
+      <ref name="georssSimple"/>
+      <ref name="georssWhere"/>
+    </choice>
+  </define>
+  <define name="georssWhere">
+    <element name="georss:where">
+      <zeroOrMore>
+        <ref name="gmlAttribute"/>
+      </zeroOrMore>
+      <ref name="gmlElement"/>
+    </element>
+  </define>
+  <define name="georssSimple">
+    <choice>
+      <ref name="georssPoint"/>
+      <ref name="georssLine"/>
+      <ref name="georssPolygon"/>
+      <ref name="georssBox"/>
+      <ref name="georssCircle"/>
+      <ref name="georssFeatureTypeTag"/>
+      <ref name="georssFeatureName"/>
+      <ref name="georssElev"/>
+      <ref name="georssFloor"/>
+    </choice>
+  </define>
+  <define name="georssPoint">
+    <element name="georss:point">
+      <list>
+        <data type="decimal"/>
+        <data type="decimal"/>
+      </list>
+    </element>
+  </define>
+  <define name="georssLine">
+    <element name="georss:line">
+      <list>
+        <oneOrMore>
+          <data type="decimal"/>
+          <data type="decimal"/>
+        </oneOrMore>
+      </list>
+    </element>
+  </define>
+  <define name="georssPolygon">
+    <element name="georss:polygon">
+      <list>
+        <oneOrMore>
+          <data type="decimal"/>
+          <data type="decimal"/>
+        </oneOrMore>
+      </list>
+    </element>
+  </define>
+  <define name="georssBox">
+    <element name="georss:box">
+      <list>
+        <data type="decimal"/>
+        <data type="decimal"/>
+        <data type="decimal"/>
+        <data type="decimal"/>
+      </list>
+    </element>
+  </define>
+  <define name="georssCircle">
+    <element name="georss:circle">
+      <list>
+        <data type="decimal"/>
+        <data type="decimal"/>
+        <data type="decimal"/>
+      </list>
+    </element>
+  </define>
+  <define name="georssFeatureTypeTag">
+    <element name="georss:featureTypeTag">
+      <text/>
+    </element>
+  </define>
+  <define name="georssRelationshipTag">
+    <element name="georss:relationshipTag">
+      <text/>
+    </element>
+  </define>
+  <define name="georssFeatureName">
+    <element name="georss:featureName">
+      <text/>
+    </element>
+  </define>
+  <define name="georssElev">
+    <element name="georss:elev">
+      <data type="decimal"/>
+    </element>
+  </define>
+  <define name="georssFloor">
+    <element name="georss:floor">
+      <data type="decimal"/>
+    </element>
+  </define>
+  <define name="georssRadius">
+    <element name="georss:radius">
+      <data type="decimal"/>
+    </element>
+  </define>
+  <define name="gmlAttribute">
+    <attribute>
+      <choice>
+        <name>xml:base</name>
+        <name>xml:lang</name>
+        <nsName ns=""/>
+        <nsName/>
+      </choice>
+    </attribute>
+  </define>
+  <define name="gmlElement">
+    <choice>
+      <ref name="gmlPointElement"/>
+      <ref name="gmlLineStringElement"/>
+      <ref name="gmlPolygonElement"/>
+      <ref name="gmlEnvelopeElement"/>
+    </choice>
+  </define>
+  <define name="gmlPointElement">
+    <element name="gml:Point">
+      <zeroOrMore>
+        <ref name="gmlAttribute"/>
+      </zeroOrMore>
+      <element name="gml:pos">
+        <zeroOrMore>
+          <ref name="gmlAttribute"/>
+        </zeroOrMore>
+        <list>
+          <data type="decimal"/>
+          <data type="decimal"/>
+        </list>
+      </element>
+    </element>
+  </define>
+  <define name="gmlLineStringElement">
+    <element name="gml:LineString">
+      <zeroOrMore>
+        <ref name="gmlAttribute"/>
+      </zeroOrMore>
+      <element name="gml:posList">
+        <zeroOrMore>
+          <ref name="gmlAttribute"/>
+        </zeroOrMore>
+        <list>
+          <oneOrMore>
+            <data type="decimal"/>
+            <data type="decimal"/>
+          </oneOrMore>
+        </list>
+      </element>
+    </element>
+  </define>
+  <define name="gmlPolygonElement">
+    <element name="gml:Polygon">
+      <zeroOrMore>
+        <ref name="gmlAttribute"/>
+      </zeroOrMore>
+      <element name="gml:exterior">
+        <zeroOrMore>
+          <ref name="gmlAttribute"/>
+        </zeroOrMore>
+        <element name="gml:LinearRing">
+          <zeroOrMore>
+            <ref name="gmlAttribute"/>
+          </zeroOrMore>
+          <element name="gml:posList">
+            <zeroOrMore>
+              <ref name="gmlAttribute"/>
+            </zeroOrMore>
+            <list>
+              <oneOrMore>
+                <data type="decimal"/>
+                <data type="decimal"/>
+              </oneOrMore>
+            </list>
+          </element>
+        </element>
+      </element>
+    </element>
+  </define>
+  <define name="gmlEnvelopeElement">
+    <element name="gml:Envelope">
+      <zeroOrMore>
+        <ref name="gmlAttribute"/>
+      </zeroOrMore>
+      <interleave>
+        <element name="gml:lowerCorner">
+          <zeroOrMore>
+            <ref name="gmlAttribute"/>
+          </zeroOrMore>
+          <list>
+            <data type="decimal"/>
+            <data type="decimal"/>
+          </list>
+        </element>
+        <element name="gml:upperCorner">
+          <zeroOrMore>
+            <ref name="gmlAttribute"/>
+          </zeroOrMore>
+          <list>
+            <data type="decimal"/>
+            <data type="decimal"/>
+          </list>
+        </element>
+      </interleave>
+    </element>
+  </define>
+</grammar>
+<!-- EOF -->

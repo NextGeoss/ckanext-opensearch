@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  -*- rnc -*-
+  RELAX NG Compact Syntax Grammar for 
+  ATOM encoding and foreign elements as defined in OGC 10-032 
+  for the geo extension
+  
+  OGC OpenSearch Geo and Time Extensions 1.0 is an OGC Standard.
+  Copyright (c) 2014 Open Geospatial Consortium.
+  To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+  
+  Version: 1.0.1
+  
+-->
+<grammar xmlns:geo="http://a9.com/-/opensearch/extensions/geo/1.0/" xmlns:s="http://purl.oclc.org/dsdl/schematron" xmlns:os="http://a9.com/-/spec/opensearch/1.1/" xmlns:georss="http://www.georss.org/georss" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!-- Redefine atom:feed to include new OGC10-032 elements -->
+  <define name="atomFeedConstruct" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="georssElement"/>
+      </optional>
+      <optional>
+        <element name="dc:identifier">
+          <data type="token"/>
+        </element>
+      </optional>
+    </interleave>
+  </define>
+  <!-- Redefine atom:entry to include new OGC10-032 elements -->
+  <define name="atomEntryConstruct" combine="interleave">
+    <interleave>
+      <optional>
+        <ref name="georssElement"/>
+      </optional>
+      <optional>
+        <element name="dc:identifier">
+          <data type="token"/>
+        </element>
+      </optional>
+    </interleave>
+  </define>
+  <include href="geo.rng"/>
+  <!-- relative path schemas/georss folder -->
+  <include href="georss.rng"/>
+  <!--
+    Replacing definitions on RFC4287 plus OpenSearch 
+    relative path schemas/opensearch/1.1/ folder
+  -->
+  <include href="osatom.rng">
+    <define name="undefinedAttribute">
+      <attribute>
+        <anyName>
+          <except>
+            <name>xml:base</name>
+            <name>xml:lang</name>
+            <nsName ns=""/>
+            <nsName ns="http://a9.com/-/opensearch/extensions/geo/1.0/"/>
+          </except>
+        </anyName>
+      </attribute>
+    </define>
+    <!-- Redefine the Simple Extension to exclude atom geo elements -->
+    <define name="simpleExtensionElement">
+      <element>
+        <anyName>
+          <except>
+            <nsName ns="http://www.w3.org/2005/Atom"/>
+            <nsName ns="http://www.georss.org/georss"/>
+            <nsName ns="http://a9.com/-/spec/opensearch/1.1/"/>
+            <name>dc:identifier</name>
+          </except>
+        </anyName>
+        <text/>
+      </element>
+    </define>
+    <!-- Redefine the Structured Extension to exclude atom geo elements -->
+    <define name="structuredExtensionElement">
+      <element>
+        <anyName>
+          <except>
+            <nsName ns="http://www.w3.org/2005/Atom"/>
+            <nsName ns="http://www.georss.org/georss"/>
+            <nsName ns="http://a9.com/-/spec/opensearch/1.1/"/>
+            <name>dc:identifier</name>
+          </except>
+        </anyName>
+        <choice>
+          <group>
+            <oneOrMore>
+              <attribute>
+                <anyName/>
+              </attribute>
+            </oneOrMore>
+            <zeroOrMore>
+              <choice>
+                <text/>
+                <ref name="anyElement"/>
+              </choice>
+            </zeroOrMore>
+          </group>
+          <group>
+            <zeroOrMore>
+              <attribute>
+                <anyName/>
+              </attribute>
+            </zeroOrMore>
+            <group>
+              <optional>
+                <text/>
+              </optional>
+              <oneOrMore>
+                <ref name="anyElement"/>
+              </oneOrMore>
+              <zeroOrMore>
+                <choice>
+                  <text/>
+                  <ref name="anyElement"/>
+                </choice>
+              </zeroOrMore>
+            </group>
+          </group>
+        </choice>
+      </element>
+    </define>
+    <!-- Redefine Atom rules    -->
+    <define name="atomFeed">
+      <element name="atom:feed">
+        <s:pattern name="Check for georss element ">
+          <s:rule context="atom:feed">
+            <s:assert test="georss:* or not(atom:entry[not(georss:*)])">An atom:feed must have an georss element unless all of its atom:entry children have one.</s:assert>
+          </s:rule>
+        </s:pattern>
+        <ref name="atomFeedConstruct"/>
+      </element>
+    </define>
+    <define name="atomEntry">
+      <element name="atom:entry">
+        <s:pattern name="Check for HTML Content">
+          <s:rule context="atom:entry">
+            <s:assert test="atom:content">An atom:entry must have one atom:content MUST have content element in a format understandable by generic Atom readers ( @type equal to 'html' is recommended)</s:assert>
+          </s:rule>
+        </s:pattern>
+        <s:pattern name="Check for georss element ">
+          <s:rule context="atom:entry">
+            <s:assert test="georss:* or ../georss:* ">An atom:entry must have an georss element if its feed does not.</s:assert>
+          </s:rule>
+        </s:pattern>
+        <ref name="atomEntryConstruct"/>
+      </element>
+    </define>
+  </include>
+</grammar>
+<!-- EOF -->

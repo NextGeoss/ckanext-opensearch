@@ -1,0 +1,116 @@
+{
+  "opensearch_parameters_version": 1,
+  "about": "These are the default CKAN OpenSearch parameters",
+  "about_url": "http://github.com/nextgeoss/ckanext-opensearch#parameters",
+  "collection_parameters": [
+    {
+      "ckan_name": "q",
+      "os_name": "searchTerms",
+      "namespace": "opensearch",
+      "title": "Search Terms",
+      "minimum": 0,
+      "example": ""
+    },
+    {
+      "ckan_name": "rows",
+      "os_name": "maxResults",
+      "namespace": "opensearch",
+      "title": "Max. Results per Page",
+      "minimum": 0,
+      "min_inclusive": 1,
+      "max_exclusive": 10001
+    },
+    {
+      "ckan_name": "page",
+      "os_name": "startPage",
+      "namespace": "opensearch",
+      "title": "Page Number",
+      "minimum": 0,
+      "min_inclusive": 1,
+      "max_exclusive": 100000000,
+      "example": 1
+    },
+    {
+      "ckan_name": "ext_bbox",
+      "os_name": "box",
+      "namespace": "geo",
+      "title": "Bounding Box",
+      "minimum": 0,
+      "example": "-6.6796875,43.3669391518962,16.34765625,56.687778177880084",
+      "options":
+        [
+          {
+            "value": "-0.489,51.28,0.236,51.686",
+            "label": "Bounding Box of Greater London"
+          }
+        ]
+    },
+    {
+      "ckan_name": "identifier",
+      "os_name": "uid",
+      "namespace": "geo",
+      "title": "UID",
+      "minimum": 0
+    },
+    {
+      "ckan_name": "begin",
+      "os_name": "start",
+      "namespace": "time",
+      "minimum": 0,
+      "example": "2000-04-03",
+      "options":
+        [
+          {
+            "value": "2014-04-03",
+            "label": "example start time"
+          }
+        ]
+    },
+    {
+      "ckan_name": "end",
+      "os_name": "end",
+      "namespace": "time",
+      "minimum": 0,
+      "example": "2018-01-01",
+      "options":
+        [
+          {
+            "value": "2017-12-21",
+            "label": "example end time"
+          }
+        ]
+    },
+    {
+      "ckan_name": "client_id",
+      "os_name": "source",
+      "namespace": "referrer",
+      "minimum": 0
+    },
+    {
+      "ckan_name": "date_modified",
+      "os_name": "modificationDate",
+      "namespace": "eo",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "[2017-11-05T00:00:00,2017-11-05T12:00:00]",
+            "label": "example modification date range"
+          }
+        ]
+    },
+    {
+      "ckan_name": "ext_geometry",
+      "os_name": "geometry",
+      "namespace": "geo",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "POLYGON((-6.284 24.727,-4.834 24.867,0.879 20.982,1.077 20.592,1.912 20.015,2.197 20.118,2.966 19.58,2.944 18.958,3.34 18.813,4.043 18.854,4.021 16.426,3.384 15.581,-0.747 15.242,-3.01 14.179,-3.56 13.411,-3.955 13.646,-4.57 13.261,-4.702 12.426,-5.669 11.867,-5.647 10.661,-6.196 10.92,-6.812 10.833,-7.031 10.445,-7.625 10.682,-7.866 10.509,-8.086 11.394,-9.009 12.726,-10.195 12.404,-11.096 12.469,-11.316 13.518,-11.909 14.499,-11.448 15.178,-10.833 14.796,-10.173 15.263,-5.295 15.305,-5.076 16.32,-5.427 16.784,-6.284 24.727))",
+            "label": "Mali"
+          }
+        ]
+    }
+  ]
+}

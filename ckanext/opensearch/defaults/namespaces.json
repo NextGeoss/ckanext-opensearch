@@ -1,0 +1,63 @@
+{
+  "opensearch_namespaces_version": 1,
+  "about": "These are the default CKAN OpenSearch namespaces",
+  "about_url": "http://github.com/nextgeoss/ckanext-opensearch#namespaces",
+  "namespaces": [
+    {
+      "namespace": "http://a9.com/-/spec/opensearch/1.1/",
+      "alias": "opensearch"
+    },
+    {
+      "namespace": "http://www.w3.org/2005/Atom",
+      "alias": "atom"
+    },
+    {
+      "namespace": "http://a9.com/-/opensearch/extensions/param/1.0/",
+      "alias": "param"
+    },
+    {
+      "namespace": "http://example.com/opensearchextensions/1.0/",
+      "alias": "custom"
+    },
+    {
+      "namespace": "http://a9.com/-/opensearch/extensions/geo/1.0/",
+      "alias": "geo"
+    },
+    {
+      "namespace": "http://a9.com/-/opensearch/extensions/time/1.0/",
+      "alias": "time"
+    },
+    {
+      "namespace": "http://purl.org/dc/elements/1.1/",
+      "alias": "dc"
+    },
+    {
+      "namespace": "http://www.georss.org/georss",
+      "alias": "georss"
+    },
+    {
+      "namespace": "http://www.opengis.net/gml/3.2",
+      "alias": "gml"
+    },
+    {
+      "namespace": "http://www.opengis.net/eop/2.1",
+      "alias": "eop"
+    },
+    {
+      "namespace": "http://www.opengis.net/om/2.0",
+      "alias": "om"
+    },
+    {
+      "namespace": "http://commons.esipfed.org/ns/discovery/1.2/",
+      "alias": "esipdiscovery"
+    },
+    {
+      "namespace": "http://a9.com/-/opensearch/extensions/eo/1.0/",
+      "alias": "eo"
+    },
+    {
+      "namespace": "http://www.opensearch.org/Specifications/OpenSearch/Extensions/Referrer/1.0",
+      "alias": "referrer"
+    }
+  ]
+}

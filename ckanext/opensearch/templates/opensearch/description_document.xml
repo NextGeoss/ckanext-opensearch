@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<opensearch:OpenSearchDescription {{ h.os_make_attributes(namespaces)|safe }}>
+    <opensearch:ShortName>{{ short_name }}</opensearch:ShortName>
+    <opensearch:Description>{{ description }}</opensearch:Description>
+    <opensearch:Tags>{{ tags }}</opensearch:Tags>
+    <opensearch:SyndicationRight>{{ syndication }}</opensearch:SyndicationRight>
+    <opensearch:Url type="application/opensearchdescription+xml" template="{{ self_url }}" rel="self"/>
+    <opensearch:Url pageOffset="1" type="application/atom+xml" rel="{{ search_rel }}" indexOffset="1" template="{{ search_url }}">
+        {# We may have more than one parameter and each parameter may have attributes not shown here (name="name" value="value" minimum="" maximum="") #}
+        {% for param in parameters %}
+            {% if param.options or param.name == 'q' %}
+                <param:Parameter {{ h.os_make_attributes(h.os_filter_options(param))|safe }}>
+                {# The free text query parameter ('q' by default) needs a search profile #}
+                {% if param.name == 'q' %}
+                    <atom:link title="This parameter follows the Solr free text search implementation." rel="profile" href="https://wiki.apache.org/solr/SolrQuerySyntax"/>
+                {% endif %}
+                {# A parameter may have zero or more Options #}
+                {% if param.options %}
+                    {% for option in param.options %}
+                        <param:Option {{ h.os_make_attributes(option)|safe }}/>
+                    {% endfor %}
+                {% endif %}
+            </param:Parameter>
+            {% else %}
+            <param:Parameter {{ h.os_make_attributes(param)|safe }}/>
+            {% endif %}
+        {% endfor %}
+    </opensearch:Url>
+    {# We may have more than one example and each example may have more than one parameter #}
+    {% if examples %}
+        {% for example in examples %}
+            <opensearch:Query role="example" {{ h.os_make_attributes(query)|safe }}
+        {% endfor %}
+    {% endif %}
+</opensearch:OpenSearchDescription>
