@@ -2,6 +2,7 @@
 from ckan.lib import helpers as h
 
 from . import OSElement
+from .earth_observation import EarthObservation
 
 
 class Entry(OSElement):
@@ -20,7 +21,8 @@ class Entry(OSElement):
             (DatasetLink, entry_dict),
             (EntrySummary, entry_dict),
             (EntryCategory, entry_dict['tags']),
-            (ResourceLink, entry_dict['resources'])
+            (ResourceLink, entry_dict['resources']),
+            (EarthObservation, entry_dict)
         ]
         OSElement.__init__(self, 'atom', 'entry', children=children)
 

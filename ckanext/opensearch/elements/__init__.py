@@ -3,7 +3,11 @@ from ckanext.opensearch.config import NAMESPACES
 
 
 class OSElement(object):
-    """Base OpenSearch element class."""
+    """
+    Base element class.
+
+    Used for creating other element classes. Not used directly.
+    """
 
     def __init__(self, ns, tag_name, content='', attr={}, children=None):
         self.ns = ns
@@ -50,3 +54,13 @@ class OSElement(object):
             element['children'] = child_elements
 
         return element
+
+    def _get_from_extras(self, data_dict, key):
+        """Get a specific value from the extras list using a key."""
+        extras = data_dict.get('extras')
+        value = ''
+        for i in extras:
+            if i['key'] == key:
+                value = i['value']
+
+        return value
