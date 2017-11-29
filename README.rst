@@ -1,32 +1,8 @@
-.. You should enable this project on travis-ci.org and coveralls.io to make
-   these badges work. The necessary Travis and Coverage config files have been
-   generated for you.
+.. image:: https://travis-ci.org/NextGeoss/ckanext-opensearch.svg?branch=master
+    :target: https://travis-ci.org/NextGeoss/ckanext-opensearch
 
-.. image:: https://travis-ci.org/ViderumGlobal/ckanext-opensearch.svg?branch=master
-    :target: https://travis-ci.org/ViderumGlobal/ckanext-opensearch
-
-.. image:: https://coveralls.io/repos/ViderumGlobal/ckanext-opensearch/badge.svg
-  :target: https://coveralls.io/r/ViderumGlobal/ckanext-opensearch
-
-.. image:: https://pypip.in/download/ckanext-opensearch/badge.svg
-    :target: https://pypi.python.org/pypi//ckanext-opensearch/
-    :alt: Downloads
-
-.. image:: https://pypip.in/version/ckanext-opensearch/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-opensearch/
-    :alt: Latest Version
-
-.. image:: https://pypip.in/py_versions/ckanext-opensearch/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-opensearch/
-    :alt: Supported Python versions
-
-.. image:: https://pypip.in/status/ckanext-opensearch/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-opensearch/
-    :alt: Development Status
-
-.. image:: https://pypip.in/license/ckanext-opensearch/badge.svg
-    :target: https://pypi.python.org/pypi/ckanext-opensearch/
-    :alt: License
+.. image:: https://coveralls.io/repos/NextGeoss/ckanext-opensearch/badge.svg
+  :target: https://coveralls.io/r/NextGeoss/ckanext-opensearch
 
 =============
 ckanext-opensearch
