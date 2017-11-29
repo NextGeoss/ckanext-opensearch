@@ -1,4 +1,3 @@
-import re
 import logging
 import json
 
@@ -32,8 +31,6 @@ QUERY_FIELDS = "name^4 title^4 tags^2 groups^2 text"
 log = logging.getLogger(__name__)
 
 _open_licenses = None
-
-
 
 
 def collection_search(context, data_dict):

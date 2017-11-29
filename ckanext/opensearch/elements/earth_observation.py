@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Classes describing Earth Observation elements."""
+
 from . import OSElement
 from ..config import NAMESPACES
 
@@ -38,7 +40,8 @@ class TimePeriod(OSElement):
             (BeginPosition, entry_dict),
             (EndPosition, entry_dict)
         ]
-        OSElement.__init__(self, 'gml', 'TimePeriod', attr=attr, children=children)
+        OSElement.__init__(self, 'gml', 'TimePeriod', attr=attr,
+                           children=children)
 
 
 class BeginPosition(OSElement):
@@ -83,7 +86,8 @@ class EarthObservationEquipment(OSElement):
             (InstrumentContainer, entry_dict),
             (SensorContainer, entry_dict)
         ]
-        OSElement.__init__(self, 'eop', 'EarthObservationEquipment', attr=attr, children=children)
+        OSElement.__init__(self, 'eop', 'EarthObservationEquipment',
+                           attr=attr, children=children)
 
 
 class PlatformContainer(OSElement):
@@ -98,7 +102,9 @@ class PlatformContainer(OSElement):
 
 class PlatformElement(OSElement):
     """
-    Define a Platform element, which will contain elements that contain actual
+    Define a Platform container element.
+
+    This element will contain elements that contain actual
     information about the platform itself.
     """
 
@@ -129,7 +135,9 @@ class InstrumentContainer(OSElement):
 
 class InstrumentElement(OSElement):
     """
-    Define a Platform element, which will contain elements that contain actual
+    Define an Instrument container element.
+
+    This element will contain elements that contain actual
     information about the instrument itself.
     """
 
@@ -144,7 +152,8 @@ class InstrumentShortName(OSElement):
     """Define a shortName element describing a platform."""
 
     def __init__(self, entry_dict):
-        content = OSElement._get_from_extras(self, entry_dict, 'InstrumentName')
+        content = OSElement._get_from_extras(self, entry_dict,
+                                             'InstrumentName')
         OSElement.__init__(self, 'eop', 'shortName', content=content)
 
 
@@ -160,7 +169,9 @@ class SensorContainer(OSElement):
 
 class SensorElement(OSElement):
     """
-    Define a Sensor element, which will contain elements that contain actual
+    Define a Sensor container element.
+
+    This element will contain elements that contain actual
     information about the sensor itself.
     """
 
@@ -186,12 +197,15 @@ class AcquisitionParameters(OSElement):
         children = [
             (Acquisition, entry_dict)
         ]
-        OSElement.__init__(self, 'eop', 'acquisitionParameters', children=children)
+        OSElement.__init__(self, 'eop', 'acquisitionParameters',
+                           children=children)
 
 
-class Acuisition(OSElement):
+class Acquisition(OSElement):
     """
-    Define an Acquisition element, which will contain elements that contain actual
+    Define an Acquisition container element.
+
+    This element will contain elements that contain actual
     information about the acquisition itself.
     """
 
@@ -204,19 +218,22 @@ class Acuisition(OSElement):
 
 class OrbitDirection(OSElement):
     """
-    Define an orbitDirection element describing the direction of orbit
-    of the colleting satellite.
+    Define an orbitDirection element.
+
+    This element describes the direction of orbit of the colleting satellite.
     """
 
     def __init__(self, entry_dict):
-        content = OSElement._get_from_extras(self, entry_dict, 'OrbitDirection')
+        content = OSElement._get_from_extras(self, entry_dict,
+                                             'OrbitDirection')
         OSElement.__init__(self, 'eop', 'orbitDirection', content=content)
 
 
 class OrbitNumber(OSElement):
     """
-    Define an orbitNumber element describing the orbit number of the
-    collecting satellite.
+    Define an orbitNumber element.
+
+    This element describes the orbit number of the collecting satellite.
     """
 
     def __init__(self, entry_dict):
@@ -242,7 +259,8 @@ class EarthObservationMetaData(OSElement):
             (EOPIdentifier, entry_dict),
             (ProductType, entry_dict)
         ]
-        OSElement.__init__(self, 'eop', 'EarthObservationMetadata', children=children)
+        OSElement.__init__(self, 'eop', 'EarthObservationMetadata',
+                           children=children)
 
 
 class EOPIdentifier(OSElement):

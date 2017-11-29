@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Contains the OpenSearch controller and methods for transforming queries."""
+
 import importlib
 from collections import OrderedDict
 import logging
@@ -7,11 +9,9 @@ from lxml import etree
 from webob.multidict import MultiDict, UnicodeMultiDict
 
 from ckan.lib.base import abort, BaseController
-from ckan.common import _, c, config, request, response
+from ckan.common import _, c, request, response
 import ckan.logic as logic
 import ckan.model as model
-
-import ckan.lib.helpers as h
 
 from .config import ELEMENTS, NAMESPACES, PARAMETERS
 from .xml_maker import make_xml
@@ -30,6 +30,7 @@ DescriptionDocument = description_document.DescriptionDocument
 
 log = logging.getLogger(__name__)
 
+
 class OpenSearchController(BaseController):
     """Controller for OpenSearch queries."""
 
@@ -41,14 +42,12 @@ class OpenSearchController(BaseController):
 
         return self.prepare_response(frame, ns_root, content_type)
 
-
     def translate_os_query(self, param_dict):
         """
         Translate the OpenSearch query parameters based on a template.
 
         The parameters will already have been validated.
         """
-
         # convert params and build data dictionary
         data_dict = dict()
 
@@ -72,14 +71,12 @@ class OpenSearchController(BaseController):
         fq = ''
         for (param, value) in request.params.items():
             if param not in ['q', 'page', 'sort'] \
-                and len(value) and not param.startswith('_'):
+                and len(value) and not param.startswith('_'):  # noqa: E125
                 if not param.startswith('ext_'):
                     fq += ' %s:"%s"' % (param, value)
-                else:
-                    search_extras[param] = value
 
         # Add any additional facets that are necessary behind the scenes
-        fq += ' +dataset_type:dataset' # Only search for datasets, exclude harvesters
+        fq += ' +dataset_type:dataset'  # Only search datasets; no harvesters
 
         data_dict['fq'] = fq
 
@@ -88,7 +85,6 @@ class OpenSearchController(BaseController):
         data_dict['sort'] = 'score desc, metadata_modified desc'
 
         return data_dict
-
 
     def make_query_dict(self, param_dict, search_type):
         """
@@ -113,7 +109,6 @@ class OpenSearchController(BaseController):
                 query_dict[os_name] += ' {}'.format(value)
 
         return query_dict
-
 
     def process_query(self, search_type):
         """
@@ -151,7 +146,8 @@ class OpenSearchController(BaseController):
 
         # Query the DB.
         if search_type == 'dataset':
-            results_dict = logic.get_action('package_search')(context, data_dict)
+            results_dict = logic.get_action(
+                'package_search')(context, data_dict)
         elif search_type == 'collection':
             results_dict = results_dict = collection_search(context, data_dict)
 
@@ -181,7 +177,6 @@ class OpenSearchController(BaseController):
 
         return self.return_results(results_dict)
 
-
     def return_results(self, results):
         """Generate the XML response for successful search results errors."""
         frame = [Feed(results).element]
@@ -189,7 +184,6 @@ class OpenSearchController(BaseController):
         content_type = 'application/atom+xml'
 
         return self.prepare_response(frame, ns_root, content_type)
-
 
     def prepare_response(self, frame, ns_root, content_type):
         """Prepare the response."""
@@ -204,7 +198,6 @@ class OpenSearchController(BaseController):
 
         return self._finish(200, response_data, content_type)
 
-
     def _finish(self, status_int, response_data, content_type):
         """
         When a controller method has completed, call this method
@@ -212,6 +205,6 @@ class OpenSearchController(BaseController):
         """
         response.charset = 'UTF-8'
         response.status_int = status_int
-        response.headers['Content-Type'] = content_type+ '; charset=UTF-8'
+        response.headers['Content-Type'] = content_type + '; charset=UTF-8'
 
         return response_data

@@ -37,7 +37,7 @@ class OSElement(object):
         if element and self.children:
             child_elements = []
             for child, arg in self.children:
-                if arg == None:
+                if arg is None:
                     child_element = child().element
                     if child_element:
                         child_elements.append(child_element)

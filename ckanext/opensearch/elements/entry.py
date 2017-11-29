@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Contains classes for the entries in an OpenSearch feed."""
 from ckan.lib import helpers as h
 
 from . import OSElement
@@ -41,8 +42,8 @@ class CollectionEntry(OSElement):
     def __init__(self, entry_dict):
         children = [
             (CollectionTitle, entry_dict),
-            (CollectionID, entry_dict),
-            (CollectionSummary, entry_dict),
+            (CollectionIdentifier, entry_dict),
+            (CollectionDescription, entry_dict),
             (CollectionCount, entry_dict)
         ]
         OSElement.__init__(self, 'atom', 'entry', children=children)
@@ -55,6 +56,7 @@ class CollectionTitle(OSElement):
         title = data_dict.get('collection_name', 'Untitled')
         OSElement.__init__(self, 'atom', 'title', content=title)
 
+
 class CollectionIdentifier(OSElement):
     """Define the Dubin Core identifier element of an OpenSearch entry."""
 
@@ -62,12 +64,14 @@ class CollectionIdentifier(OSElement):
         identifier = data_dict['collection_id']
         OSElement.__init__(self, 'dc', 'identifier', content=identifier)
 
+
 class CollectionDescription(OSElement):
     """Define a collection element title."""
 
     def __init__(self, data_dict):
         title = data_dict.get('collection_description', 'No description')
         OSElement.__init__(self, 'atom', 'summary', content=title)
+
 
 class CollectionCount(OSElement):
     """Define an element containing the count of a collection."""
@@ -97,7 +101,8 @@ class EntryID(OSElement):
         # Prefer creating links with the ID vs. the name because
         # the ID won't change.
         entry_id = h.url_for(controller='package',
-            action='read', id=data_dict['id'], qualified=True)
+                             action='read',
+                             id=data_dict['id'], qualified=True)
         OSElement.__init__(self, 'atom', 'id', content=entry_id)
 
 
@@ -123,6 +128,7 @@ class EntryAuthor(OSElement):
 class EntryAuthorName(OSElement):
     """
     Define the author name element of an OpenSearch entry.
+
     Only use the CKAN author if the CKAN organization is not available.
     """
 
@@ -143,9 +149,12 @@ class EntryAuthorEmail(OSElement):
 
 
 class EntryPublisher(OSElement):
-    """Define the publisher element of the dataset in the OpenSearch entry.
+    """
+    Define the publisher element of the dataset in the OpenSearch entry.
 
-    The publisher will usually be the organization associated with the dataset."""
+    The publisher will usually be the organization associated with the dataset.
+    """
+
     def __init__(self, data_dict):
         try:
             publisher = data_dict['organization'].get('title')
@@ -155,9 +164,7 @@ class EntryPublisher(OSElement):
 
 
 class EntryUpdated(OSElement):
-    """
-    Define the element describing when the entry (dataset) was last updated.
-    """
+    """Describe when the entry (dataset) was last updated."""
 
     def __init__(self, data_dict):
         updated = data_dict['metadata_modified'] + 'Z'
@@ -165,10 +172,7 @@ class EntryUpdated(OSElement):
 
 
 class EntryPublished(OSElement):
-    """
-    Define the element describing when the entry (dataset) was first
-    published.
-    """
+    """Describe when the entry (dataset) was first published."""
 
     def __init__(self, data_dict):
         published = data_dict['metadata_created'] + 'Z'
@@ -179,22 +183,23 @@ class EntryRights(OSElement):
     """Define the rights element of the OpenSearch entry."""
 
     def __init__(self, data_dict):
-        license = data_dict.get('license_title', 'No license information available')
+        license = data_dict.get('license_title',
+                                'No license information available')
         OSElement.__init__(self, 'atom', 'rights', content=license)
 
 
 class DatasetLink(OSElement):
-    """"
+    """
     URL for the dataset on CKAN.
 
     Use attributes rel=alternate and type=text/html.
-
     """
+
     def __init__(self, data_dict):
         # Prefer creating links with the ID vs. the name because
         # the ID won't change.
         url = h.url_for(controller='package',
-            action='read', id=data_dict['id'], qualified=True)
+                        action='read', id=data_dict['id'], qualified=True)
         link = {
             'href': url,
             'rel': 'alternate',
@@ -217,8 +222,9 @@ class EntrySummary(OSElement):
 
 class EntryCategory(OSElement):
     """
-    Define an Atom element describing a feed entry. In this case, 
-    each category is a CKAN tag.
+    Define an Atom element describing a feed entry.
+
+    In this case, each category is a CKAN tag.
     There can be more than one category element in an entry.
     """
 
@@ -230,12 +236,13 @@ class EntryCategory(OSElement):
 class ResourceLink(OSElement):
     """
     Define an Atom element describing a link to a datset's resource.
+
     There can be more than one resource link in an entry.
     """
 
     def __init__(self, resource_dict):
         link = {
-            'href': resource_dict['url'], 
+            'href': resource_dict['url'],
             'title': resource_dict.get('name', 'Untitled'),
             'rel': 'enclosure'
         }

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""Contains the elements for an OpenSearch description document."""
+
 from collections import OrderedDict
 
 from ckan.common import g
@@ -20,7 +22,7 @@ class DescriptionDocument(OSElement):
 
         ]
         OSElement.__init__(self, 'opensearch', 'OpenSearchDescription',
-            children=children)
+                           children=children)
 
 
 class DescShortName(OSElement):
@@ -43,7 +45,7 @@ class DescDescription(OSElement):
         custom = None
         description = custom or default
         OSElement.__init__(self, 'opensearch', 'Description',
-            content=description)
+                           content=description)
 
 
 class DescTags(OSElement):
@@ -67,28 +69,27 @@ class DescSyndication(OSElement):
         # using `h.config.get()`.
         custom = None
         rights = custom or default
-        OSElement.__init__(self, 'opensearch', 'SyndicationRight', content=rights)
+        OSElement.__init__(self, 'opensearch', 'SyndicationRight',
+                           content=rights)
 
 
 class SearchURL(OSElement):
-    """
-    Define the OpenSearch element describing the URL template to use for
-    searching.
-    """
+    """Describe the OpenSearch search template."""
 
     def __init__(self, description_type):
         print 'hey'
         attr = {
             'type': 'application/atom+xml',
-            'template': self.create_search_template(description_type)
+            'template': self._create_search_template(description_type)
         }
-        param_dicts = self.create_param_dicts(description_type)
+        param_dicts = self._create_param_dicts(description_type)
         children = [
             (Parameter, param_dicts)
         ]
-        OSElement.__init__(self, 'opensearch', 'Url', attr=attr, children=children)
+        OSElement.__init__(self, 'opensearch', 'Url', attr=attr,
+                           children=children)
 
-    def create_search_template(self, description_type):
+    def _create_search_template(self, description_type):
         """Create the OpenSearch template based on the various parameters."""
         print 'calling search template'
         site = g.site_url
@@ -110,8 +111,8 @@ class SearchURL(OSElement):
 
         return search_template
 
-    def create_param_dicts(self, description_type):
-        """Convert parameters settings into a usable format for creating XML."""
+    def _create_param_dicts(self, description_type):
+        """Convert parameters settings into a usable format for making XML."""
         print 'calling param dicts'
         param_dicts = []
 
@@ -120,7 +121,8 @@ class SearchURL(OSElement):
             # Create a dictionary of the parameter attributes
             param_dict = OrderedDict()
             param_dict['name'] = param
-            param_dict['value'] = '{%s:%s}' % (details['namespace'], details['os_name'])
+            param_dict['value'] = '{%s:%s}' % (details['namespace'],
+                                               details['os_name'])
             param_dict['title'] = details.get('title')
             param_dict['minimum'] = details.get('minimum')
             param_dict['maximum'] = details.get('maximum')
@@ -149,12 +151,13 @@ class Parameter(OSElement):
             ]
         else:
             children = None
-        OSElement.__init__(self, 'param', 'Parameter', attr=params, children=children)
+        OSElement.__init__(self, 'param', 'Parameter', attr=params,
+                           children=children)
 
     def _filter_params(self, param_dict):
         # Remove out any empty attributes and make sure they're strings
         for i in param_dict:
-            if param_dict[i] == None:
+            if param_dict[i] is None:
                 param_dict.pop(i)
             else:
                 param_dict[i] = str(param_dict[i])

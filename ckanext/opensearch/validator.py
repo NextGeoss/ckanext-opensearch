@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+"""This module contains the validator class."""
+
 from ckan.common import _, config
 
 plugins = config.get('ckan.plugins')
@@ -8,6 +10,7 @@ if plugins and 'spatial_query' in plugins:
 
 class QueryValidator(object):
     """Validate query parameters and create a list of errors."""
+
     def __init__(self, param_dict, valid_params):
         self.param_dict = param_dict
         self.valid_params = valid_params
@@ -48,7 +51,9 @@ class QueryValidator(object):
         for param, count in self.param_counts.items():
             minimum = self.valid_params[param]['minimum']
             if count < minimum:
-                self.errors.append(_('You must have at least {} instances of "{}".'.format(minimum, param)))
+                self.errors.append(
+                    _('You must have at least {} instances of "{}".'
+                        .format(minimum, param)))
 
     def _maximums_are_not_exceeded(self):
         """
@@ -58,7 +63,9 @@ class QueryValidator(object):
         for param, count in self.param_counts.items():
             maximum = self.valid_params[param]['maximum']
             if maximum != '*' and count > maximum:
-                self.errors.append(_('You cannot have more than {} instances of "{}".'.format(maximum, param)))
+                self.errors.append(
+                    _('You cannot have more than {} instances of "{}".'
+                        .format(maximum, param)))
 
     def _value_is_in_bounds(self, param, minimum, maximum):
         """
@@ -76,21 +83,24 @@ class QueryValidator(object):
                 error = True
             if error:
                 os_name = self.valid_params[param]['os_name']
-                self.errors.append(_('{} must be an integer from {} to {}.'.format(os_name, minimum, maximum))) 
+                self.errors.append(
+                    _('{} must be an integer from {} to {}.'
+                        .format(os_name, minimum, maximum)))
 
     def _rows_are_in_bounds(self):
-        """Check that the rows value is in bounds, if the parameter is present."""
+        """Check that the rows value is in bounds."""
         return self._value_is_in_bounds('rows', 1, 1001)
 
     def _page_is_in_bounds(self):
-        """Check that the page value is in bounds, if the parameter is present."""
+        """Check that the page value is in bounds."""
         return self._value_is_in_bounds('page', 1, 99999999)
 
     def _bbox_is_valid(self):
-        """Check if the bounding box has a valid form, if the parameter is present."""
+        """Check if the bounding box has a valid form."""
         ext_bbox = self.param_dict.get('ext_bbox')
         if ext_bbox and not validate_bbox(ext_bbox):
-            self.errors.append(_('geo:box must be in the form `west,south,east,north` or `minX,minY,maxX,maxY`.'))
+            self.errors.append(
+                _('geo:box must be in the form `west,south,east,north` or `minX,minY,maxX,maxY`.'))  # noqa: E501
 
     def _validate_query(self):
         """Update the error list."""

@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
+"""Contains classes describing Atom feed elements."""
+
 import uuid
 import re
 from datetime import datetime
-# -*- coding: utf-8 -*-
+
 from ckan.common import config, g, request
 
 from . import OSElement
@@ -74,7 +77,7 @@ class FeedAuthorName(OSElement):
 
     def __init__(self):
         name = config.get('ckanext.opensearch.author',
-            'No author information available')
+                          'No author information available')
         OSElement.__init__(self, 'atom', 'name', content=name)
 
 
@@ -87,33 +90,30 @@ class FeedID(OSElement):
 
 
 class TotalResults(OSElement):
-    """Define the OpenSearch element decribing the total results for the search."""
+    """Define the OpenSearch element decribing the total results count."""
+
     def __init__(self, results_dict):
         total_results = str(results_dict['count'])
-        OSElement.__init__(self, 'opensearch', 'totalResults', content=total_results)
+        OSElement.__init__(self, 'opensearch', 'totalResults',
+                           content=total_results)
 
 
 class StartIndex(OSElement):
-    """
-    Define the OpenSearch element describing the start index for the current
-    page of results.
-    """
+    """Describe the start index for the current page of results."""
 
     def __init__(self, results_dict):
         start_index = str(results_dict['start_index'])
-        OSElement.__init__(self, 'opensearch', 'startIndex', content=start_index)
+        OSElement.__init__(self, 'opensearch', 'startIndex',
+                           content=start_index)
 
 
 class ItemsPerPage(OSElement):
-    """
-    Define the OpenSearch element describing the default number of items
-    per page.
-    """
+    """Describe the default number of items per page."""
 
     def __init__(self, results_dict):
         items_per_page = str(results_dict['items_per_page'])
         OSElement.__init__(self, 'opensearch', 'itemsPerPage',
-            content=items_per_page)
+                           content=items_per_page)
 
 
 class Query(OSElement):
@@ -125,15 +125,12 @@ class Query(OSElement):
 
 
 class SelfLink(OSElement):
-    """
-    Define the OpenSearch element describing the link to duplicate
-    the search. URL comes from request.url
-    """
+    """Describe the link that will duplicate the search."""
 
     def __init__(self):
         link = {
-            'href': request.url, 
-            'title': 'self', 
+            'href': request.url,
+            'title': 'self',
             'rel': 'self',
             'type': 'application/atom+xml'
         }
@@ -171,10 +168,7 @@ class NavLink(object):
 
 
 class NextLink(OSElement, NavLink):
-    """
-    Define the Atom element describing the link to the next page of 
-    search results.
-    """
+    """Describe the link to the next page of search results."""
 
     def __init__(self, results_dict):
         attr = NavLink.get_link(self, results_dict['next_page'], 'next')
@@ -182,10 +176,7 @@ class NextLink(OSElement, NavLink):
 
 
 class PrevLink(OSElement, NavLink):
-    """
-    Define the Atom element describing the link to the previous page of
-    search results.
-    """
+    """Describe the link to the previous page of search results."""
 
     def __init__(self, results_dict):
         attr = NavLink.get_link(self, results_dict['prev_page'], 'prev')
@@ -194,8 +185,7 @@ class PrevLink(OSElement, NavLink):
 
 class GeoRSSBox(OSElement):
     """
-    Define the GeoRSS element describing the bounding box containing all the
-    search results in the feed.
+    Describe the the bounding box containing all the search results.
 
     CKAN's bounding box is a comma-delimted string, but georss and other
     formats expect space-delimeted strings.
@@ -214,7 +204,7 @@ class GeoRSSBox(OSElement):
 
 
 class Entries(OSElement):
-    """ Define the Atom entries element containing all the search results."""
+    """Define the Atom entries element containing all the search results."""
 
     def __init__(self, results_dict):
         children = [

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import importlib
+"""This module processes configuration files and creates constants."""
+
 import json
 import os
 import inspect
@@ -13,10 +14,10 @@ def load_config_file(file_path):
     Given a path like "ckanext.opensearch:namespaces.json"
     find the second part relative to the import path of the first
     """
-
     module_name, file_name = file_path.split(':', 1)
     module = __import__(module_name, fromlist=[''])
-    file_path = os.path.join(os.path.dirname(inspect.getfile(module)), file_name)
+    file_path = os.path.join(os.path.dirname(inspect.getfile(module)),
+                             file_name)
 
     return open(file_path)
 
@@ -27,7 +28,8 @@ def load_settings(settings_name):
     INI file.
     """
     config_name = 'ckanext.opensearch.' + settings_name
-    default_location = 'ckanext.opensearch.defaults:{}.json'.format(settings_name)
+    default_location = 'ckanext.opensearch.defaults:{}.json'.\
+        format(settings_name)
     location = config.get(config_name, default_location)
     file = load_config_file(location)
     json_data = json.load(file)
@@ -75,7 +77,7 @@ def get_elements():
     This enables us to specify an alterate elements.py package
     so that we can load custom elements when the plugin is loaded."""
     elements_path = config.get('ckanext.opensearch.elements',
-        'ckanext.opensearch.elements')
+                               'ckanext.opensearch.elements')
 
     return elements_path
 
