@@ -11,6 +11,6 @@ before_install:
 install: ./bin/travis-build.bash
 script:
  - ./bin/travis-run.sh
- - pycodestyle --count ./ckanext/opensearch
+ - pycodestyle --exclude=./ckanext/opensearch/collection_search.py --count ./ckanext/opensearch
 after_success:
   - coveralls
