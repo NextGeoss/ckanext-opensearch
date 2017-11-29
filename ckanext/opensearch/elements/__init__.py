@@ -47,7 +47,7 @@ class OSElement(object):
                             child_element = child(i).element
                             if child_element:
                                 child_elements.append(child_element)
-                    elif type(arg) == dict:
+                    elif type(arg) in [dict, str, unicode]:
                         child_element = child(arg).element
                         if child_element:
                             child_elements.append(child_element)

@@ -1,18 +1,22 @@
 # -*- coding: utf-8 -*-
 import importlib
 from collections import OrderedDict
+import logging
 
 from lxml import etree
 from webob.multidict import MultiDict, UnicodeMultiDict
 
 from ckan.lib.base import abort, BaseController
-from ckan.common import _, c, request, response
+from ckan.common import _, c, config, request, response
 import ckan.logic as logic
 import ckan.model as model
+
+import ckan.lib.helpers as h
 
 from .config import ELEMENTS, NAMESPACES, PARAMETERS
 from .xml_maker import make_xml
 from .validator import QueryValidator
+from .collection_search import collection_search
 
 # Load the custom elements or the default elements if no custome elements
 # are specified.
@@ -24,13 +28,14 @@ path_to_description_document = '{}.description_document'.format(ELEMENTS)
 description_document = importlib.import_module(path_to_description_document)
 DescriptionDocument = description_document.DescriptionDocument
 
+log = logging.getLogger(__name__)
 
 class OpenSearchController(BaseController):
     """Controller for OpenSearch queries."""
 
-    def create_description_document(self):
+    def create_description_document(self, search_type):
         """Create the OpenSearch description document."""
-        frame = [DescriptionDocument().element]
+        frame = [DescriptionDocument(search_type).element]
         ns_root = 'opensearch'
         content_type = 'application/opensearchdescription+xml'
 
@@ -85,7 +90,7 @@ class OpenSearchController(BaseController):
         return data_dict
 
 
-    def make_query_dict(self, param_dict):
+    def make_query_dict(self, param_dict, search_type):
         """
         Make a dictionary of parameters and values that will be used for
         the OpenSearch Query element in the response. The formatting is
@@ -101,7 +106,7 @@ class OpenSearchController(BaseController):
         # XML attributes are unique per element, so parameters that occur more
         # than once in a query must me combined into a space-delimited string.
         for (param, value) in param_dict.items():
-            os_name = PARAMETERS[param]['os_name']
+            os_name = PARAMETERS[search_type][param]['os_name']
             if os_name not in query_dict:
                 query_dict[os_name] = value
             else:
@@ -110,7 +115,7 @@ class OpenSearchController(BaseController):
         return query_dict
 
 
-    def process_query(self):
+    def process_query(self, search_type):
         """
         It may be possible to hook into CKAN's standard search method
         using the `before_search` and `after_search` interfaces,
@@ -135,7 +140,7 @@ class OpenSearchController(BaseController):
                 param_dict.add(param, value)
 
         # Validate the query and abort if there are errors.
-        validator = QueryValidator(param_dict, PARAMETERS)
+        validator = QueryValidator(param_dict, PARAMETERS[search_type])
         if validator.errors:
             error_report = '</br>'.join(validator.errors)
             return abort(400, error_report)
@@ -145,7 +150,10 @@ class OpenSearchController(BaseController):
         data_dict = self.translate_os_query(param_dict)
 
         # Query the DB.
-        results_dict = logic.get_action('package_search')(context, data_dict)
+        if search_type == 'dataset':
+            results_dict = logic.get_action('package_search')(context, data_dict)
+        elif search_type == 'collection':
+            results_dict = results_dict = collection_search(context, data_dict)
 
         results_dict['items_per_page'] = data_dict['rows']
 
@@ -169,7 +177,7 @@ class OpenSearchController(BaseController):
 
         results_dict['start_index'] = expected_results - requested_rows + 1
 
-        results_dict['query'] = self.make_query_dict(param_dict)
+        results_dict['query'] = self.make_query_dict(param_dict, search_type)
 
         return self.return_results(results_dict)
 
@@ -202,7 +210,6 @@ class OpenSearchController(BaseController):
         When a controller method has completed, call this method
         to prepare the response.
         """
-        print(content_type)
         response.charset = 'UTF-8'
         response.status_int = status_int
         response.headers['Content-Type'] = content_type+ '; charset=UTF-8'

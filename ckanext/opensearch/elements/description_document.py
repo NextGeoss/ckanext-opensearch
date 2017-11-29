@@ -10,13 +10,13 @@ from . import OSElement
 class DescriptionDocument(OSElement):
     """Define the OpenSearch description document element."""
 
-    def __init__(self):
+    def __init__(self, description_type):
         children = [
             (DescShortName, None),
             (DescDescription, None),
             (DescTags, None),
             (DescSyndication, None),
-            (SearchURL, None),
+            (SearchURL, description_type),
 
         ]
         OSElement.__init__(self, 'opensearch', 'OpenSearchDescription',
@@ -76,22 +76,24 @@ class SearchURL(OSElement):
     searching.
     """
 
-    def __init__(self):
+    def __init__(self, description_type):
+        print 'hey'
         attr = {
             'type': 'application/atom+xml',
-            'template': self.create_search_template()
+            'template': self.create_search_template(description_type)
         }
-        param_dicts = self.create_param_dicts()
+        param_dicts = self.create_param_dicts(description_type)
         children = [
             (Parameter, param_dicts)
         ]
         OSElement.__init__(self, 'opensearch', 'Url', attr=attr, children=children)
 
-    def create_search_template(self):
+    def create_search_template(self, description_type):
         """Create the OpenSearch template based on the various parameters."""
+        print 'calling search template'
         site = g.site_url
         terms = []
-        for param, details in PARAMETERS.items():
+        for param, details in PARAMETERS[description_type].items():
             name = param
             value = details['os_name']
             # Add namespace and required flag to value if necessary
@@ -108,11 +110,12 @@ class SearchURL(OSElement):
 
         return search_template
 
-    def create_param_dicts(self):
+    def create_param_dicts(self, description_type):
         """Convert parameters settings into a usable format for creating XML."""
+        print 'calling param dicts'
         param_dicts = []
 
-        for param, details in PARAMETERS.items():
+        for param, details in PARAMETERS[description_type].items():
 
             # Create a dictionary of the parameter attributes
             param_dict = OrderedDict()

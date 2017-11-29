@@ -36,13 +36,13 @@ def load_settings(settings_name):
     return settings
 
 
-def get_parameters():
+def get_parameters(parameter_type):
     """
     Return the list of parameters from the JSON file specified in the settings.
 
     If the parameters file is missing or invalid, raise an error.
     """
-    parameter_settings = load_settings('parameters')
+    parameter_settings = load_settings(parameter_type)
     parameters = OrderedDict(
         (i['ckan_name'], {
             'minimum': i.get('minimum', 0),
@@ -81,6 +81,8 @@ def get_elements():
 
 
 # Constants
-PARAMETERS = get_parameters()
+PARAMETERS = {'dataset': get_parameters('dataset_parameters')}
+if config.get('ckanext.opensearch.enable_collections') == 'true':
+    PARAMETERS['collection'] = get_parameters('collection_parameters')
 NAMESPACES = get_namespaces()
 ELEMENTS = get_elements()

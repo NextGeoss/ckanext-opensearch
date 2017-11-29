@@ -9,22 +9,72 @@ class Entry(OSElement):
     """Define an OpenSearch Entry element."""
 
     def __init__(self, entry_dict):
+        if entry_dict.get('is_collection', False):
+            children = [
+                (CollectionTitle, entry_dict),
+                (CollectionIdentifier, entry_dict),
+                (CollectionDescription, entry_dict),
+                (CollectionCount, entry_dict)
+            ]
+        else:
+            children = [
+                (EntryTitle, entry_dict),
+                (EntryID, entry_dict),
+                (EntryIdentifier, entry_dict),
+                (EntryAuthor, entry_dict),
+                (EntryPublisher, entry_dict),
+                (EntryUpdated, entry_dict),
+                (EntryPublished, entry_dict),
+                (EntryRights, entry_dict),
+                (DatasetLink, entry_dict),
+                (EntrySummary, entry_dict),
+                (EntryCategory, entry_dict['tags']),
+                (ResourceLink, entry_dict['resources']),
+                (EarthObservation, entry_dict)
+            ]
+        OSElement.__init__(self, 'atom', 'entry', children=children)
+
+
+class CollectionEntry(OSElement):
+    """Define a category rather than dataset entry."""
+
+    def __init__(self, entry_dict):
         children = [
-            (EntryTitle, entry_dict),
-            (EntryID, entry_dict),
-            (EntryIdentifier, entry_dict),
-            (EntryAuthor, entry_dict),
-            (EntryPublisher, entry_dict),
-            (EntryUpdated, entry_dict),
-            (EntryPublished, entry_dict),
-            (EntryRights, entry_dict),
-            (DatasetLink, entry_dict),
-            (EntrySummary, entry_dict),
-            (EntryCategory, entry_dict['tags']),
-            (ResourceLink, entry_dict['resources']),
-            (EarthObservation, entry_dict)
+            (CollectionTitle, entry_dict),
+            (CollectionID, entry_dict),
+            (CollectionSummary, entry_dict),
+            (CollectionCount, entry_dict)
         ]
         OSElement.__init__(self, 'atom', 'entry', children=children)
+
+
+class CollectionTitle(OSElement):
+    """Define a collection element title."""
+
+    def __init__(self, data_dict):
+        title = data_dict.get('collection_name', 'Untitled')
+        OSElement.__init__(self, 'atom', 'title', content=title)
+
+class CollectionIdentifier(OSElement):
+    """Define the Dubin Core identifier element of an OpenSearch entry."""
+
+    def __init__(self, data_dict):
+        identifier = data_dict['collection_id']
+        OSElement.__init__(self, 'dc', 'identifier', content=identifier)
+
+class CollectionDescription(OSElement):
+    """Define a collection element title."""
+
+    def __init__(self, data_dict):
+        title = data_dict.get('collection_description', 'No description')
+        OSElement.__init__(self, 'atom', 'summary', content=title)
+
+class CollectionCount(OSElement):
+    """Define an element containing the count of a collection."""
+
+    def __init__(self, data_dict):
+        count = str(data_dict.get('collection_count', 0))
+        OSElement.__init__(self, 'atom', 'count', content=count)
 
 
 class EntryTitle(OSElement):

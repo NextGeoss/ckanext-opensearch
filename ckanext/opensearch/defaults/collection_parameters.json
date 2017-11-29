@@ -2,7 +2,7 @@
   "opensearch_parameters_version": 1,
   "about": "These are the default CKAN OpenSearch parameters",
   "about_url": "http://github.com/nextgeoss/ckanext-opensearch#parameters",
-  "parameters": [
+  "collection_parameters": [
     {
       "ckan_name": "q",
       "os_name": "searchTerms",
