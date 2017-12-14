@@ -83,15 +83,15 @@ class OpenSearchController(BaseController):
 
             # If begin or end are empty (e.g., "begin="), get will return an empty
             # string rather than the alternate value, so we need this second step.
-            if not begin:
-                begin = '*'
-            if not end:
-                end = 'NOW'
+            if begin or end:
+                if not begin:
+                    begin = '*'
+                if not end:
+                    end = 'NOW'
 
-            time_range = '[{} TO {}]'.format(begin, end)
-            time_range = '[{} TO {}]'.format(begin, end)
-            fq += ' {}:{}'.format(TEMPORAL_START, time_range)
-            fq += ' {}:{}'.format(TEMPORAL_END, time_range)
+                time_range = '[{} TO {}]'.format(begin, end)
+                fq += ' {}:{}'.format(TEMPORAL_START, time_range)
+                fq += ' {}:{}'.format(TEMPORAL_END, time_range)
 
         # Add any additional facets that are necessary behind the scenes
         fq += ' +dataset_type:dataset'  # Only search datasets; no harvesters
