@@ -48,7 +48,8 @@ class BeginPosition(OSElement):
     """Define a GML beginPosition element (start of dataset time period)."""
 
     def __init__(self, entry_dict):
-        content = entry_dict.get('start')
+        keys = ['startposition']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'gml', 'beginPosition', content=content)
 
 
@@ -56,7 +57,8 @@ class EndPosition(OSElement):
     """Define a GML endPosition element (end of dataset time period)."""
 
     def __init__(self, entry_dict):
-        content = entry_dict.get('end')
+        keys = ['endposition']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'gml', 'endPosition', content=content)
 
 
@@ -119,7 +121,8 @@ class PlatformShortName(OSElement):
     """Define a shortName element describing a platform."""
 
     def __init__(self, entry_dict):
-        content = OSElement._get_from_extras(self, entry_dict, 'PlatformName')
+        keys = ['platformname', 'PlatformName']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'eop', 'shortName', content=content)
 
 
@@ -152,8 +155,8 @@ class InstrumentShortName(OSElement):
     """Define a shortName element describing a platform."""
 
     def __init__(self, entry_dict):
-        content = OSElement._get_from_extras(self, entry_dict,
-                                             'InstrumentName')
+        keys = ['instrumentshortname']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'eop', 'shortName', content=content)
 
 
@@ -186,7 +189,8 @@ class SensorType(OSElement):
     """Define a shortName element describing a platform."""
 
     def __init__(self, entry_dict):
-        content = OSElement._get_from_extras(self, entry_dict, 'SensorType')
+        keys = ['SensorType']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'eop', 'sensorType', content=content)
 
 
@@ -224,8 +228,8 @@ class OrbitDirection(OSElement):
     """
 
     def __init__(self, entry_dict):
-        content = OSElement._get_from_extras(self, entry_dict,
-                                             'OrbitDirection')
+        keys = ['orbitdirection', 'OrbitDirection']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'eop', 'orbitDirection', content=content)
 
 
@@ -237,7 +241,8 @@ class OrbitNumber(OSElement):
     """
 
     def __init__(self, entry_dict):
-        content = OSElement._get_from_extras(self, entry_dict, 'OrbitNumber')
+        keys = ['orbitnumber', 'OrbitNumber']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'eop', 'orbitNumber', content=content)
 
 
@@ -257,7 +262,11 @@ class EarthObservationMetaData(OSElement):
     def __init__(self, entry_dict):
         children = [
             (EOPIdentifier, entry_dict),
-            (ProductType, entry_dict)
+            (ProductType, entry_dict),
+            (AcquisitionType, entry_dict),
+            (EOPStatus, entry_dict),
+            (DownlinkedTo, entry_dict),
+            (Processing, entry_dict)
         ]
         OSElement.__init__(self, 'eop', 'EarthObservationMetadata',
                            children=children)
@@ -275,5 +284,99 @@ class ProductType(OSElement):
     """Define a ProductType element describing the type of EO product."""
 
     def __init__(self, entry_dict):
-        content = OSElement._get_from_extras(self, entry_dict, 'ProductType')
+        keys = ['producttype', 'productType']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'eop', 'productType', content=content)
+
+
+class AcquisitionType(OSElement):
+    """Define an AcquisitionType element describing an EO product."""
+
+    def __init__(self, entry_dict):
+        keys = ['acquisitiontype']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
+        OSElement.__init__(self, 'eop', 'acquisitionType', content=content)
+
+
+class EOPStatus(OSElement):
+    """Define an EOP Status element."""
+
+    def __init__(self, entry_dict):
+        keys = ['status']
+        content = OSElement._get_from_extras(self, entry_dict, keys)
+        OSElement.__init__(self, 'eop', 'status', content=content)
+
+
+class DownlinkedTo(OSElement):
+    """Define a downlinkedTo container element."""
+
+    def __init__(self, entry_dict):
+        children = [
+            (DownlinkInformation, entry_dict)
+        ]
+        OSElement.__init__(self, 'eop', 'downlinkedTo', children=children)
+
+
+class DownlinkInformation(OSElement):
+    """Define a DownlinkInformation container element."""
+
+    def __init__(self, entry_dict):
+        children = [
+            (AcquisitionStation, entry_dict)
+        ]
+        OSElement.__init__(self, 'eop', 'DownlinkInformation',
+                           children=children)
+
+
+class AcquisitionStation(OSElement):
+    """
+    Define an acquisitionStation element containing the name of the
+    acquisition station.
+    """
+
+    def __init__(self, entry_dict):
+        keys = []
+        content = OSElement._get_from_extras(self, entry_dict, keys)
+        OSElement.__init__(self, 'eop', 'acquisitionStation', content=content)
+
+
+class Processing(OSElement):
+    """Define a processing container element."""
+
+    def __init__(self, entry_dict):
+        children = [
+            (ProcessingInformation, entry_dict)
+        ]
+        OSElement.__init__(self, 'eop', 'processing', children=children)
+
+
+class ProcessingInformation(OSElement):
+    """Define a processingInformation container element."""
+
+    def __init__(self, entry_dict):
+        children = [
+            (ProcessingCenter, entry_dict)
+        ]
+        OSElement.__init__(self, 'eop', 'processingInformation', children=children)
+
+
+class ProcessingCenter(OSElement):
+    """
+    Define a processingCenter element containing an identifier for the
+    processing center.
+    """
+
+    def __init__(self, entry_dict):
+        keys = []
+        content = OSElement._get_from_extras(self, entry_dict, keys)
+        OSElement.__init__(self, 'eop', 'processingCenter', content=content)
+
+
+class OMResult(OSElement):
+    """Define an om result element, which contains additional metadata."""
+
+    def __init__(self, entry_dict):
+        children = [
+            (OptEarthObservationResult, entry_dict),
+            ()
+        ]

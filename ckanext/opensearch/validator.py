@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """This module contains the validator class."""
 
+import re
+
 from ckan.common import _, config
 
 plugins = config.get('ckan.plugins')
@@ -102,6 +104,25 @@ class QueryValidator(object):
             self.errors.append(
                 _('geo:box must be in the form `west,south,east,north` or `minX,minY,maxX,maxY`.'))  # noqa: E501
 
+    def _temporal_is_valid(self, temporal_param):
+        """Check if the temporal search parameter is valid."""
+        if temporal_param:
+            pattern = re.compile('^[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?(Z|[\+\-][0-9]{2}:[0-9]{2})?)?$')
+            return pattern.match(temporal_param)
+        else:
+            return True
+
+    def _start_is_valid(self):
+        """Check if the start timestamp is valid."""
+        if not self._temporal_is_valid(self.param_dict.get('begin')):
+            self.errors.append(_('time:start must be in the form `YYY-MM-DDTHH:MM:SS'))
+
+    def _end_is_valid(self):
+        """Check if the end timestamp is valid."""
+        if not self._temporal_is_valid(self.param_dict.get('end')):
+            self.errors.append(_('time:end must be in the form `YYY-MM-DDTHH:MM:SS'))
+
+
     def _validate_query(self):
         """Update the error list."""
         checks = [
@@ -111,7 +132,9 @@ class QueryValidator(object):
             self._maximums_are_not_exceeded,
             self._rows_are_in_bounds,
             self._page_is_in_bounds,
-            self._bbox_is_valid
+            self._bbox_is_valid,
+            self._start_is_valid,
+            self._end_is_valid
         ]
         for check in checks:
             check()

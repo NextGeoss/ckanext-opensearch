@@ -53,7 +53,8 @@ def get_parameters(parameter_type):
             'max_exclusive': i.get('max_exclusive', None),
             'os_name': i['os_name'],
             'namespace': i['namespace'],
-            'options': i.get('options')
+            'options': i.get('options'),
+            'example': i.get('example', '')
         }) for i in parameter_settings)
 
     return parameters
@@ -82,9 +83,33 @@ def get_elements():
     return elements_path
 
 
+def get_site_url():
+    """Return the URL of the site for constructing template URLs."""
+    return config.get('ckan.site_url', '')
+
+
+def get_site_title():
+    """Return the name of the site."""
+    return config.get('ckan.site_title', 'CKAN Portal')
+
+
+def get_temporal_start_field():
+    """Return the database field to use for the start of temporal searches."""
+    return config.get('ckanext.opensearch.temporal_start')
+
+
+def get_temporal_end_field():
+    """Return the database field to use for the end of temporal searches."""
+    return config.get('ckanext.opensearch.temporal_end')
+
+
 # Constants
 PARAMETERS = {'dataset': get_parameters('dataset_parameters')}
 if config.get('ckanext.opensearch.enable_collections') == 'true':
     PARAMETERS['collection'] = get_parameters('collection_parameters')
 NAMESPACES = get_namespaces()
 ELEMENTS = get_elements()
+SITE_URL = get_site_url()
+SITE_TITLE = get_site_title()
+TEMPORAL_START = get_temporal_start_field()
+TEMPORAL_END = get_temporal_end_field()

@@ -18,6 +18,12 @@ class Entry(OSElement):
                 (CollectionCount, entry_dict)
             ]
         else:
+            extras_dict = dict()
+            if 'extras' in entry_dict:
+                for extra in entry_dict['extras']:
+                    extras_dict[extra['key']] = extra['value']
+            entry_dict['extras'] = extras_dict
+
             children = [
                 (EntryTitle, entry_dict),
                 (EntryID, entry_dict),

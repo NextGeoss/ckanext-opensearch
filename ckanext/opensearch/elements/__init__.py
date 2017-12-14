@@ -55,12 +55,16 @@ class OSElement(object):
 
         return element
 
-    def _get_from_extras(self, data_dict, key):
-        """Get a specific value from the extras list using a key."""
+    def _get_from_extras(self, data_dict, keys):
+        """Check extras for key/value pairs using a list of possible keys."""
         extras = data_dict.get('extras')
-        value = ''
-        for i in extras:
-            if i['key'] == key:
-                value = i['value']
 
-        return value
+        # Iterate through the keys and return a value as soon as
+        # a matching key is found.
+        for key in keys:
+            if key in extras:
+                return extras[key]
+
+        # If no keys are found, return an empty string.
+
+        return ''

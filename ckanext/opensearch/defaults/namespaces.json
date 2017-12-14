@@ -24,6 +24,10 @@
       "alias": "geo"
     },
     {
+      "namespace": "http://a9.com/-/opensearch/extensions/time/1.0/",
+      "alias": "time"
+    },
+    {
       "namespace": "http://purl.org/dc/elements/1.1/",
       "alias": "dc"
     },

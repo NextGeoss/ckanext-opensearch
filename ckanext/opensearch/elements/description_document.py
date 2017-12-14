@@ -3,9 +3,10 @@
 
 from collections import OrderedDict
 
-from ckan.common import g
-
 from ckanext.opensearch.config import PARAMETERS
+from ckanext.opensearch.config import SITE_URL
+from ckanext.opensearch.config import SITE_TITLE
+from ckanext.opensearch.config import NAMESPACES
 from . import OSElement
 
 
@@ -19,7 +20,7 @@ class DescriptionDocument(OSElement):
             (DescTags, None),
             (DescSyndication, None),
             (SearchURL, description_type),
-
+            (QueryExample, description_type)
         ]
         OSElement.__init__(self, 'opensearch', 'OpenSearchDescription',
                            children=children)
@@ -29,17 +30,14 @@ class DescShortName(OSElement):
     """Define the OpenSearch description document short name element."""
 
     def __init__(self):
-        site_title = g.site_title or 'CKAN'
-        short_name = '{} {}'.format(site_title, 'OpenSearch')
-        OSElement.__init__(self, 'opensearch', 'ShortName', content=short_name)
+        OSElement.__init__(self, 'opensearch', 'ShortName', content=SITE_TITLE)
 
 
 class DescDescription(OSElement):
     """Define the OpenSearch description document description here."""
 
     def __init__(self):
-        name = g.site_title or 'CKAN'
-        default = 'OpenSearch gateway for the {} data catalogue'.format(name)
+        default = 'OpenSearch gateway for the {} data catalogue'.format(SITE_TITLE)
         # TODO: Add a way to set a custom description in the settings, probably
         # using `h.config.get()`.
         custom = None
@@ -77,7 +75,6 @@ class SearchURL(OSElement):
     """Describe the OpenSearch search template."""
 
     def __init__(self, description_type):
-        print 'hey'
         attr = {
             'type': 'application/atom+xml',
             'template': self._create_search_template(description_type)
@@ -91,8 +88,6 @@ class SearchURL(OSElement):
 
     def _create_search_template(self, description_type):
         """Create the OpenSearch template based on the various parameters."""
-        print 'calling search template'
-        site = g.site_url
         terms = []
         for param, details in PARAMETERS[description_type].items():
             name = param
@@ -107,7 +102,7 @@ class SearchURL(OSElement):
             terms.append(term)
         terms = '&'.join(terms)
 
-        search_template = '{}/opensearch?{}'.format(site, terms)
+        search_template = '{}/opensearch?{}'.format(SITE_URL, terms)
 
         return search_template
 
@@ -170,3 +165,25 @@ class Option(OSElement):
 
     def __init__(self, option_dict):
         OSElement.__init__(self, 'param', 'Option', attr=option_dict)
+
+
+class QueryExample(OSElement):
+    """Define an OpenSearch Query example to enable test searches."""
+
+    def __init__(self, description_type):
+        example_query = self._create_example_query(description_type)
+        OSElement.__init__(self, 'opensearch', 'Query', attr=example_query)
+
+    def _create_example_query(self, description_type):
+        """Create an example query element based on the parameters."""
+        examples = OrderedDict()
+
+        examples['role'] = 'example'
+
+        for param, details in PARAMETERS[description_type].items():
+            namespace_url = NAMESPACES[details['namespace']]
+            parameter = '{%s}%s' % (namespace_url, details['os_name'])
+            example_value = details['example']
+            examples[parameter] = example_value
+
+        return examples

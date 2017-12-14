@@ -13,7 +13,8 @@ from ckan.common import _, c, request, response
 import ckan.logic as logic
 import ckan.model as model
 
-from .config import ELEMENTS, NAMESPACES, PARAMETERS
+from .config import ELEMENTS, NAMESPACES, PARAMETERS, TEMPORAL_START,\
+    TEMPORAL_END
 from .xml_maker import make_xml
 from .validator import QueryValidator
 from .collection_search import collection_search
@@ -70,10 +71,27 @@ class OpenSearchController(BaseController):
 
         fq = ''
         for (param, value) in request.params.items():
-            if param not in ['q', 'page', 'sort'] \
+            if param not in ['q', 'page', 'sort', 'begin', 'end'] \
                 and len(value) and not param.startswith('_'):  # noqa: E125
                 if not param.startswith('ext_'):
                     fq += ' %s:"%s"' % (param, value)
+
+        if TEMPORAL_START and TEMPORAL_END:
+            # Get time range
+            begin = param_dict.get('begin')
+            end = param_dict.get('end')
+
+            # If begin or end are empty (e.g., "begin="), get will return an empty
+            # string rather than the alternate value, so we need this second step.
+            if not begin:
+                begin = '*'
+            if not end:
+                end = 'NOW'
+
+            time_range = '[{} TO {}]'.format(begin, end)
+            time_range = '[{} TO {}]'.format(begin, end)
+            fq += ' {}:{}'.format(TEMPORAL_START, time_range)
+            fq += ' {}:{}'.format(TEMPORAL_END, time_range)
 
         # Add any additional facets that are necessary behind the scenes
         fq += ' +dataset_type:dataset'  # Only search datasets; no harvesters
