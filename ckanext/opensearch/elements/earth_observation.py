@@ -48,7 +48,7 @@ class BeginPosition(OSElement):
     """Define a GML beginPosition element (start of dataset time period)."""
 
     def __init__(self, entry_dict):
-        keys = ['startposition']
+        keys = ['beginposition']
         content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'gml', 'beginPosition', content=content)
 
