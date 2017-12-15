@@ -182,9 +182,10 @@ class QueryExample(OSElement):
         examples['role'] = 'example'
 
         for param, details in PARAMETERS[description_type].items():
-            namespace_url = NAMESPACES[details['namespace']]
-            parameter = '{%s}%s' % (namespace_url, details['os_name'])
             example_value = details['example']
-            examples[parameter] = example_value
+            if example_value is not None:
+                namespace_url = NAMESPACES[details['namespace']]
+                parameter = '{%s}%s' % (namespace_url, details['os_name'])
+                examples[parameter] = example_value
 
         return examples

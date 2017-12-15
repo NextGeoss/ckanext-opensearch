@@ -54,7 +54,7 @@ def get_parameters(parameter_type):
             'os_name': i['os_name'],
             'namespace': i['namespace'],
             'options': i.get('options'),
-            'example': i.get('example', '')
+            'example': i.get('example', None)
         }) for i in parameter_settings)
 
     return parameters
