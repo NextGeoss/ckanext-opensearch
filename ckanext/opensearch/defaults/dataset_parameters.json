@@ -9,7 +9,7 @@
       "namespace": "opensearch",
       "title": "Search Terms",
       "minimum": 0,
-      "example": "1"
+      "example": ""
     },
     {
       "ckan_name": "rows",
@@ -18,8 +18,7 @@
       "title": "Max. Results per Page",
       "minimum": 0,
       "min_inclusive": 1,
-      "max_exclusive": 10001,
-      "example": "1"
+      "max_exclusive": 10001
     },
     {
       "ckan_name": "page",
@@ -28,8 +27,7 @@
       "title": "Page Number",
       "minimum": 0,
       "min_inclusive": 1,
-      "max_exclusive": 100000000,
-      "example": "1"
+      "max_exclusive": 100000000
     },
     {
       "ckan_name": "ext_bbox",
@@ -37,7 +35,6 @@
       "namespace": "geo",
       "title": "Bounding Box",
       "minimum": 0,
-      "example": "-0.489,51.28,0.236,51.686",
       "options":
         [
           {
@@ -51,8 +48,7 @@
       "os_name": "uid",
       "namespace": "geo",
       "title": "UID",
-      "minimum": 0,
-      "example": "go"
+      "minimum": 0
     },
     {
       "ckan_name": "begin",
@@ -76,7 +72,7 @@
         [
           {
             "value": "example end time",
-            "label": "example end time"
+            "label": "exanple end time"
           }
         ]
     }
