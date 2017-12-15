@@ -7,6 +7,7 @@ from ckanext.opensearch.config import PARAMETERS
 from ckanext.opensearch.config import SITE_URL
 from ckanext.opensearch.config import SITE_TITLE
 from ckanext.opensearch.config import NAMESPACES
+from ckanext.opensearch.config import SHORT_NAME
 from . import OSElement
 
 
@@ -30,7 +31,7 @@ class DescShortName(OSElement):
     """Define the OpenSearch description document short name element."""
 
     def __init__(self):
-        OSElement.__init__(self, 'opensearch', 'ShortName', content=SITE_TITLE)
+        OSElement.__init__(self, 'opensearch', 'ShortName', content=SHORT_NAME)
 
 
 class DescDescription(OSElement):

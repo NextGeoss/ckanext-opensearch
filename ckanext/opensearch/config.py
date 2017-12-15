@@ -103,6 +103,16 @@ def get_temporal_end_field():
     return config.get('ckanext.opensearch.temporal_end')
 
 
+def get_short_name():
+    """
+    Return the short name of the portal/service.
+
+    The short name must not be longer than 16 characters.
+    """
+    # TODO: Validate length of short name.
+    return config.get('ckanext.opensearch.short_name', 'CKAN Portal')
+
+
 # Constants
 PARAMETERS = {'dataset': get_parameters('dataset_parameters')}
 if config.get('ckanext.opensearch.enable_collections') == 'true':
@@ -113,3 +123,4 @@ SITE_URL = get_site_url()
 SITE_TITLE = get_site_title()
 TEMPORAL_START = get_temporal_start_field()
 TEMPORAL_END = get_temporal_end_field()
+SHORT_NAME = get_short_name()
