@@ -245,8 +245,8 @@ class EntryCategory(OSElement):
     """
 
     def __init__(self, tag_dict):
-        tag_name = tag_dict['name']
-        OSElement.__init__(self, 'atom', 'category', content=tag_name)
+        attr = {'term': tag_dict['name']}
+        OSElement.__init__(self, 'atom', 'category', attr=attr)
 
 
 class ResourceLink(OSElement):
