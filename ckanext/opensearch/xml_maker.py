@@ -55,8 +55,8 @@ def create_nsmap(namespaces, root):
     """
     nsmap = {}
     for key, value in namespaces.items():
-        if key == root:
-            key = None
+        #if key == root:
+        #    key = None
         nsmap[key] = value
 
     return nsmap
