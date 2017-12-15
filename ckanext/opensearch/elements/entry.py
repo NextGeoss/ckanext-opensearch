@@ -30,13 +30,14 @@ class Entry(OSElement):
                 (EntryIdentifier, entry_dict),
                 (EntryAuthor, entry_dict),
                 (EntryPublisher, entry_dict),
-                (EntryUpdated, entry_dict),
                 (EntryPublished, entry_dict),
+                (EntryUpdated, entry_dict),
+                (EntrySummary, entry_dict),
                 (EntryRights, entry_dict),
                 (DatasetLink, entry_dict),
-                (EntrySummary, entry_dict),
                 (EntryCategory, entry_dict['tags']),
                 (ResourceLink, entry_dict['resources']),
+                (AtomContent, entry_dict),
                 (EarthObservation, entry_dict)
             ]
         OSElement.__init__(self, 'atom', 'entry', children=children)
@@ -125,8 +126,7 @@ class EntryAuthor(OSElement):
 
     def __init__(self, entry_dict):
         children = [
-            (EntryAuthorName, entry_dict),
-            (EntryAuthorEmail, entry_dict)
+            (EntryAuthorName, entry_dict)
         ]
         OSElement.__init__(self, 'atom', 'author', children=children)
 
@@ -224,6 +224,16 @@ class EntrySummary(OSElement):
     def __init__(self, data_dict):
         summary = data_dict.get('notes', 'No summary available.')
         OSElement.__init__(self, 'atom', 'summary', content=summary)
+
+
+class AtomContent(OSElement):
+    """
+    Define the Atom contnet element for an entry.
+    """
+
+    def __init__(self, data_dict):
+        content = data_dict.get('notes', 'No summary available.')
+        OSElement.__init__(self, 'atom', 'content', content=content)
 
 
 class EntryCategory(OSElement):

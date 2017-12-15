@@ -4,6 +4,7 @@
 import importlib
 from collections import OrderedDict
 import logging
+import math
 
 from lxml import etree
 from webob.multidict import MultiDict, UnicodeMultiDict
@@ -188,6 +189,8 @@ class OpenSearchController(BaseController):
         else:
             previous_page = current_page - 1
         results_dict['prev_page'] = previous_page
+
+        results_dict['last_page'] = int(math.ceil(total_results / float(requested_rows)))
 
         results_dict['start_index'] = expected_results - requested_rows + 1
 

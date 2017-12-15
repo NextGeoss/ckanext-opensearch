@@ -9,6 +9,8 @@ from ckan.common import config, g, request
 
 from . import OSElement
 from .entry import Entry
+from ckanext.opensearch.config import SHORT_NAME
+from ckanext.opensearch.config import SITE_URL
 
 
 class Feed(OSElement):
@@ -17,18 +19,22 @@ class Feed(OSElement):
     def __init__(self, results_dict):
         children = [
             (FeedTitle, None),
-            (FeedLink, None),
-            (FeedUpdated, None),
-            (FeedAuthor, None),
+            (FeedSubtitle, results_dict),
             (FeedID, None),
+            (AtomGenerator, None),
+            (FeedAuthor, None),
+            (FeedUpdated, None),
             (TotalResults, results_dict),
             (StartIndex, results_dict),
             (ItemsPerPage, results_dict),
             (Query, results_dict),
             (GeoRSSBox, results_dict),
+            (AtomSearch, None),
             (SelfLink, None),
+            (FirstLink, None),
             (NextLink, results_dict),
             (PrevLink, results_dict),
+            (LastLink, results_dict),
             (Entry, results_dict['results'])
         ]
         OSElement.__init__(self, 'atom', 'feed', children=children)
@@ -38,9 +44,37 @@ class FeedTitle(OSElement):
     """Define the Atom feed title element."""
 
     def __init__(self):
-        site_title = g.site_title or 'CKAN'
-        feed_title = '{} OpenSearch Search Results'.format(site_title)
+        feed_title = '{} OpenSearch Search Results'.format(SHORT_NAME)
         OSElement.__init__(self, 'atom', 'title', content=feed_title)
+
+
+class FeedSubtitle(OSElement):
+    """Define the Atom feed subtitle element."""
+
+    def __init__(self, results_dict):
+        total_results = str(results_dict['count'])
+        subtitle = '{} results for your search'.format(total_results)
+        OSElement.__init__(self, 'atom', 'subtitle', content=subtitle)
+
+
+class AtomGenerator(OSElement):
+    """Define the Atom generator element."""
+
+    def __init__(self):
+        attr = {'version': '0.1', 'uri': request.url}
+        content = "{} search results".format(SHORT_NAME)
+        OSElement.__init__(self, 'atom', 'generator', attr=attr,
+                           content=content)
+
+
+class AtomSearch(OSElement):
+    """Define an Atom link for the OpenSearch description document."""
+
+    def __init__(self):
+        attr = {'title': 'Description document', 'rel': 'search',
+                'type': 'application/opensearchdescription+xml',
+                'href': '{}/opensearch/description'.format(SITE_URL)}
+        OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 
 class FeedLink(OSElement):
@@ -85,7 +119,7 @@ class FeedID(OSElement):
     """Define the Atom element describing the ID of the feed."""
 
     def __init__(self):
-        feed_id = 'urn:uuid' + str(uuid.uuid5(uuid.NAMESPACE_URL, request.url))
+        feed_id = request.url
         OSElement.__init__(self, 'atom', 'id', content=feed_id)
 
 
@@ -180,6 +214,22 @@ class PrevLink(OSElement, NavLink):
 
     def __init__(self, results_dict):
         attr = NavLink.get_link(self, results_dict['prev_page'], 'prev')
+        OSElement.__init__(self, 'atom', 'link', attr=attr)
+
+
+class FirstLink(OSElement, NavLink):
+    """Create a link to the first page of search results."""
+
+    def __init__(self):
+        attr = NavLink.get_link(self, 1, 'first')
+        OSElement.__init__(self, 'atom', 'link', attr=attr)
+
+
+class LastLink(OSElement, NavLink):
+    """Create a link to the last page of search results."""
+
+    def __init__(self, results_dict):
+        attr = NavLink.get_link(self, results_dict['last_page'], 'last')
         OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 

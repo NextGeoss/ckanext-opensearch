@@ -95,7 +95,7 @@ class QueryValidator(object):
 
     def _page_is_in_bounds(self):
         """Check that the page value is in bounds."""
-        return self._value_is_in_bounds('page', 1, 99999999)
+        return self._value_is_in_bounds('page', 0, 99999999)
 
     def _bbox_is_valid(self):
         """Check if the bounding box has a valid form."""
