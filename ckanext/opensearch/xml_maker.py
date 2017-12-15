@@ -19,7 +19,7 @@ def construct_tree(element_factory, json_list, parent=None):
     """
     for element_dict in json_list:
         new_element = construct_element(element_factory, element_dict)
-        if parent is not None:
+        if parent is not None and not element_dict['empty']:
             parent.append(new_element)
         if element_dict.get('children'):
             construct_tree(element_factory, element_dict['children'],
@@ -36,6 +36,7 @@ def construct_element(element_factory, element_dict):
     tag = element_dict['tag']
     content = element_dict.get('content')
     attr = element_dict.get('attr')
+    children = element_dict.get('children')
 
     if not content and not attr:
         new_el = element_factory(tag)

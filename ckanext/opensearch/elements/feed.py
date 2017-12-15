@@ -197,7 +197,7 @@ class NavLink(object):
                     link_url = halves[0] + 'page=' + page + halves[1]
             attr['href'] = link_url
         else:
-            attr['href'] = ''
+            attr = {}
         return attr
 
 

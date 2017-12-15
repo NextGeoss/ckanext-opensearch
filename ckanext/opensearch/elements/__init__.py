@@ -30,6 +30,11 @@ class OSElement(object):
             'attr': self.attr
         }
 
+        if not self.content and not self.attr and not self.children:
+            element['empty'] = True
+        else:
+            element['empty'] = False
+
         return element
 
     def add_children(self, element):
