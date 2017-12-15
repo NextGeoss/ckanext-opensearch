@@ -155,7 +155,7 @@ class Query(OSElement):
 
     def __init__(self, results_dict):
         query = results_dict['query']
-        OSElement.__init__(self, 'opensearch', 'Query', content=query)
+        OSElement.__init__(self, 'opensearch', 'Query', attr=query)
 
 
 class SelfLink(OSElement):
@@ -247,7 +247,7 @@ class GeoRSSBox(OSElement):
         if bbox:
             georss_box = bbox.replace(',', ' ')
         else:
-            georss_box = None
+            georss_box = '-180.0 -90.0 180.0 90.0'
         # If there was no bounding box in the query, then the resulting
         # element will be empty.
         OSElement.__init__(self, 'georss', 'box', content=georss_box)

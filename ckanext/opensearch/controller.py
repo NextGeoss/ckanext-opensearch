@@ -120,12 +120,23 @@ class OpenSearchController(BaseController):
 
         # XML attributes are unique per element, so parameters that occur more
         # than once in a query must me combined into a space-delimited string.
+        #for (param, value) in param_dict.items():
+        #    os_name = PARAMETERS[search_type][param]['os_name']
+        #    if os_name not in query_dict:
+        #        query_dict[os_name] = value
+        #    else:
+        #        query_dict[os_name] += ' {}'.format(value)
+
+        #return query_dict
+
         for (param, value) in param_dict.items():
             os_name = PARAMETERS[search_type][param]['os_name']
-            if os_name not in query_dict:
-                query_dict[os_name] = value
+            namespace = PARAMETERS[search_type][param]['namespace']
+            os_param = '{%s}%s' % (NAMESPACES[namespace], os_name)
+            if os_param not in query_dict:
+                query_dict[os_param] = value
             else:
-                query_dict[os_name] += ' {}'.format(value)
+                query_dict[os_param] += ' {}'.format(value)
 
         return query_dict
 
