@@ -29,7 +29,7 @@ class Feed(OSElement):
             (SelfLink, None),
             (NextLink, results_dict),
             (PrevLink, results_dict),
-            (Entries, results_dict)
+            (Entry, results_dict['results'])
         ]
         OSElement.__init__(self, 'atom', 'feed', children=children)
 
