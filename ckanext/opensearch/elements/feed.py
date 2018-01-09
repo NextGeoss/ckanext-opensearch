@@ -30,8 +30,8 @@ class Feed(OSElement):
             (Query, results_dict),
             (GeoRSSBox, results_dict),
             (AtomSearch, None),
-            (SelfLink, None),
-            (FirstLink, None),
+            (SelfLink, results_dict),
+            (FirstLink, results_dict),
             (NextLink, results_dict),
             (PrevLink, results_dict),
             (LastLink, results_dict),
@@ -162,9 +162,9 @@ class Query(OSElement):
 class SelfLink(OSElement):
     """Describe the link that will duplicate the search."""
 
-    def __init__(self):
+    def __init__(self, results_dict):
         link = {
-            'href': request.url,
+            'href': results_dict['query_url'],
             'title': 'self',
             'rel': 'self',
             'type': 'application/atom+xml'
@@ -175,7 +175,7 @@ class SelfLink(OSElement):
 class NavLink(object):
     """Define the skeleton of an Atom next/previous link."""
 
-    def get_link(self, page, rel):
+    def get_link(self, current_url, page, rel):
         """
         Return a dictionary describing the link for next/previous page
         or an empty dictionary if there is no next/previous page.
@@ -187,7 +187,6 @@ class NavLink(object):
         }
         if page:
             page = str(page)
-            current_url = request.url
             if 'page=' not in current_url:
                 link_url = current_url + '&page=' + page
             else:
@@ -206,7 +205,8 @@ class NextLink(OSElement, NavLink):
     """Describe the link to the next page of search results."""
 
     def __init__(self, results_dict):
-        attr = NavLink.get_link(self, results_dict['next_page'], 'next')
+        attr = NavLink.get_link(self, results_dict['query_url'],
+                                results_dict['next_page'], 'next')
         OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 
@@ -214,15 +214,16 @@ class PrevLink(OSElement, NavLink):
     """Describe the link to the previous page of search results."""
 
     def __init__(self, results_dict):
-        attr = NavLink.get_link(self, results_dict['prev_page'], 'prev')
+        attr = NavLink.get_link(self, results_dict['query_url'],
+                                results_dict['prev_page'], 'prev')
         OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 
 class FirstLink(OSElement, NavLink):
     """Create a link to the first page of search results."""
 
-    def __init__(self):
-        attr = NavLink.get_link(self, 1, 'first')
+    def __init__(self, results_dict):
+        attr = NavLink.get_link(self, results_dict['query_url'], 1, 'first')
         OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 
@@ -230,7 +231,8 @@ class LastLink(OSElement, NavLink):
     """Create a link to the last page of search results."""
 
     def __init__(self, results_dict):
-        attr = NavLink.get_link(self, results_dict['last_page'], 'last')
+        attr = NavLink.get_link(self, results_dict['query_url'],
+                                results_dict['last_page'], 'last')
         OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 

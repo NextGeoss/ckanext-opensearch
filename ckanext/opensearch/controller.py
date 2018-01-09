@@ -71,7 +71,7 @@ class OpenSearchController(BaseController):
         data_dict['start'] = page * data_dict['rows']
 
         fq = ''
-        for (param, value) in request.params.items():
+        for (param, value) in param_dict.items():
             if param not in ['q', 'page', 'sort', 'begin', 'end'] \
                 and len(value) and not param.startswith('_'):  # noqa: E125
                 if not param.startswith('ext_'):
@@ -159,10 +159,13 @@ class OpenSearchController(BaseController):
             abort(403, _('Not authorized to see this page'))
 
         # Get the query parameters and remove 'amp' if it has snuck in.
+        # Strip any parameters that aren't valid as per CEOS-BP-009B.
         param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
+        query_url = request.url.split('?')[0] + '?'
         for param, value in request.params.items():
-            if param != 'amp':
+            if param != 'amp' and param in PARAMETERS[search_type]:
                 param_dict.add(param, value)
+                query_url += '{}={}'.format(param, value)
 
         # Validate the query and abort if there are errors.
         validator = QueryValidator(param_dict, PARAMETERS[search_type])
@@ -173,6 +176,7 @@ class OpenSearchController(BaseController):
         # Translate the query parameters into a CKAN data_dict so we
         # can query the DB.
         data_dict = self.translate_os_query(param_dict)
+        print data_dict
 
         # Query the DB.
         if search_type == 'dataset':
@@ -206,6 +210,8 @@ class OpenSearchController(BaseController):
         results_dict['start_index'] = expected_results - requested_rows + 1
 
         results_dict['query'] = self.make_query_dict(param_dict, search_type)
+
+        results_dict['query_url'] = query_url
 
         return self.return_results(results_dict)
 

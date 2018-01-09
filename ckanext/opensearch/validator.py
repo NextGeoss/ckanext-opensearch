@@ -23,7 +23,7 @@ class QueryValidator(object):
     def _has_params(self):
         """Verify that there really is a query."""
         if not self.param_dict:
-            self.errors.append(_('You must specify at least one parameter.'))
+            self.errors.append(_('You must specify at least one valid parameter.'))
 
     def _has_no_invalid_params(self):
         """Check for invalid query parameters."""
