@@ -28,7 +28,6 @@ class Entry(OSElement):
                 (EntryTitle, entry_dict),
                 (EntryID, entry_dict),
                 (EntryIdentifier, entry_dict),
-                (EntryAuthor, entry_dict),
                 (EntryPublisher, entry_dict),
                 (EntryPublished, entry_dict),
                 (EntryUpdated, entry_dict),
