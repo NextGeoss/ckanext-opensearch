@@ -157,12 +157,12 @@ class Parameter(OSElement):
         self.max_exclusive = param_dict['maxExclusive']
         options = param_dict.pop('options')
         params = self._filter_params(param_dict)
+        children = []
+        if params.get('name') == 'q':
+            children.append((SearchProfile, None))
+        print children
         if options:
-            children = [
-                (Option, options)
-            ]
-        else:
-            children = None
+            children.append((Option, options))
         OSElement.__init__(self, 'param', 'Parameter', attr=params,
                            children=children)
 
@@ -175,6 +175,18 @@ class Parameter(OSElement):
                 param_dict[i] = str(param_dict[i])
 
         return param_dict
+
+
+class SearchProfile(OSElement):
+    """Define an Atom element describing the profile for free text search."""
+
+    def __init__(self):
+        link = {
+            'title': 'This parameter follows the Lucene free text search implementations',
+            'rel': 'profile',
+            'href': 'http://lucene.apache.org/core/2_9_4/queryparsersyntax.html'
+        }
+        OSElement.__init__(self, 'atom', 'link', attr=link)
 
 
 class Option(OSElement):

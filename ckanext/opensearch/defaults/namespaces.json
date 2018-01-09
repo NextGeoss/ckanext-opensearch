@@ -50,6 +50,14 @@
     {
       "namespace": "http://commons.esipfed.org/ns/discovery/1.2/",
       "alias": "esipdiscovery"
+    },
+    {
+      "namespace": "http://a9.com/-/opensearch/extensions/eo/1.0/",
+      "alias": "eo"
+    },
+    {
+      "namespace": "http://www.opensearch.org/Specifications/OpenSearch/Extensions/Referrer/1.0",
+      "alias": "referrer"
     }
   ]
 }

@@ -165,7 +165,14 @@ class OpenSearchController(BaseController):
         for param, value in request.params.items():
             if param != 'amp' and param in PARAMETERS[search_type]:
                 param_dict.add(param, value)
+                if query_url[-1] != '?':
+                    query_url += '&'
                 query_url += '{}={}'.format(param, value)
+
+        # Work in progress: use client_id for usage metrics
+        # The client_id parameter is _not_ a search parameter,
+        # so don't treat it as one.
+        param_dict.pop('client_id', None)
 
         # Validate the query and abort if there are errors.
         validator = QueryValidator(param_dict, PARAMETERS[search_type])
