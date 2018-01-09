@@ -3,6 +3,8 @@
 
 from collections import OrderedDict
 
+from ckan.common import request
+
 from ckanext.opensearch.config import PARAMETERS
 from ckanext.opensearch.config import SITE_URL
 from ckanext.opensearch.config import SITE_TITLE
@@ -17,14 +19,17 @@ class DescriptionDocument(OSElement):
     def __init__(self, description_type):
         children = [
             (DescShortName, None),
-            (DescDescription, None),
+            (DescDescription, "Collection search"),
             (DescTags, None),
             (DescSyndication, None),
+            (SelfURL, None),
             (SearchURL, description_type),
             (QueryExample, description_type)
         ]
+        attr = {'{http://commons.esipfed.org/ns/discovery/1.2/}version':'1.2'}
+
         OSElement.__init__(self, 'opensearch', 'OpenSearchDescription',
-                           children=children)
+                           attr=attr, children=children)
 
 
 class DescShortName(OSElement):
@@ -37,11 +42,10 @@ class DescShortName(OSElement):
 class DescDescription(OSElement):
     """Define the OpenSearch description document description here."""
 
-    def __init__(self):
+    def __init__(self, custom=None):
         default = 'OpenSearch gateway for the {} data catalogue'.format(SITE_TITLE)
         # TODO: Add a way to set a custom description in the settings, probably
         # using `h.config.get()`.
-        custom = None
         description = custom or default
         OSElement.__init__(self, 'opensearch', 'Description',
                            content=description)
@@ -55,7 +59,7 @@ class DescTags(OSElement):
         # TODO: Add a way to set custom tags in the settings, probably
         # using `h.config.get()`.
         custom = None
-        tags = custom or default
+        tags = custom or default + ' CEOS-OS-BP-V1.1'
         OSElement.__init__(self, 'opensearch', 'Tags', content=tags)
 
 
@@ -71,13 +75,25 @@ class DescSyndication(OSElement):
         OSElement.__init__(self, 'opensearch', 'SyndicationRight',
                            content=rights)
 
+class SelfURL(OSElement):
+    """Describe the OS element pointing back to the current description document."""
+
+    def __init__(self):
+        attr = {'rel': 'self', 'type': 'application/opensearchdescription+xml',
+                'template': request.url}
+        OSElement.__init__(self, 'opensearch', 'Url', attr=attr)
 
 class SearchURL(OSElement):
     """Describe the OpenSearch search template."""
 
     def __init__(self, description_type):
+        if description_type == 'collection':
+            rel = 'collection'
+        else:
+            rel = 'results'
         attr = {
             'type': 'application/atom+xml',
+            'rel': rel,
             'template': self._create_search_template(description_type)
         }
         param_dicts = self._create_param_dicts(description_type)

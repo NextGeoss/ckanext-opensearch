@@ -73,7 +73,8 @@ class AtomSearch(OSElement):
     def __init__(self):
         attr = {'title': 'Description document', 'rel': 'search',
                 'type': 'application/opensearchdescription+xml',
-                'href': '{}/opensearch/description'.format(SITE_URL)}
+                'href': '{}/opensearch/description'.format(SITE_URL),
+                'rel': 'search'}
         OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 

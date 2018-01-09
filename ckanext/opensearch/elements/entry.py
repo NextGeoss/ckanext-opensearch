@@ -35,6 +35,7 @@ class Entry(OSElement):
                 (EntrySummary, entry_dict),
                 (EntryRights, entry_dict),
                 (DatasetLink, entry_dict),
+                (ThumbnailLink, entry_dict),
                 (EntryCategory, entry_dict['tags']),
                 (ResourceLink, entry_dict['resources']),
                 (AtomContent, entry_dict),
@@ -197,8 +198,6 @@ class EntryRights(OSElement):
 class DatasetLink(OSElement):
     """
     URL for the dataset on CKAN.
-
-    Use attributes rel=alternate and type=text/html.
     """
 
     def __init__(self, data_dict):
@@ -208,7 +207,7 @@ class DatasetLink(OSElement):
                         action='read', id=data_dict['id'], qualified=True)
         link = {
             'href': url,
-            'rel': 'alternate',
+            'rel': 'describedBy',
             'type': 'text/html'
         }
         OSElement.__init__(self, 'atom', 'link', attr=link)
@@ -257,9 +256,28 @@ class ResourceLink(OSElement):
     """
 
     def __init__(self, resource_dict):
+        # TODO: create a MIME-type mapper
+        mime_type = 'application/unknown'
         link = {
             'href': resource_dict['url'],
             'title': resource_dict.get('name', 'Untitled'),
-            'rel': 'enclosure'
+            'rel': 'enclosure',
+            'type': mime_type
         }
+        OSElement.__init__(self, 'atom', 'link', attr=link)
+
+
+class ThumbnailLink(OSElement):
+    """Define an Atom element linking to the quicklook/thumbnail for a dataset."""
+
+    def __init__(self, entry_dict):
+        thumbnail = OSElement._get_from_extras(self, entry_dict, ['thumbnail'])
+        if thumbnail:
+            link = {
+                'href': thumbnail,
+                'title': 'Quicklook image',
+                'rel': 'icon'
+            }
+        else:
+            link = {}
         OSElement.__init__(self, 'atom', 'link', attr=link)

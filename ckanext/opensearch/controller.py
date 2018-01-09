@@ -116,8 +116,6 @@ class OpenSearchController(BaseController):
         """
         query_dict = OrderedDict()
 
-        query_dict['role'] = 'request'
-
         # XML attributes are unique per element, so parameters that occur more
         # than once in a query must me combined into a space-delimited string.
         #for (param, value) in param_dict.items():
@@ -137,6 +135,8 @@ class OpenSearchController(BaseController):
                 query_dict[os_param] = value
             else:
                 query_dict[os_param] += ' {}'.format(value)
+
+        query_dict['role'] = 'request'
 
         return query_dict
 
@@ -184,7 +184,7 @@ class OpenSearchController(BaseController):
         results_dict['items_per_page'] = data_dict['rows']
 
         # Get next page, previous page and index of first element on page.
-        current_page = int(param_dict.get('page', 1))
+        current_page = int(param_dict.get('page') or 1)
         total_results = results_dict['count']
         requested_rows = results_dict['items_per_page']
         expected_results = requested_rows * current_page
@@ -225,6 +225,7 @@ class OpenSearchController(BaseController):
             element_tree,
             encoding='UTF-8',
             xml_declaration=True,
+            standalone='yes',
             pretty_print=True
         )
 

@@ -8,65 +8,8 @@
       "os_name": "searchTerms",
       "namespace": "opensearch",
       "title": "Search Terms",
-      "minimum": 0
-    },
-    {
-      "ckan_name": "organization",
-      "os_name": "organization",
-      "namespace": "custom",
-      "title": "Organization",
-      "minimum": 0
-    },
-    {
-      "ckan_name": "group",
-      "os_name": "group",
-      "namespace": "custom",
-      "title": "Group",
-      "minimum": 0
-    },
-    {
-      "ckan_name": "tags",
-      "os_name": "tag",
-      "namespace": "custom",
-      "title": "Tag",
       "minimum": 0,
-      "maximum": "*"
-    },
-    {
-      "ckan_name": "res_format",
-      "os_name": "format",
-      "namespace": "custom",
-      "title": "Resource Format",
-      "minimum": 0,
-      "options":
-        [
-          {
-            "value": "csv",
-            "label": "CSV"
-          },
-          {
-            "value": "kml",
-            "label": "KML"
-          }
-        ]
-    },
-    {
-      "ckan_name": "license_id",
-      "os_name": "licenses",
-      "namespace": "custom",
-      "title": "License",
-      "minimum": 0,
-      "options":
-        [
-          {
-            "value": "cc-by",
-            "label": "Creative Commons Attribution"
-          },
-          {
-            "value": "odc-by",
-            "label": "Open Data Commons Attribution License"
-          }
-        ]
+      "example": ""
     },
     {
       "ckan_name": "rows",
@@ -97,6 +40,39 @@
           {
             "value": "-0.489,51.28,0.236,51.686",
             "label": "Bounding Box of Greater London"
+          }
+        ]
+    },
+    {
+      "ckan_name": "name",
+      "os_name": "uid",
+      "namespace": "geo",
+      "title": "UID",
+      "minimum": 0
+    },
+    {
+      "ckan_name": "begin",
+      "os_name": "start",
+      "namespace": "time",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "example start time",
+            "label": "example start time"
+          }
+        ]
+    },
+    {
+      "ckan_name": "end",
+      "os_name": "end",
+      "namespace": "time",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "example end time",
+            "label": "exanple end time"
           }
         ]
     }

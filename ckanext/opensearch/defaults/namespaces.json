@@ -46,6 +46,10 @@
     {
       "namespace": "http://www.opengis.net/om/2.0",
       "alias": "om"
+    },
+    {
+      "namespace": "http://commons.esipfed.org/ns/discovery/1.2/",
+      "alias": "esipdiscovery"
     }
   ]
 }
