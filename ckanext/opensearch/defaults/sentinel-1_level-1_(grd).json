@@ -2,7 +2,7 @@
   "opensearch_parameters_version": 1,
   "about": "These are the default CKAN OpenSearch parameters",
   "about_url": "http://github.com/nextgeoss/ckanext-opensearch#parameters",
-  "dataset_parameters": [
+  "sentinel-1_level-1_(grd)": [
     {
       "ckan_name": "q",
       "os_name": "searchTerms",

@@ -349,7 +349,7 @@ def process_grouped_results(results):
         dataset_dict = json.loads(dataset_json)
         processed_results.append(
             {
-             'collection_name': dataset_dict['title'],
+             'collection_name': dataset_dict.get('collection_name') or dataset_dict['title'],
              'collection_count': i['doclist']['numFound'],
              'collection_id': dataset_dict['id'],
              'collection_description': dataset_dict['notes'],

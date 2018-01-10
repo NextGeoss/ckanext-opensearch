@@ -17,8 +17,7 @@ class OpensearchPlugin(plugins.SingletonPlugin):
 
         map.connect('create_description_document', '/opensearch/description',
                     controller=controller,
-                    action='create_description_document',
-                    search_type='dataset')
+                    action='create_description_document')
 
         map.connect('process_query', '/opensearch',
                     controller=controller, action='process_query',

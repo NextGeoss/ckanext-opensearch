@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Contains classes for the entries in an OpenSearch feed."""
 from ckan.lib import helpers as h
+from ckan.common import request
 
 from . import OSElement
 from .earth_observation import EarthObservation
@@ -15,7 +16,8 @@ class Entry(OSElement):
                 (CollectionTitle, entry_dict),
                 (CollectionIdentifier, entry_dict),
                 (CollectionDescription, entry_dict),
-                (CollectionCount, entry_dict)
+                (CollectionCount, entry_dict),
+                (CollectionOSDD, entry_dict)
             ]
         else:
             extras_dict = dict()
@@ -51,7 +53,8 @@ class CollectionEntry(OSElement):
             (CollectionTitle, entry_dict),
             (CollectionIdentifier, entry_dict),
             (CollectionDescription, entry_dict),
-            (CollectionCount, entry_dict)
+            (CollectionCount, entry_dict),
+            (CollectionOSDD, entry_dict)
         ]
         OSElement.__init__(self, 'atom', 'entry', children=children)
 
@@ -86,6 +89,22 @@ class CollectionCount(OSElement):
     def __init__(self, data_dict):
         count = str(data_dict.get('collection_count', 0))
         OSElement.__init__(self, 'atom', 'count', content=count)
+
+
+class CollectionOSDD(OSElement):
+    """
+    Define an element containing a link to the OpenSearch description
+    document for a given collection.
+    """
+
+    def __init__(self, data_dict):
+        base_url = request.url.split('?')[0] + '/description?osdd='
+        name = '%20'.join(data_dict['collection_name'].split(' '))
+        url = base_url + name
+        attr = {'rel': 'search',
+                'type': 'application/opensearchdescription+xml',
+                'template': url}
+        OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 
 class EntryTitle(OSElement):

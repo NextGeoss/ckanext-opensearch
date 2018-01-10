@@ -113,10 +113,23 @@ def get_short_name():
     return config.get('ckanext.opensearch.short_name', 'CKAN Portal')
 
 
+def get_collection_params_list():
+    """
+    Return the list of collections and their parameter files
+    from the JSON file specified in the settings.
+    """
+    collection_params_list = load_settings('collection_params_list')
+    return collection_params_list
+
+
 # Constants
-PARAMETERS = {'dataset': get_parameters('dataset_parameters')}
+PARAMETERS = {} 
+for param_pair in get_collection_params_list():
+    PARAMETERS[param_pair['name']] = get_parameters(param_pair['file'])
+#PARAMETERS = {'dataset': get_parameters('dataset_parameters')}
 if config.get('ckanext.opensearch.enable_collections') == 'true':
     PARAMETERS['collection'] = get_parameters('collection_parameters')
+COLLECTIONS = [i['name'] for i in get_collection_params_list()]
 NAMESPACES = get_namespaces()
 ELEMENTS = get_elements()
 SITE_URL = get_site_url()

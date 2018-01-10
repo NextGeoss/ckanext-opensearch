@@ -15,7 +15,7 @@ import ckan.logic as logic
 import ckan.model as model
 
 from .config import ELEMENTS, NAMESPACES, PARAMETERS, TEMPORAL_START,\
-    TEMPORAL_END
+    TEMPORAL_END, COLLECTIONS
 from .xml_maker import make_xml
 from .validator import QueryValidator
 from .collection_search import collection_search
@@ -36,8 +36,11 @@ log = logging.getLogger(__name__)
 class OpenSearchController(BaseController):
     """Controller for OpenSearch queries."""
 
-    def create_description_document(self, search_type):
+    def create_description_document(self):
         """Create the OpenSearch description document."""
+        search_type = request.params.get('osdd', 'collection')
+        if search_type not in COLLECTIONS and search_type != 'collection':
+            abort(400, _('Invalid osdd name'))
         frame = [DescriptionDocument(search_type).element]
         ns_root = 'opensearch'
         content_type = 'application/opensearchdescription+xml'
@@ -128,13 +131,14 @@ class OpenSearchController(BaseController):
         #return query_dict
 
         for (param, value) in param_dict.items():
-            os_name = PARAMETERS[search_type][param]['os_name']
-            namespace = PARAMETERS[search_type][param]['namespace']
-            os_param = '{%s}%s' % (NAMESPACES[namespace], os_name)
-            if os_param not in query_dict:
-                query_dict[os_param] = value
-            else:
-                query_dict[os_param] += ' {}'.format(value)
+            if param != 'collection_name':
+                os_name = PARAMETERS[search_type][param]['os_name']
+                namespace = PARAMETERS[search_type][param]['namespace']
+                os_param = '{%s}%s' % (NAMESPACES[namespace], os_name)
+                if os_param not in query_dict:
+                    query_dict[os_param] = value
+                else:
+                    query_dict[os_param] += ' {}'.format(value)
 
         query_dict['role'] = 'request'
 
@@ -158,16 +162,25 @@ class OpenSearchController(BaseController):
         except logic.NotAuthorized:
             abort(403, _('Not authorized to see this page'))
 
+        search_type = request.params.get('collection_name', 'collection')
+        if search_type not in COLLECTIONS and search_type != 'collection':
+            abort(400, _('Invalid collection name'))
         # Get the query parameters and remove 'amp' if it has snuck in.
         # Strip any parameters that aren't valid as per CEOS-BP-009B.
         param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
         query_url = request.url.split('?')[0] + '?'
+        if search_type != 'collection':
+            c_name = '%20'.join(search_type.split(' '))
+            query_url += '{}={}'.format('collection_name', c_name)
         for param, value in request.params.items():
             if param != 'amp' and param in PARAMETERS[search_type]:
                 param_dict.add(param, value)
                 if query_url[-1] != '?':
                     query_url += '&'
                 query_url += '{}={}'.format(param, value)
+
+        if search_type != 'collection':
+            param_dict['collection_name'] = search_type
 
         # Work in progress: use client_id for usage metrics
         # The client_id parameter is _not_ a search parameter,
@@ -186,11 +199,10 @@ class OpenSearchController(BaseController):
         print data_dict
 
         # Query the DB.
-        if search_type == 'dataset':
-            results_dict = logic.get_action(
-                'package_search')(context, data_dict)
-        elif search_type == 'collection':
+        if search_type == 'collection':
             results_dict = results_dict = collection_search(context, data_dict)
+        else:
+            results_dict = logic.get_action('package_search')(context, data_dict)
 
         results_dict['items_per_page'] = data_dict['rows']
 

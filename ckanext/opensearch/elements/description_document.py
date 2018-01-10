@@ -19,7 +19,7 @@ class DescriptionDocument(OSElement):
     def __init__(self, description_type):
         children = [
             (DescShortName, None),
-            (DescDescription, "Collection search"),
+            (DescDescription, description_type),
             (DescTags, None),
             (DescSyndication, None),
             (SelfURL, None),
@@ -42,11 +42,14 @@ class DescShortName(OSElement):
 class DescDescription(OSElement):
     """Define the OpenSearch description document description here."""
 
-    def __init__(self, custom=None):
+    def __init__(self, description_type):
         default = 'OpenSearch gateway for the {} data catalogue'.format(SITE_TITLE)
         # TODO: Add a way to set a custom description in the settings, probably
         # using `h.config.get()`.
-        description = custom or default
+        if description_type == 'collection':
+            description = 'Search collections of products.'
+        else:
+            description = 'Search products in the {} collection.'.format(description_type) 
         OSElement.__init__(self, 'opensearch', 'Description',
                            content=description)
 
@@ -106,6 +109,9 @@ class SearchURL(OSElement):
     def _create_search_template(self, description_type):
         """Create the OpenSearch template based on the various parameters."""
         terms = []
+        if description_type is not 'collection':
+            collection_name = '%20'.join(description_type.split(' '))
+            terms.append('collection_name={}'.format(collection_name))
         for param, details in PARAMETERS[description_type].items():
             name = param
             value = details['os_name']
