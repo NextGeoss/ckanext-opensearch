@@ -10,6 +10,7 @@ import six
 from ckan.lib.search.common import make_connection, SearchError, SearchQueryError
 import ckan.logic as logic
 import ckan.model as model
+import ckan.lib.plugins as lib_plugins
 
 import ckan.lib.helpers as h
 from ckan.common import OrderedDict, _
@@ -19,6 +20,8 @@ from ckan.lib.navl.dictization_functions import validate as _validate
 from ckan.logic import check_access as _check_access
 from ckan import plugins
 import ckan.authz as authz
+
+from .config import GROUP_FIELD
 
 VALID_SOLR_PARAMETERS.add('group')
 VALID_SOLR_PARAMETERS.add('group.field')
@@ -240,7 +243,7 @@ def collection_search(context, data_dict):
         data_dict['facet.field'] = ['tags']
 
         data_dict['group'] = 'true'
-        data_dict['group.field'] = 'title'
+        data_dict['group.field'] = GROUP_FIELD
         data_dict['group.limit'] = '1'
         data_dict['group.ngroups'] = 'true'
         data_dict['group.facet'] = 'false'

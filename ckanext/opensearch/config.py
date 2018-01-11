@@ -122,8 +122,13 @@ def get_collection_params_list():
     return collection_params_list
 
 
+def get_group_field():
+    """Return the name of the field for grouping collection search results."""
+    return config.get('ckanext.opensearch.group_field', 'title')
+
+
 # Constants
-PARAMETERS = {} 
+PARAMETERS = {}
 for param_pair in get_collection_params_list():
     PARAMETERS[param_pair['name']] = get_parameters(param_pair['file'])
 #PARAMETERS = {'dataset': get_parameters('dataset_parameters')}
@@ -137,3 +142,4 @@ SITE_TITLE = get_site_title()
 TEMPORAL_START = get_temporal_start_field()
 TEMPORAL_END = get_temporal_end_field()
 SHORT_NAME = get_short_name()
+GROUP_FIELD = get_group_field()
