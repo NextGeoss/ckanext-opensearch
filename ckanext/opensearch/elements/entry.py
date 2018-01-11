@@ -103,7 +103,7 @@ class CollectionOSDD(OSElement):
         url = base_url + name
         attr = {'rel': 'search',
                 'type': 'application/opensearchdescription+xml',
-                'template': url}
+                'href': url}
         OSElement.__init__(self, 'atom', 'link', attr=attr)
 
 
