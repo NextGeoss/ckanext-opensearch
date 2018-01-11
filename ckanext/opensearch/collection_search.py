@@ -488,8 +488,8 @@ class CollectionSearchQuery(SearchQuery):
             raise SearchError('SOLR returned an error running query: %r Error: %r' %
                               (query, e))
 
-        self.count = solr_response.grouped['title']['ngroups'] # ['matches'] gives the total number of datasets
-        self.results = solr_response.grouped['title']['groups']
+        self.count = solr_response.grouped[GROUP_FIELD]['ngroups'] # ['matches'] gives the total number of datasets
+        self.results = solr_response.grouped[GROUP_FIELD]['groups']
 
         # #1683 Filter out the last row that is sometimes out of order
         self.results = self.results[:rows_to_return]
@@ -509,8 +509,6 @@ class CollectionSearchQuery(SearchQuery):
             self.results = [r.get(query.get('fl')) for r in self.results]
 
         # get facets and convert facets list to a dict
-        print dir(solr_response)
-        print solr_response.facets
         self.facets = solr_response.facets.get('facet_fields', {})
         for field, values in six.iteritems(self.facets):
             self.facets[field] = dict(zip(values[0::2], values[1::2]))
