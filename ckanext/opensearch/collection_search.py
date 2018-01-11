@@ -352,7 +352,7 @@ def process_grouped_results(results):
         dataset_dict = json.loads(dataset_json)
         processed_results.append(
             {
-             'collection_name': dataset_dict.get('collection_name') or dataset_dict['title'],
+             'collection_name': get_from_extras(dataset_dict, 'collection_name', dataset_dict['title']),
              'collection_count': i['doclist']['numFound'],
              'collection_id': dataset_dict['id'],
              'collection_description': dataset_dict['notes'],
@@ -361,6 +361,15 @@ def process_grouped_results(results):
         )
 
     return processed_results
+
+def get_from_extras(data_dict, key, alt_value):
+    """Check extras for key/value pairs using a list of possible keys."""
+    extras = data_dict.get('extras')
+
+    if key in extras:
+        return extras[key]
+    else:
+        return alt_value
 
 
 class CollectionSearchQuery(SearchQuery):
