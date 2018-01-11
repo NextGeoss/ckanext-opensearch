@@ -363,12 +363,20 @@ def process_grouped_results(results):
     return processed_results
 
 def get_from_extras(data_dict, key, alt_value):
-    """Check extras for key/value pairs using a list of possible keys."""
+    """
+    Return the value of an extra if it exists, or the alt_value if it doesn't.
+    """
     extras = data_dict.get('extras')
 
-    if key in extras:
-        return extras[key]
+    if extras:
+        print 'found extras'
+
+    for extra in extras:
+        if extra['key'] == key:
+            print 'found key'
+            return extra['value']
     else:
+        print 'didn\'t find key'
         return alt_value
 
 
