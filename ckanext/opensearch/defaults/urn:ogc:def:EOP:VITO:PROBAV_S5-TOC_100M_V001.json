@@ -1,0 +1,86 @@
+{
+  "opensearch_parameters_version": 1,
+  "about": "These are the default CKAN OpenSearch parameters",
+  "about_url": "http://github.com/nextgeoss/ckanext-opensearch#parameters",
+  "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC_100M_V001": [
+    {
+      "ckan_name": "q",
+      "os_name": "searchTerms",
+      "namespace": "opensearch",
+      "title": "Search Terms",
+      "minimum": 0,
+      "example": ""
+    },
+    {
+      "ckan_name": "rows",
+      "os_name": "maxResults",
+      "namespace": "opensearch",
+      "title": "Max. Results per Page",
+      "minimum": 0,
+      "min_inclusive": 1,
+      "max_exclusive": 10001
+    },
+    {
+      "ckan_name": "page",
+      "os_name": "startPage",
+      "namespace": "opensearch",
+      "title": "Page Number",
+      "minimum": 0,
+      "min_inclusive": 1,
+      "max_exclusive": 100000000
+    },
+    {
+      "ckan_name": "ext_bbox",
+      "os_name": "box",
+      "namespace": "geo",
+      "title": "Bounding Box",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "-0.489,51.28,0.236,51.686",
+            "label": "Bounding Box of Greater London"
+          }
+        ]
+    },
+    {
+      "ckan_name": "name",
+      "os_name": "uid",
+      "namespace": "geo",
+      "title": "UID",
+      "minimum": 0
+    },
+    {
+      "ckan_name": "begin",
+      "os_name": "start",
+      "namespace": "time",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "example start time",
+            "label": "example start time"
+          }
+        ]
+    },
+    {
+      "ckan_name": "end",
+      "os_name": "end",
+      "namespace": "time",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "example end time",
+            "label": "exanple end time"
+          }
+        ]
+    },
+    {
+      "ckan_name": "client_id",
+      "os_name": "source",
+      "namespace": "referrer",
+      "minimum": 0
+    }
+  ]
+}

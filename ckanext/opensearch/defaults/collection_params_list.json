@@ -26,6 +26,53 @@
     {
         "name": "Sentinel-3",
         "file": "sentinel-3"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_L2A_100M_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_L2A_100M_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC-NDVI_100M_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC-NDVI_100M_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC_100M_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC_100M_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOA_100M_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOA_100M_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC-NDVI_100M_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC-NDVI_100M_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOA_100M_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOA_100M_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S10-TOC-NDVI_333M_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S10-TOC-NDVI_333M_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC_333M_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC_333M_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_P_V101",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_P_V101"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S10-TOC-NDVI_1KM_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S10-TOC-NDVI_1KM_V001"
+    },
+    {
+        "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC_1KM_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC_1KM_V001"
+    },
+    {   "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOA_1KM_V001",
+        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOA_1KM_V001"
     }
   ]
 }
