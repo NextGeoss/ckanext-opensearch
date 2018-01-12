@@ -1,5 +1,6 @@
 import logging
 import json
+from datetime import datetime
 
 from ckan.common import config
 import pysolr
@@ -347,6 +348,18 @@ def collection_search(context, data_dict):
 
 def process_grouped_results(results):
     processed_results = []
+
+    # This is a hack to ensure that we have something for the atom:published
+    # and atom:updated elements for the collection results. Each collection
+    # should have its own published and updated timestamp and they should either
+    # reflect the when the collection was first published on the source site
+    # or on the data hub and when the collection was last updated (e.g, date
+    # of the last change to any product in the collection). It's not clear
+    # which values we should use and we don't have access to that info in the
+    # current version, hence the hack for now.
+    published = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+    updated = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+
     for i in results:
         dataset_json = i['doclist']['docs'][0]['validated_data_dict']
         dataset_dict = json.loads(dataset_json)
@@ -357,6 +370,8 @@ def process_grouped_results(results):
              'collection_id': dataset_dict['id'],
              'collection_description': dataset_dict['notes'],
              'collection_title': dataset_dict.get('title') or dataset_dict['name'],
+             'collection_published': published,
+             'collection_updated': updated,
              'is_collection': True
             }
         )

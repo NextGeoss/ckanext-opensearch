@@ -16,6 +16,8 @@ class Entry(OSElement):
                 (CollectionTitle, entry_dict),
                 (CollectionID, entry_dict),
                 (CollectionIdentifier, entry_dict),
+                (CollectionPublished, entry_dict),
+                (CollectionUpdated, entry_dict),
                 (CollectionDescription, entry_dict),
                 (CollectionOSDD, entry_dict)
             ]
@@ -80,6 +82,22 @@ class CollectionIdentifier(OSElement):
     def __init__(self, data_dict):
         identifier = data_dict['collection_id']
         OSElement.__init__(self, 'dc', 'identifier', content=identifier)
+
+
+class CollectionPublished(OSElement):
+    """Define an atom:published element for a collection result."""
+
+    def __init__(self, data_dict):
+        content = data_dict['collection_published']
+        OSElement.__init__(self, 'atom', 'published', content=content)
+
+
+class CollectionUpdated(OSElement):
+    """Define an atom:updated element for a collection result."""
+
+    def __init__(self, data_dict):
+        content = data_dict['collection_updated']
+        OSElement.__init__(self, 'atom', 'updated', content=content)
 
 
 class CollectionDescription(OSElement):
