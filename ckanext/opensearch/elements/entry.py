@@ -14,6 +14,7 @@ class Entry(OSElement):
         if entry_dict.get('is_collection', False):
             children = [
                 (CollectionTitle, entry_dict),
+                (CollectionID, entry_dict),
                 (CollectionIdentifier, entry_dict),
                 (CollectionDescription, entry_dict),
                 (CollectionOSDD, entry_dict)
@@ -63,6 +64,14 @@ class CollectionTitle(OSElement):
     def __init__(self, data_dict):
         title = data_dict.get('collection_name', 'Untitled')
         OSElement.__init__(self, 'atom', 'title', content=title)
+
+
+class CollectionID(OSElement):
+    """Define a collection entry's Atom ID element."""
+
+    def __init__(self, data_dict):
+        identifier = data_dict['collection_id']
+        OSElement.__init__(self, 'atom', 'id', content=identifier)
 
 
 class CollectionIdentifier(OSElement):
