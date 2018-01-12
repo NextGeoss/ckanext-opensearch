@@ -131,7 +131,7 @@ class CollectionOSDD(OSElement):
     """
 
     def __init__(self, data_dict):
-        base_url = request.url.split('?')[0] + '/description.xml?osdd='
+        base_url = request.url.split('opensearch')[0] + 'opensearch/description.xml?osdd='
         collection_name = '%20'.join(data_dict['collection_name'].split(' '))
         url = base_url + collection_name
         attr = {'rel': 'search',
