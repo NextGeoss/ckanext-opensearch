@@ -356,6 +356,7 @@ def process_grouped_results(results):
              'collection_count': i['doclist']['numFound'],
              'collection_id': dataset_dict['id'],
              'collection_description': dataset_dict['notes'],
+             'collection_title': dataset_dict.get('title') or dataset_dict['name'],
              'is_collection': True
             }
         )

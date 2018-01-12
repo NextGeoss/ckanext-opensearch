@@ -62,7 +62,7 @@ class CollectionTitle(OSElement):
     """Define a collection element title."""
 
     def __init__(self, data_dict):
-        title = data_dict.get('collection_name', 'Untitled')
+        title = data_dict['collection_title']
         OSElement.__init__(self, 'atom', 'title', content=title)
 
 
