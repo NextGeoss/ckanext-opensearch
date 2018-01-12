@@ -49,19 +49,6 @@ class Entry(OSElement):
         OSElement.__init__(self, 'atom', 'entry', children=children)
 
 
-class CollectionEntry(OSElement):
-    """Define a category rather than dataset entry."""
-
-    def __init__(self, entry_dict):
-        children = [
-            (CollectionTitle, entry_dict),
-            (CollectionIdentifier, entry_dict),
-            (CollectionDescription, entry_dict),
-            (CollectionOSDD, entry_dict)
-        ]
-        OSElement.__init__(self, 'atom', 'entry', children=children)
-
-
 class CollectionTitle(OSElement):
     """Define a collection element title."""
 
@@ -74,7 +61,7 @@ class CollectionID(OSElement):
     """Define a collection entry's Atom ID element."""
 
     def __init__(self, data_dict):
-        identifier = data_dict['collection_id']
+        identifier = data_dict['collection_name']
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
 
@@ -82,7 +69,7 @@ class CollectionIdentifier(OSElement):
     """Define the Dubin Core identifier element of an OpenSearch entry."""
 
     def __init__(self, data_dict):
-        identifier = data_dict['collection_id']
+        identifier = data_dict['collection_name']
         OSElement.__init__(self, 'dc', 'identifier', content=identifier)
 
 
