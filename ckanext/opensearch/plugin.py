@@ -15,11 +15,11 @@ class OpensearchPlugin(plugins.SingletonPlugin):
         """Add the OpenSearch endpoints to the map."""
         controller = 'ckanext.opensearch.controller:OpenSearchController'
 
-        map.connect('create_description_document', '/opensearch/description',
+        map.connect('create_description_document', '/opensearch/description.xml',
                     controller=controller,
                     action='create_description_document')
 
-        map.connect('process_query', '/opensearch',
+        map.connect('process_query', '/opensearch/search.atom',
                     controller=controller, action='process_query',
                     search_type='dataset')
 
@@ -27,7 +27,7 @@ class OpensearchPlugin(plugins.SingletonPlugin):
         if config.get('ckanext.opensearch.enable_collections') == 'true':
 
             map.connect('create_description_document',
-                        '/opensearch/collections/description',
+                        '/opensearch/collections/description.xml',
                         controller=controller,
                         action='create_description_document',
                         search_type='collection')

@@ -43,9 +43,6 @@ class DescDescription(OSElement):
     """Define the OpenSearch description document description here."""
 
     def __init__(self, description_type):
-        default = 'OpenSearch gateway for the {} data catalogue'.format(SITE_TITLE)
-        # TODO: Add a way to set a custom description in the settings, probably
-        # using `h.config.get()`.
         if description_type == 'collection':
             description = 'Search collections of products.'
         else:
@@ -125,7 +122,7 @@ class SearchURL(OSElement):
             terms.append(term)
         terms = '&'.join(terms)
 
-        search_template = '{}/opensearch?{}'.format(SITE_URL, terms)
+        search_template = '{}/opensearch/search.atom?{}'.format(SITE_URL, terms)
 
         return search_template
 
