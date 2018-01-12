@@ -387,8 +387,8 @@ def get_from_extras(data_dict, key, alt_value):
     for extra in extras:
         if extra['key'] == key:
             return extra['value']
-        else:
-            return alt_value
+
+    return alt_value
 
 
 class CollectionSearchQuery(SearchQuery):
