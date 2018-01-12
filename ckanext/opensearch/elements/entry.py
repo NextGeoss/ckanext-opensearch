@@ -16,7 +16,6 @@ class Entry(OSElement):
                 (CollectionTitle, entry_dict),
                 (CollectionIdentifier, entry_dict),
                 (CollectionDescription, entry_dict),
-                (CollectionCount, entry_dict),
                 (CollectionOSDD, entry_dict)
             ]
         else:
