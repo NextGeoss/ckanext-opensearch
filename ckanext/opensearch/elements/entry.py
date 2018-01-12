@@ -53,7 +53,6 @@ class CollectionEntry(OSElement):
             (CollectionTitle, entry_dict),
             (CollectionIdentifier, entry_dict),
             (CollectionDescription, entry_dict),
-            (CollectionCount, entry_dict),
             (CollectionOSDD, entry_dict)
         ]
         OSElement.__init__(self, 'atom', 'entry', children=children)
