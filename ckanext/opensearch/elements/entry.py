@@ -19,7 +19,9 @@ class Entry(OSElement):
                 (CollectionPublished, entry_dict),
                 (CollectionUpdated, entry_dict),
                 (CollectionDescription, entry_dict),
-                (CollectionOSDD, entry_dict)
+                (CollectionDescribedBy, entry_dict),
+                (CollectionOSDD, entry_dict),
+                (CollectionVia, entry_dict),
             ]
         else:
             extras_dict = dict()
@@ -116,6 +118,27 @@ class CollectionCount(OSElement):
         OSElement.__init__(self, 'atom', 'count', content=count)
 
 
+class CollectionDescribedBy(OSElement):
+    """URL pointing to a description of the collection."""
+    # We can include pages on the Data Hub with info about the collections and
+    # point there instead of to the original pages in the future.
+
+    def __init__(self, data_dict):
+        collection_name = data_dict['collection_name']
+        if 'urn:ogc:def:EOP:VITO' in collection_name:
+            url = 'http://www.vito-eodata.be/collections/srv/eng/main.home?uuid=' + collection_name
+        elif 'Sentinel' in collection_name:
+            url = 'https://sentinels.copernicus.eu/web/sentinel'
+        else:
+            url = 'http://example.com'
+
+        link = {
+            'href': url,
+            'rel': 'describedBy',
+            'type': 'text/html'
+        }
+        OSElement.__init__(self, 'atom', 'link', attr=link)
+
 class CollectionOSDD(OSElement):
     """
     Define an element containing a link to the OpenSearch description
@@ -130,6 +153,31 @@ class CollectionOSDD(OSElement):
                 'type': 'application/opensearchdescription+xml',
                 'href': url}
         OSElement.__init__(self, 'atom', 'link', attr=attr)
+
+
+class CollectionVia(OSElement):
+    """URL pointing to a metadata representation of the collection at the source."""
+    # We can include pages on the Data Hub with info about the collections and
+    # point there instead of to the original pages in the future.
+
+    def __init__(self, data_dict):
+        collection_name = data_dict['collection_name']
+        if 'urn:ogc:def:EOP:VITO' in collection_name:
+            url = 'http://www.vito-eodata.be/collections/srv/eng/xml_iso19139?uuid=' + collection_name
+            content_type = 'application/vnd.iso.19139+xml'
+        elif 'Sentinel' in collection_name:
+            url = 'https://sentinels.copernicus.eu/web/sentinel'
+            content_type = 'text/html'
+        else:
+            url = 'http://example.com'
+            content_type = 'text/html'
+
+        link = {
+            'href': url,
+            'rel': 'via',
+            'type': content_type
+        }
+        OSElement.__init__(self, 'atom', 'link', attr=link)
 
 
 class EntryTitle(OSElement):
