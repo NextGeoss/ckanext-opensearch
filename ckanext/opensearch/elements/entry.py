@@ -43,8 +43,6 @@ class Entry(OSElement):
                 (ThumbnailLink, entry_dict),
                 (EntryCategory, entry_dict['tags']),
                 (ResourceLink, entry_dict['resources']),
-                (AtomContent, entry_dict),
-                (EarthObservation, entry_dict)
             ]
         OSElement.__init__(self, 'atom', 'entry', children=children)
 

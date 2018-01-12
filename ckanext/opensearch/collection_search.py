@@ -384,16 +384,11 @@ def get_from_extras(data_dict, key, alt_value):
     """
     extras = data_dict.get('extras')
 
-    if extras:
-        print 'found extras'
-
     for extra in extras:
         if extra['key'] == key:
-            print 'found key'
             return extra['value']
-    else:
-        print 'didn\'t find key'
-        return alt_value
+        else:
+            return alt_value
 
 
 class CollectionSearchQuery(SearchQuery):

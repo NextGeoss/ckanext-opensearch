@@ -196,7 +196,6 @@ class OpenSearchController(BaseController):
         # Translate the query parameters into a CKAN data_dict so we
         # can query the DB.
         data_dict = self.translate_os_query(param_dict)
-        print data_dict
 
         # Query the DB.
         if search_type == 'collection':
