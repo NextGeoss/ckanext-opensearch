@@ -126,7 +126,6 @@ class QueryValidator(object):
     def _validate_query(self):
         """Update the error list."""
         checks = [
-            self._has_params,
             self._has_no_invalid_params,
             self._minimums_are_met,
             self._maximums_are_not_exceeded,
