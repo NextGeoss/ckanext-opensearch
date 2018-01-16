@@ -92,6 +92,8 @@ class SearchURL(OSElement):
         else:
             rel = 'results'
         attr = {
+            'pageOffset': "1",
+            'indexOffset': "1",
             'type': 'application/atom+xml',
             'rel': rel,
             'template': self._create_search_template(description_type)
