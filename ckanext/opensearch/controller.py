@@ -63,7 +63,7 @@ class OpenSearchController(BaseController):
             data_dict['rows'] = 20
         else:
             data_dict['rows'] = int(rows)
-       
+
         page = param_dict.get('page')
         if not page:
             page = 0
@@ -134,7 +134,10 @@ class OpenSearchController(BaseController):
             if param != 'collection_name':
                 os_name = PARAMETERS[search_type][param]['os_name']
                 namespace = PARAMETERS[search_type][param]['namespace']
-                os_param = '{%s}%s' % (NAMESPACES[namespace], os_name)
+                if namespace == 'opensearch':
+                    os_param = os_name
+                else:
+                    os_param = '{%s}%s' % (NAMESPACES[namespace], os_name)
                 if os_param not in query_dict:
                     query_dict[os_param] = value
                 else:
