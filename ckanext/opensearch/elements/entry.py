@@ -5,6 +5,7 @@ from ckan.common import request
 
 from . import OSElement
 from .earth_observation import EarthObservation
+from .. import helpers
 
 
 class Entry(OSElement):
@@ -38,6 +39,7 @@ class Entry(OSElement):
                 (EntryPublished, entry_dict),
                 (EntryUpdated, entry_dict),
                 (EntrySummary, entry_dict),
+                (EntryDCDate, entry_dict),
                 (EntryRights, entry_dict),
                 (DatasetLink, entry_dict),
                 (ThumbnailLink, entry_dict),
@@ -299,6 +301,16 @@ class EntrySummary(OSElement):
     def __init__(self, data_dict):
         summary = data_dict.get('notes', 'No summary available.')
         OSElement.__init__(self, 'atom', 'summary', content=summary)
+
+
+class EntryDCDate(OSElement):
+    """Define a DC date element representing the timespan of the result."""
+
+    def __init__(self, data_dict):
+        start = helpers.get_from_extras(data_dict, 'beginposition', '')
+        end = helpers.get_from_extras(data_dict, 'endposition', '')
+        date_range = '{}/{}'.format(start, end)
+        OSElement.__init__(self, 'dc', 'date', content=date_range)
 
 
 class AtomContent(OSElement):
