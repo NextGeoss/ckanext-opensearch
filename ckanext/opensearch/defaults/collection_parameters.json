@@ -77,7 +77,7 @@
         ]
     },
     {
-      "ckan_name": "platform",
+      "ckan_name": "platformname",
       "os_name": "platform",
       "namespace": "eo",
       "minimum": 0,
