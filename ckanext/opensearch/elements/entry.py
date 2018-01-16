@@ -5,7 +5,6 @@ from ckan.common import request
 
 from . import OSElement
 from .earth_observation import EarthObservation
-from .. import helpers
 
 
 class Entry(OSElement):
@@ -307,8 +306,8 @@ class EntryDCDate(OSElement):
     """Define a DC date element representing the timespan of the result."""
 
     def __init__(self, data_dict):
-        start = helpers.get_from_extras(data_dict, 'beginposition', '')
-        end = helpers.get_from_extras(data_dict, 'endposition', '')
+        start = data_dict['extras'].get('beginposition', '')
+        end = data_dict['extras'].get('endposition', '')
         date_range = '{}/{}'.format(start, end)
         OSElement.__init__(self, 'dc', 'date', content=date_range)
 
