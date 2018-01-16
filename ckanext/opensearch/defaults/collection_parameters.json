@@ -77,19 +77,6 @@
         ]
     },
     {
-      "ckan_name": "platformname",
-      "os_name": "platform",
-      "namespace": "eo",
-      "minimum": 0,
-      "options":
-        [
-          {
-            "value": "Sentinel-2",
-            "label": "Sentinel-2"
-          }
-        ]
-    },
-    {
       "ckan_name": "client_id",
       "os_name": "source",
       "namespace": "referrer",
