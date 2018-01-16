@@ -58,7 +58,7 @@
       "options":
         [
           {
-            "value": "example start time",
+            "value": "2014-04-03",
             "label": "example start time"
           }
         ]
@@ -71,8 +71,8 @@
       "options":
         [
           {
-            "value": "example end time",
-            "label": "exanple end time"
+            "value": "2017-12-21",
+            "label": "example end time"
           }
         ]
     },
