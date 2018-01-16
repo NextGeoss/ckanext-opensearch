@@ -63,7 +63,7 @@ class OpenSearchController(BaseController):
             data_dict['rows'] = 20
         else:
             data_dict['rows'] = int(rows)
-
+       
         page = param_dict.get('page')
         if not page:
             page = 0
@@ -75,7 +75,7 @@ class OpenSearchController(BaseController):
 
         fq = ''
         for (param, value) in param_dict.items():
-            if param not in ['q', 'page', 'sort', 'begin', 'end'] \
+            if param not in ['q', 'page', 'sort', 'begin', 'end', 'rows'] \
                 and len(value) and not param.startswith('_'):  # noqa: E125
                 if not param.startswith('ext_'):
                     fq += ' %s:"%s"' % (param, value)
