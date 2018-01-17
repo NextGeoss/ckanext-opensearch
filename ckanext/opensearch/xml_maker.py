@@ -56,8 +56,8 @@ def create_nsmap(namespaces, root):
     """
     nsmap = {}
     for key, value in namespaces.items():
-        #if key == root:
-        #    key = None
+        if key == root:
+            key = None
         nsmap[key] = value
 
     return nsmap
@@ -65,6 +65,7 @@ def create_nsmap(namespaces, root):
 
 def create_element_factory(namespaces, root):
     """Return an lxml Element factory."""
+    print root
     namespace = namespaces[root]
     nsmap = create_nsmap(namespaces, root)
     element_factory = ElementMaker(namespace=namespace, nsmap=nsmap)
