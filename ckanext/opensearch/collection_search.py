@@ -357,7 +357,7 @@ def process_grouped_results(results):
     # of the last change to any product in the collection). It's not clear
     # which values we should use and we don't have access to that info in the
     # current version, hence the hack for now.
-    published = '2018-01-16T00:00:0Z'
+    published = '2018-01-16T00:00:00Z'
     updated = '2018-01-16T12:35:22Z'
 
     for i in results:
