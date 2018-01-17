@@ -18,8 +18,7 @@
       "title": "Max. Results per Page",
       "minimum": 0,
       "min_inclusive": 1,
-      "max_exclusive": 10001,
-      "example": 10
+      "max_exclusive": 10001
     },
     {
       "ckan_name": "page",
@@ -57,6 +56,7 @@
       "os_name": "start",
       "namespace": "time",
       "minimum": 0,
+      "example": "2000-04-03",
       "options":
         [
           {
@@ -70,6 +70,7 @@
       "os_name": "end",
       "namespace": "time",
       "minimum": 0,
+      "example": "2018-01-01",
       "options":
         [
           {
