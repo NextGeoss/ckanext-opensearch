@@ -91,13 +91,13 @@ class SearchURL(OSElement):
             rel = 'collection'
         else:
             rel = 'results'
-        attr = {
-            'pageOffset': "1",
-            'indexOffset': "1",
-            'type': 'application/atom+xml',
-            'rel': rel,
-            'template': self._create_search_template(description_type)
-        }
+        attr = OrderedDict()
+        attr['pageOffset'] = '1'
+        attr['indexOffset'] = '1'
+        attr['rel'] = rel
+        attr['type'] = 'application/atom+xml'
+        attr['template'] = self._create_search_template(description_type)
+
         param_dicts = self._create_param_dicts(description_type)
         children = [
             (Parameter, param_dicts)
@@ -186,11 +186,10 @@ class SearchProfile(OSElement):
     """Define an Atom element describing the profile for free text search."""
 
     def __init__(self):
-        link = {
-            'title': 'This parameter follows the Lucene free text search implementations',
-            'rel': 'profile',
-            'href': 'http://lucene.apache.org/core/2_9_4/queryparsersyntax.html'
-        }
+        link = OrderedDict()
+        link['title'] = 'This parameter follows the Lucene free text search implementations'
+        link['rel'] = 'profile'
+        link['href'] = 'http://lucene.apache.org/core/2_9_4/queryparsersyntax.html'
         OSElement.__init__(self, 'atom', 'link', attr=link)
 
 
