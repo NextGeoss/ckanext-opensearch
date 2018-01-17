@@ -36,6 +36,7 @@
       "namespace": "geo",
       "title": "Bounding Box",
       "minimum": 0,
+      "example": "-180,-90,180,90",
       "options":
         [
           {
