@@ -18,7 +18,8 @@
       "title": "Max. Results per Page",
       "minimum": 0,
       "min_inclusive": 1,
-      "max_exclusive": 10001
+      "max_exclusive": 10001,
+      "example": 10
     },
     {
       "ckan_name": "page",
@@ -27,7 +28,8 @@
       "title": "Page Number",
       "minimum": 0,
       "min_inclusive": 1,
-      "max_exclusive": 100000000
+      "max_exclusive": 100000000,
+      "example": 1
     },
     {
       "ckan_name": "ext_bbox",

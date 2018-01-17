@@ -217,8 +217,11 @@ class QueryExample(OSElement):
         for param, details in PARAMETERS[description_type].items():
             example_value = details['example']
             if example_value is not None:
-                namespace_url = NAMESPACES[details['namespace']]
-                parameter = '{%s}%s' % (namespace_url, details['os_name'])
-                examples[parameter] = example_value
+                if details['namespace'] != 'opensearch':
+                    namespace_url = NAMESPACES[details['namespace']]
+                    parameter = '{%s}%s' % (namespace_url, details['os_name'])
+                else:
+                    parameter = details['os_name']
+                examples[parameter] = str(example_value)
 
         return examples
