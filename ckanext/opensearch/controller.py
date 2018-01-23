@@ -13,6 +13,7 @@ from ckan.lib.base import abort, BaseController
 from ckan.common import _, c, request, response
 import ckan.logic as logic
 import ckan.model as model
+from ckan import plugins
 
 from .config import ELEMENTS, NAMESPACES, PARAMETERS, TEMPORAL_START,\
     TEMPORAL_END, COLLECTIONS
@@ -56,7 +57,7 @@ class OpenSearchController(BaseController):
         # convert params and build data dictionary
         data_dict = dict()
 
-        data_dict['q'] = param_dict.get('q')
+        data_dict['q'] = param_dict.get('q', '')
 
         rows = param_dict.get('rows')
         if not rows:
@@ -102,10 +103,13 @@ class OpenSearchController(BaseController):
 
         data_dict['fq'] = fq
 
+        data_dict['ext_bbox'] = param_dict.get('ext_bbox')
+
         # Define the sorting method here, in case we want to change it vs.
         # the CKAN defaults
         data_dict['sort'] = 'score desc, metadata_modified desc'
-
+        print 'The data dict for the query'
+        print data_dict
         return data_dict
 
     def make_query_dict(self, param_dict, search_type):
