@@ -60,8 +60,7 @@ class CollectionID(OSElement):
 
     def __init__(self, data_dict):
         base_url = request.url.split('opensearch')[0] + 'opensearch/search.atom?collection='
-        url = base_url + data_dict['collection_id']
-        identifier = data_dict['collection_id']
+        identifier = base_url + data_dict['collection_id']
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
 
