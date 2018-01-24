@@ -39,7 +39,6 @@ class Entry(OSElement):
                 (EntryUpdated, entry_dict),
                 (EntrySummary, entry_dict),
                 (EntryDCDate, entry_dict),
-                (EntryGEORSSPolygon, entry_dict),
                 (EntryRights, entry_dict),
                 (DatasetLink, entry_dict),
                 (EntryCategory, entry_dict['tags']),
