@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """Contains classes for the entries in an OpenSearch feed."""
+import json
+
 from ckan.lib import helpers as h
 from ckan.common import request
 
@@ -39,6 +41,7 @@ class Entry(OSElement):
                 (EntryUpdated, entry_dict),
                 (EntrySummary, entry_dict),
                 (EntryDCDate, entry_dict),
+                (EntryGEORSSPolygon, entry_dict),
                 (EntryRights, entry_dict),
                 (DatasetLink, entry_dict),
                 (EntryCategory, entry_dict['tags']),
@@ -383,6 +386,7 @@ class EntryGEORSSPolygon(OSElement):
     def __init__(self, entry_dict):
         spatial = entry_dict['extras'].get('spatial', None)
         if spatial:
+            spatial = json.loads(spatial)
             coordinates = spatial['coordinates'][0]
             coord_list = []
             for i in coordinates:
