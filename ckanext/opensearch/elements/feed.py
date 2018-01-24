@@ -71,7 +71,7 @@ class AtomSearch(OSElement):
     """Define an Atom link for the OpenSearch description document."""
 
     def __init__(self):
-        osdd = request.params.get('collection_name')
+        osdd = request.params.get('collection')
         if osdd in COLLECTIONS:
             title = 'Collection description document'
             href = '{}/opensearch/description.xml?osdd={}'.format(SITE_URL, osdd)
