@@ -380,11 +380,14 @@ class EntryGEORSSPolygon(OSElement):
     """Define a GEORSS polygon element based on an entry's spatial value."""
 
     def __init__(self, entry_dict):
-        spatial = OSElement._get_from_extras(self, entry_dict, ['spatial'])
-        coordinates = spatial['coordinates'][0]
-        coord_list = []
-        for i in coordinates:
-            coord_list.append(str(i[0]))
-            coord_list.append(str(i[1]))
-        coord_str = ' '.join(coord_list)
+        spatial = entry_dict['extras'].get('spatial', None)
+        if spatial:
+            coordinates = spatial['coordinates'][0]
+            coord_list = []
+            for i in coordinates:
+                coord_list.append(str(i[0]))
+                coord_list.append(str(i[1]))
+            coord_str = ' '.join(coord_list)
+        else:
+            coord_str = ''
         OSElement.__init__(self, 'georss', 'polygon', content=coord_str)
