@@ -60,7 +60,7 @@ class CollectionID(OSElement):
     """Define a collection entry's Atom ID element."""
 
     def __init__(self, data_dict):
-        identifier = data_dict['collection_name']
+        identifier = data_dict['collection_id']
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
 
@@ -68,7 +68,7 @@ class CollectionIdentifier(OSElement):
     """Define the Dubin Core identifier element of an OpenSearch entry."""
 
     def __init__(self, data_dict):
-        identifier = data_dict['collection_name']
+        identifier = data_dict['collection_id']
         OSElement.__init__(self, 'dc', 'identifier', content=identifier)
 
 
@@ -133,8 +133,7 @@ class CollectionOSDD(OSElement):
 
     def __init__(self, data_dict):
         base_url = request.url.split('opensearch')[0] + 'opensearch/description.xml?osdd='
-        collection_name = '%20'.join(data_dict['collection_name'].split(' '))
-        url = base_url + collection_name
+        url = base_url + data_dict['collection_id']
         attr = {'rel': 'search',
                 'type': 'application/opensearchdescription+xml',
                 'href': url}

@@ -367,7 +367,7 @@ def process_grouped_results(results):
             {
              'collection_name': get_from_extras(dataset_dict, 'collection_name', dataset_dict['title']),
              'collection_count': i['doclist']['numFound'],
-             'collection_id': dataset_dict['id'],
+             'collection_id': get_from_extras(dataset_dict, 'collection_name', dataset_dict['title']),
              'collection_description': dataset_dict['notes'],
              'collection_title': dataset_dict.get('title') or dataset_dict['name'],
              'collection_published': published,

@@ -91,13 +91,11 @@ class SearchURL(OSElement):
             rel = 'collection'
         else:
             rel = 'results'
-        attr = OrderedDict()
-        attr['pageOffset'] = '1'
-        attr['indexOffset'] = '1'
-        attr['rel'] = rel
-        attr['type'] = 'application/atom+xml'
-        attr['template'] = self._create_search_template(description_type)
-
+        attr = {'pageOffset': '1',
+                'indexOffset': '1',
+                'rel': rel,
+                'type': 'application/atom+xml',
+                'template': self._create_search_template(description_type)}
         param_dicts = self._create_param_dicts(description_type)
         children = [
             (Parameter, param_dicts)
@@ -109,8 +107,8 @@ class SearchURL(OSElement):
         """Create the OpenSearch template based on the various parameters."""
         terms = []
         if description_type is not 'collection':
-            collection_name = '%20'.join(description_type.split(' '))
-            terms.append('collection_name={}'.format(collection_name))
+            #collection_name = '%20'.join(description_type.split(' '))
+            terms.append('collection={}'.format(description_type))
         for param, details in PARAMETERS[description_type].items():
             name = param
             value = details['os_name']

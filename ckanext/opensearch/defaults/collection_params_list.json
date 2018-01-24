@@ -4,75 +4,44 @@
   "about_url": "http://github.com/nextgeoss/ckanext-opensearch#parameters",
   "collection_params_list": [
     {
-        "name": "Sentinel-1 Level-0 (Raw)",
-        "file": "sentinel-1_level-0_(raw)"
-    },
-    {
         "name": "Sentinel-1 Level-1 (SLC)",
-        "file": "sentinel-1_level-1_(slc)"
+        "id": "SENTINEL1_L1_SLC",
+        "file": "SENTINEL1_L1_SLC"
     },
     {
         "name": "Sentinel-1 Level-1 (GRD)",
-        "file": "sentinel-1_level-1_(grd)"
+        "id": "SENTINEL1_L1_GRD",
+        "file": "SENTINEL1_L1_GRD"
     },
     {
         "name": "Sentinel-1 Level-2 (OCN)",
-        "file": "sentinel-1_level-2_(ocn)"
+        "id": "SENTINEL1_L2_OCN",
+        "file": "SENTINEL1_L2_OCN"
     },
     {
         "name": "Sentinel-2 Level-1C",
-        "file": "sentinel-2_level-1c"
+        "id": "SENTINEL2_L1C",
+        "file": "SENTINEL2_L1C"
     },
     {
-        "name": "Sentinel-3",
-        "file": "sentinel-3"
+        "name": "Sentinel-3 SRAL Level-1 Calibration",
+        "id": "SENTINEL3_SRAL_L1_CAL",
+        "file": "SENTINEL3_SRAL_L1_CAL"
     },
     {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_L2A_100M_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_L2A_100M_V001"
+        "name": "Sentinel-3 SRAL Level-1 SRA",
+        "id": "SENTINEL3_SRAL_L1_SRA",
+        "file": "SENTINEL3_SRAL_L1_SRA"
     },
     {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC-NDVI_100M_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC-NDVI_100M_V001"
+        "name": "Sentinel-3 SRAL Level-2 Land",
+        "id": "SENTINEL3_SRAL_L2_LAN",
+        "file": "SENTINEL3_SRAL_L2_LAN"
     },
     {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC_100M_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOC_100M_V001"
-    },
-    {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOA_100M_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S5-TOA_100M_V001"
-    },
-    {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC-NDVI_100M_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC-NDVI_100M_V001"
-    },
-    {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOA_100M_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOA_100M_V001"
-    },
-    {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S10-TOC-NDVI_333M_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S10-TOC-NDVI_333M_V001"
-    },
-    {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC_333M_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC_333M_V001"
-    },
-    {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_P_V101",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_P_V101"
-    },
-    {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S10-TOC-NDVI_1KM_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S10-TOC-NDVI_1KM_V001"
-    },
-    {
-        "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC_1KM_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOC_1KM_V001"
-    },
-    {   "name": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOA_1KM_V001",
-        "file": "urn:ogc:def:EOP:VITO:PROBAV_S1-TOA_1KM_V001"
+        "name": "Sentinel-3 SRAL Level-2 Water",
+        "id": "SENTINEL3_SRAL_L2_WAT",
+        "file": "SENTINEL3_SRAL_L2_WAT"
     }
   ]
 }
