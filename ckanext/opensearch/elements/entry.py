@@ -39,6 +39,7 @@ class Entry(OSElement):
                 (EntryUpdated, entry_dict),
                 (EntrySummary, entry_dict),
                 (EntryDCDate, entry_dict),
+                (EntryGEORSSPolygon, entry_dict),
                 (EntryRights, entry_dict),
                 (DatasetLink, entry_dict),
                 (EntryCategory, entry_dict['tags']),
@@ -59,6 +60,8 @@ class CollectionID(OSElement):
     """Define a collection entry's Atom ID element."""
 
     def __init__(self, data_dict):
+        base_url = request.url.split('opensearch')[0] + 'opensearch/search.atom?collection='
+        url = base_url + data_dict['collection_id']
         identifier = data_dict['collection_id']
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
