@@ -41,7 +41,6 @@ class Entry(OSElement):
                 (EntryDCDate, entry_dict),
                 (EntryRights, entry_dict),
                 (DatasetLink, entry_dict),
-                (ThumbnailLink, entry_dict),
                 (EntryCategory, entry_dict['tags']),
                 (ResourceLink, entry_dict['resources']),
             ]
@@ -344,7 +343,7 @@ class ResourceLink(OSElement):
     def __init__(self, resource_dict):
         # TODO: create a MIME-type mapper
         mime_type = 'application/octect-stream'
-        if resource_dict.get('title', None) != 'Thumbnail Link':
+        if resource_dict.get('name', None) != 'Thumbnail Link':
             link = {
                 'href': resource_dict['url'],
                 'title': resource_dict.get('name', 'Untitled'),
