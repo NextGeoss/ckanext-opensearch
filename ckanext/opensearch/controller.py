@@ -135,7 +135,7 @@ class OpenSearchController(BaseController):
         #return query_dict
 
         for (param, value) in param_dict.items():
-            if param != 'collection_name':
+            if param != 'collection':
                 os_name = PARAMETERS[search_type][param]['os_name']
                 namespace = PARAMETERS[search_type][param]['namespace']
                 if namespace == 'opensearch':
@@ -169,7 +169,7 @@ class OpenSearchController(BaseController):
         except logic.NotAuthorized:
             abort(403, _('Not authorized to see this page'))
 
-        search_type = request.params.get('collection_name', 'collection')
+        search_type = request.params.get('collection', 'collection')
         if search_type not in COLLECTIONS and search_type != 'collection':
             abort(400, _('Invalid collection name'))
         # Get the query parameters and remove 'amp' if it has snuck in.
@@ -178,7 +178,7 @@ class OpenSearchController(BaseController):
         query_url = request.url.split('?')[0] + '?'
         if search_type != 'collection':
             c_name = '%20'.join(search_type.split(' '))
-            query_url += '{}={}'.format('collection_name', c_name)
+            query_url += '{}={}'.format('collection', c_name)
         for param, value in request.params.items():
             if param != 'amp' and param in PARAMETERS[search_type]:
                 param_dict.add(param, value)
@@ -187,7 +187,7 @@ class OpenSearchController(BaseController):
                 query_url += '{}={}'.format(param, value)
 
         if search_type != 'collection':
-            param_dict['collection_name'] = search_type
+            param_dict['collection'] = search_type
 
         # Work in progress: use client_id for usage metrics
         # The client_id parameter is _not_ a search parameter,
