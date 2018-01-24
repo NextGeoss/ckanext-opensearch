@@ -130,11 +130,11 @@ def get_group_field():
 # Constants
 PARAMETERS = {}
 for param_pair in get_collection_params_list():
-    PARAMETERS[param_pair['name']] = get_parameters(param_pair['file'])
+    PARAMETERS[param_pair['id']] = get_parameters(param_pair['file'])
 #PARAMETERS = {'dataset': get_parameters('dataset_parameters')}
 if config.get('ckanext.opensearch.enable_collections') == 'true':
     PARAMETERS['collection'] = get_parameters('collection_parameters')
-COLLECTIONS = [i['name'] for i in get_collection_params_list()]
+COLLECTIONS = [i['id'] for i in get_collection_params_list()]
 NAMESPACES = get_namespaces()
 ELEMENTS = get_elements()
 SITE_URL = get_site_url()
@@ -143,4 +143,3 @@ TEMPORAL_START = get_temporal_start_field()
 TEMPORAL_END = get_temporal_end_field()
 SHORT_NAME = get_short_name()
 GROUP_FIELD = get_group_field()
-print GROUP_FIELD
