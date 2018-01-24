@@ -28,7 +28,7 @@ class QueryValidator(object):
     def _has_no_invalid_params(self):
         """Check for invalid query parameters."""
         for param in self.param_dict:
-            if param not in self.valid_params and param != 'collection_name':
+            if param not in self.valid_params and param != 'Collection':
                 self.errors.append(_('Invalid parameter: {}.'.format(param)))
 
     def _count_params(self):

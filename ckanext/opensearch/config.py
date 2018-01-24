@@ -135,6 +135,7 @@ for param_pair in get_collection_params_list():
 if config.get('ckanext.opensearch.enable_collections') == 'true':
     PARAMETERS['collection'] = get_parameters('collection_parameters')
 COLLECTIONS = [i['id'] for i in get_collection_params_list()]
+print COLLECTIONS
 NAMESPACES = get_namespaces()
 ELEMENTS = get_elements()
 SITE_URL = get_site_url()

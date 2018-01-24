@@ -135,7 +135,7 @@ class OpenSearchController(BaseController):
         #return query_dict
 
         for (param, value) in param_dict.items():
-            if param != 'collection':
+            if param != 'Collection':
                 os_name = PARAMETERS[search_type][param]['os_name']
                 namespace = PARAMETERS[search_type][param]['namespace']
                 if namespace == 'opensearch':
@@ -170,8 +170,10 @@ class OpenSearchController(BaseController):
             abort(403, _('Not authorized to see this page'))
 
         search_type = request.params.get('collection', 'collection')
-        if search_type not in COLLECTIONS and search_type != 'collection':
-            abort(400, _('Invalid collection name'))
+        #print search_type
+        #print search_type not in COLLECTIONS and search_type != 'collection'
+        #if search_type not in COLLECTIONS and search_type != 'collection':
+        #    abort(400, _('Invalid collection name'))
         # Get the query parameters and remove 'amp' if it has snuck in.
         # Strip any parameters that aren't valid as per CEOS-BP-009B.
         param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
@@ -187,7 +189,7 @@ class OpenSearchController(BaseController):
                 query_url += '{}={}'.format(param, value)
 
         if search_type != 'collection':
-            param_dict['collection'] = search_type
+            param_dict['Collection'] = search_type
 
         # Work in progress: use client_id for usage metrics
         # The client_id parameter is _not_ a search parameter,
