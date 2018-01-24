@@ -343,13 +343,21 @@ class ResourceLink(OSElement):
 
     def __init__(self, resource_dict):
         # TODO: create a MIME-type mapper
-        mime_type = 'application/unknown'
-        link = {
-            'href': resource_dict['url'],
-            'title': resource_dict.get('name', 'Untitled'),
-            'rel': 'enclosure',
-            'type': mime_type
-        }
+        mime_type = 'application/octect-stream'
+        if resource_dict.get('title', None) != 'Thumbnail Link':
+            link = {
+                'href': resource_dict['url'],
+                'title': resource_dict.get('name', 'Untitled'),
+                'rel': 'enclosure',
+                'type': mime_type
+            }
+        else:
+            link = {
+                'href': resource_dict['url'],
+                'title': 'Quicklook image',
+                'rel': 'icon',
+                'type': mime_type
+            }
         OSElement.__init__(self, 'atom', 'link', attr=link)
 
 
