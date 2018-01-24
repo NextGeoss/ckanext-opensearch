@@ -365,11 +365,11 @@ def process_grouped_results(results):
         dataset_dict = json.loads(dataset_json)
         processed_results.append(
             {
-             'collection_name': get_from_extras(dataset_dict, 'collection', dataset_dict['title']),
+             'collection_name': str(dataset_dict['extras']),
              'collection_count': i['doclist']['numFound'],
              'collection_id': get_from_extras(dataset_dict, 'collection', dataset_dict['title']),
              'collection_description': dataset_dict['notes'],
-             'collection_title': get_from_extras(dataset_dict, 'collection', dataset_dict['title']),
+             'collection_title': str(dataset_dict['extras']),
              'collection_published': published,
              'collection_updated': updated,
              'is_collection': True
