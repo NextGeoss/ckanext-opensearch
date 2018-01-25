@@ -36,6 +36,7 @@ class Entry(OSElement):
                 (EntryTitle, entry_dict),
                 (EntryID, entry_dict),
                 (EntryIdentifier, entry_dict),
+                (EntrySelfLink, entry_dict),
                 (EntryPublisher, entry_dict),
                 (EntryPublished, entry_dict),
                 (EntryUpdated, entry_dict),
@@ -183,6 +184,19 @@ class EntryID(OSElement):
     Here we define the ID as the URL  of the dataset created using the
     CKAN ID of the dataset.
     """
+
+    def __init__(self, data_dict):
+        # As requested by Pedro for use with the VITO application
+        base_url = request.url.split('opensearch')[0]
+        collection = data_dict['extras'].get('Collection', '')
+        uuid = data_dict['extras'].get('uuid', '')
+        identifier = '{}opensearch/search.atom?collection={}&name={}'.format(
+            base_url, collection, uuid)
+        OSElement.__init__(self, 'atom', 'id', content=identifier)
+
+
+class EntrySelfLink(OSElement):
+    """Define an atom self link for each entry."""
 
     def __init__(self, data_dict):
         # As requested by Pedro for use with the VITO application
