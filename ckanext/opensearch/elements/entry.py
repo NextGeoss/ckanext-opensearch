@@ -190,7 +190,7 @@ class EntryID(OSElement):
         base_url = request.url.split('opensearch')[0]
         collection = data_dict['extras'].get('Collection', '')
         uuid = data_dict['extras'].get('uuid', '')
-        identifier = '{}opensearch/search.atom?collection={}&name={}'.format(
+        identifier = '{}opensearch/search.atom?collection={}&uuid={}'.format(
             base_url, collection, uuid)
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
@@ -203,7 +203,7 @@ class EntrySelfLink(OSElement):
         base_url = request.url.split('opensearch')[0]
         collection = data_dict['extras'].get('Collection', '')
         uuid = data_dict['extras'].get('uuid', '')
-        url = '{}opensearch/search.atom?collection={}&name={}'.format(
+        url = '{}opensearch/search.atom?collection={}&uuid={}'.format(
             base_url, collection, uuid)
         link = {
             'href': url,
