@@ -190,7 +190,7 @@ class EntryID(OSElement):
         collection = data_dict['extras'].get('Collection', '')
         uuid = data_dict['extras'].get('uuid', '')
         identifier = '{}opensearch/search.atom?collection={}&name={}'.format(
-            base_url, collection_id, uuid)
+            base_url, collection, uuid)
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
 
