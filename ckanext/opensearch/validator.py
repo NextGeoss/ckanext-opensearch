@@ -122,6 +122,11 @@ class QueryValidator(object):
         if not self._temporal_is_valid(self.param_dict.get('end')):
             self.errors.append(_('time:end must be in the form `YYY-MM-DDTHH:MM:SS'))
 
+    def _date_modified_is_valid(self):
+        """Check if the end timestamp is valid."""
+        if not self._temporal_is_valid(self.param_dict.get('date_modified')):
+            self.errors.append(_('eo:modificationDate must be in the form `YYY-MM-DDTHH:MM:SS'))
+
 
     def _validate_query(self):
         """Update the error list."""
@@ -133,7 +138,8 @@ class QueryValidator(object):
             self._page_is_in_bounds,
             self._bbox_is_valid,
             self._start_is_valid,
-            self._end_is_valid
+            self._end_is_valid,
+            self._date_modified_is_valid
         ]
         for check in checks:
             check()

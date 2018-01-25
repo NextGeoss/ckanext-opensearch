@@ -85,6 +85,19 @@
       "os_name": "source",
       "namespace": "referrer",
       "minimum": 0
+    },
+    {
+      "ckan_name": "date_modified",
+      "os_name": "modificationDate",
+      "namespace": "eo",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "2017-12-25",
+            "label": "example modification date"
+          }
+        ]
     }
   ]
 }

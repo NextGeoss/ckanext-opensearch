@@ -76,11 +76,12 @@ class OpenSearchController(BaseController):
 
         fq = ''
         for (param, value) in param_dict.items():
-            if param not in ['q', 'page', 'sort', 'begin', 'end', 'rows'] \
+            if param not in ['q', 'page', 'sort', 'begin', 'end', 'rows', 'date_modified'] \
                 and len(value) and not param.startswith('_'):  # noqa: E125
                 if not param.startswith('ext_'):
                     fq += ' %s:"%s"' % (param, value)
 
+        # Temporal search across a start time field and an end time field
         if TEMPORAL_START and TEMPORAL_END:
             # Get time range
             begin = param_dict.get('begin')
@@ -97,6 +98,16 @@ class OpenSearchController(BaseController):
                 time_range = '[{} TO {}]'.format(begin, end)
                 fq += ' {}:{}'.format(TEMPORAL_START, time_range)
                 fq += ' {}:{}'.format(TEMPORAL_END, time_range)
+
+        # Temporal search across metadata_modified
+        date_modified = param_dict.get('date_modified')
+        if date_modified:
+            begin = date_modified
+            if len(begin) < 20:
+                begin = '{}T00:00:00Z'.format(begin[:10])
+            end = '{}+1DAY'.format(begin)
+            time_range = '[{} TO {}]'.format(begin, end)
+            fq += ' {}:{}'.format('metadata_modified', time_range)
 
         # Add any additional facets that are necessary behind the scenes
         fq += ' +dataset_type:dataset'  # Only search datasets; no harvesters
