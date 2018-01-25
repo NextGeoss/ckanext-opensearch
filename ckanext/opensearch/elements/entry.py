@@ -366,7 +366,7 @@ class ResourceLink(OSElement):
 
     def __init__(self, resource_dict):
         # TODO: create a MIME-type mapper
-        mime_type = 'application/octect-stream'
+        mime_type = resource_dict.get('mimetype') or 'application/octect-stream'
         if resource_dict.get('name', None) != 'Thumbnail Link':
             link = {
                 'href': resource_dict['url'],
