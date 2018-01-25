@@ -330,8 +330,11 @@ class EntryDCDate(OSElement):
     def __init__(self, data_dict):
         start = data_dict['extras'].get('StartTime', '')
         end = data_dict['extras'].get('StopTime', '')
-        date_range = '{}/{}'.format(start, end)
-        OSElement.__init__(self, 'dc', 'date', content=date_range)
+        if start == end:
+            date = start
+        else:
+            date = '{}/{}'.format(start, end)
+        OSElement.__init__(self, 'dc', 'date', content=date)
 
 
 class AtomContent(OSElement):
