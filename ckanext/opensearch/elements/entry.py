@@ -217,7 +217,7 @@ class EntryIdentifier(OSElement):
     """Define the Dubin Core identifier element of an OpenSearch entry."""
 
     def __init__(self, data_dict):
-        identifier = data_dict['id']
+        identifier = data_dict['extras'].get('uuid', 'No_source_uuid_provided')
         OSElement.__init__(self, 'dc', 'identifier', content=identifier)
 
 
