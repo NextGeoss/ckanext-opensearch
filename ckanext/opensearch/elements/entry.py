@@ -374,7 +374,7 @@ class ResourceLink(OSElement):
                 'rel': 'via',
                 'type': mime_type
             }
-        elif name is 'Thumbnail Link':
+        elif name == 'Thumbnail Link':
             link = {
                 'href': resource_dict['url'],
                 'title': 'Quicklook image',
