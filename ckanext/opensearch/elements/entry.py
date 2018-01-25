@@ -185,12 +185,13 @@ class EntryID(OSElement):
     """
 
     def __init__(self, data_dict):
-        # Prefer creating links with the ID vs. the name because
-        # the ID won't change.
-        entry_id = h.url_for(controller='package',
-                             action='read',
-                             id=data_dict['id'], qualified=True)
-        OSElement.__init__(self, 'atom', 'id', content=entry_id)
+        # As requested by Pedro for use with the VITO application
+        base_url = request.url.split('opensearch')[0]
+        collection = data_dict['extras'].get('Collection', '')
+        uuid = data_dict['extras'].get('uuid', '')
+        identifier = '{}opensearch/search.atom?collection={}&name={}'.format(
+            base_url, collection_id, uuid)
+        OSElement.__init__(self, 'atom', 'id', content=identifier)
 
 
 class EntryIdentifier(OSElement):
