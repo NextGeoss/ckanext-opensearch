@@ -21,7 +21,7 @@ class Entry(OSElement):
                 (CollectionPublished, entry_dict),
                 (CollectionUpdated, entry_dict),
                 (CollectionDescription, entry_dict),
-                (CollectionDescribedBy, entry_dict),
+                (CollectionContent, entry_dict),
                 (CollectionOSDD, entry_dict),
                 (CollectionVia, entry_dict),
             ]
@@ -96,8 +96,10 @@ class CollectionDescription(OSElement):
     """Define a collection element title."""
 
     def __init__(self, data_dict):
-        title = data_dict.get('collection_description', 'No description')
-        OSElement.__init__(self, 'atom', 'summary', content=title)
+        title = data_dict.get('collection_title', 'untitled')
+        count = str(data_dict.get('collection_count', 0))
+        text = '{} matching products found in the {} collection.'.format(count, title)
+        OSElement.__init__(self, 'atom', 'summary', content=text)
 
 
 class CollectionCount(OSElement):
@@ -167,6 +169,17 @@ class CollectionVia(OSElement):
             'type': content_type
         }
         OSElement.__init__(self, 'atom', 'link', attr=link)
+
+
+class CollectionContent(OSElement):
+    """
+    Define the Atom contnet element for an entry.
+    """
+
+    def __init__(self, data_dict):
+        content = data_dict.get('collection_description', 'No description of this collection is available.')
+        attr = {'type': 'text'}
+        OSElement.__init__(self, 'atom', 'content', attr=attr, content=content)
 
 
 class EntryTitle(OSElement):
