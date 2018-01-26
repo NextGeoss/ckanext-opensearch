@@ -109,6 +109,17 @@ class OpenSearchController(BaseController):
             time_range = '[{} TO {}]'.format(begin, end)
             fq += ' {}:{}'.format('metadata_modified', time_range)
 
+        # This will add an fq filter with the form:
+
+        # +spatial_geom:"Intersects(ENVELOPE({minx}, {miny}, {maxx}, {maxy}))
+
+        # Add geometry spatial filter (only works with Solr spatial field)
+        geometry = param_dict.get('ext_geometry', None)
+        if geometry:
+            # Validate the polygon
+            geometry_filter = ' +spatial_geom:"Intersects({})"'.format(geometry)
+            fq += geometry_filter
+
         # Add any additional facets that are necessary behind the scenes
         fq += ' +dataset_type:dataset'  # Only search datasets; no harvesters
 
