@@ -306,7 +306,7 @@ class DatasetLink(OSElement):
                         action='read', id=data_dict['id'], qualified=True)
         link = {
             'href': url,
-            'rel': 'describedBy',
+            'rel': 'alternate',
             'type': 'text/html'
         }
         OSElement.__init__(self, 'atom', 'link', attr=link)
