@@ -129,7 +129,7 @@ class QueryValidator(object):
             print 'validating date modified'
             pattern = re.compile('\[[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}]')
             if not pattern.match(date_modified):
-                self.errors.append(_('eo:modifiedDate must be in the form `[YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]`'))
+                self.errors.append(_('eo:modificationDate must be in the form `[YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]`'))
 
     def _validate_query(self):
         """Update the error list."""
