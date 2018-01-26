@@ -94,8 +94,8 @@
       "options":
         [
           {
-            "value": "2017-12-25",
-            "label": "example modification date"
+            "value": "[2017-11-05T00:00:00,2017-11-05T12:00:00]",
+            "label": "example modification date range"
           }
         ]
     },

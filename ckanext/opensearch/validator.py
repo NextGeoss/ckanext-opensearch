@@ -115,18 +115,21 @@ class QueryValidator(object):
     def _start_is_valid(self):
         """Check if the start timestamp is valid."""
         if not self._temporal_is_valid(self.param_dict.get('begin')):
-            self.errors.append(_('time:start must be in the form `YYY-MM-DDTHH:MM:SS'))
+            self.errors.append(_('time:start must be in the form `YYYY-MM-DDTHH:MM:SS'))
 
     def _end_is_valid(self):
         """Check if the end timestamp is valid."""
         if not self._temporal_is_valid(self.param_dict.get('end')):
-            self.errors.append(_('time:end must be in the form `YYY-MM-DDTHH:MM:SS'))
+            self.errors.append(_('time:end must be in the form `YYYY-MM-DDTHH:MM:SS'))
 
     def _date_modified_is_valid(self):
         """Check if the end timestamp is valid."""
-        if not self._temporal_is_valid(self.param_dict.get('date_modified')):
-            self.errors.append(_('eo:modificationDate must be in the form `YYY-MM-DDTHH:MM:SS'))
-
+        date_modified = self.param_dict.get('date_modified')
+        if date_modified:
+            print 'validating date modified'
+            pattern = re.compile('\[[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}]')
+            if not pattern.match(date_modified):
+                self.errors.append(_('eo:modifiedDate must be in the form `[YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]`'))
 
     def _validate_query(self):
         """Update the error list."""

@@ -101,17 +101,12 @@ class OpenSearchController(BaseController):
 
         # Temporal search across metadata_modified
         date_modified = param_dict.get('date_modified')
+        # Format: [YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]
         if date_modified:
-            begin = date_modified
-            if len(begin) < 20:
-                begin = '{}T00:00:00Z'.format(begin[:10])
-            end = '{}+1DAY'.format(begin)
+            begin = '{}Z'.format(date_modified[1:20])
+            end = '{}Z'.format(date_modified[21:-1])
             time_range = '[{} TO {}]'.format(begin, end)
             fq += ' {}:{}'.format('metadata_modified', time_range)
-
-        # This will add an fq filter with the form:
-
-        # +spatial_geom:"Intersects(ENVELOPE({minx}, {miny}, {maxx}, {maxy}))
 
         # Add geometry spatial filter (only works with Solr spatial field)
         geometry = param_dict.get('ext_geometry', None)
