@@ -1,22 +1,22 @@
+# -*- coding: utf-8 -*-
+"""Module adding collection search, or searching via Solr grouping."""
+
 import logging
 import json
-from datetime import datetime
 
-from ckan.common import config
 import pysolr
 from paste.deploy.converters import asbool
 from paste.util.multidict import MultiDict
 import six
 
-from ckan.lib.search.common import make_connection, SearchError, SearchQueryError
+from ckan.common import config
+from ckan.lib.search.common import make_connection, SearchError,\
+    SearchQueryError
 import ckan.logic as logic
-import ckan.model as model
+from ckan.logic import ValidationError
 import ckan.lib.plugins as lib_plugins
-
-import ckan.lib.helpers as h
-from ckan.common import OrderedDict, _
-
-from ckan.lib.search.query import VALID_SOLR_PARAMETERS, SearchQuery, solr_literal
+from ckan.lib.search.query import VALID_SOLR_PARAMETERS, SearchQuery,\
+    solr_literal
 from ckan.lib.navl.dictization_functions import validate as _validate
 from ckan.logic import check_access as _check_access
 from ckan import plugins
@@ -38,8 +38,8 @@ _open_licenses = None
 
 
 def collection_search(context, data_dict):
-    '''
-    Searches for packages satisfying a given search criteria.
+    """
+    Search for packages satisfying a given search criteria.
 
     This action accepts solr search query parameters (details below), and
     returns a dictionary of results, including dictized datasets that match
@@ -156,9 +156,10 @@ def collection_search(context, data_dict):
     fl
         The parameter that controls which fields are returned in the solr
         query.
-        fl can be  None or a list of result fields, such as ['id', 'extras_custom_field'].
+        fl can be None or a list of result fields, such as
+        ['id', 'extras_custom_field'].
         if fl = None, datasets are returned as a list of full dictionary.
-    '''
+    """
     # sometimes context['schema'] is None
     schema = (context.get('schema') or
               logic.schema.default_package_search_schema())
@@ -170,8 +171,6 @@ def collection_search(context, data_dict):
     if errors:
         raise ValidationError(errors)
 
-    model = context['model']
-    session = context['session']
     user = context.get('user')
 
     _check_access('package_search', context, data_dict)
@@ -217,30 +216,33 @@ def collection_search(context, data_dict):
             data_dict['fq'] += ' +state:(active OR draft)'
 
         # Pop these ones as Solr does not need them
-        extras = data_dict.pop('extras', None)
+        data_dict.pop('extras', None)
 
         # enforce permission filter based on user
         if context.get('ignore_auth') or (user and authz.is_sysadmin(user)):
             labels = None
         else:
-            labels = lib_plugins.get_permission_labels(
-                ).get_user_dataset_labels(context['auth_user_obj'])
+            labels = (lib_plugins.get_permission_labels()
+                      .get_user_dataset_labels(context['auth_user_obj']))
 
         # Here's where we diverge...
 
-        facets = OrderedDict()
+        # TODO: Sort out facets ###############################################
+        # facets = OrderedDict()
+        #
+        # facets = {
+        #     'tags': _('Tags'),
+        #     'res_format': _('Formats'),
+        #     'license_id': _('Licenses'),
+        #    }
 
-        facets = {
-            'tags': _('Tags'),
-            'res_format': _('Formats'),
-            #'license_id': _('Licenses'),
-            }
+        # for facet in h.facets():
+        #     if facet in default_facet_titles:
+        #         facets[facet] = default_facet_titles[facet]
+        #     else:
+        #         facets[facet] = facet
+        #######################################################################
 
-        #for facet in h.facets():
-        #    if facet in default_facet_titles:
-        #        facets[facet] = default_facet_titles[facet]
-        #    else:
-        #        facets[facet] = facet
         data_dict['facet.field'] = ['tags']
 
         data_dict['group'] = 'true'
@@ -254,6 +256,7 @@ def collection_search(context, data_dict):
         results_count = results['count']
         results_list = process_grouped_results(results['results'])
 
+# TODO: Sort out front-end search #############################################
 #        # Add them back so extensions can use them on after_search
 #        data_dict['extras'] = extras
 #
@@ -269,7 +272,6 @@ def collection_search(context, data_dict):
 #                package_dict = package.get(data_source)
 #                ## use data in search index if there
 #                if package_dict:
-#                    # the package_dict still needs translating when being viewed
 #                    package_dict = json.loads(package_dict)
 #                    if context.get('for_view'):
 #                        for item in plugins.PluginImplementations(
@@ -277,7 +279,7 @@ def collection_search(context, data_dict):
 #                            package_dict = item.before_view(package_dict)
 #                    results.append(package_dict)
 #                else:
-#                    log.error('No package_dict is coming from solr for package '
+#                    log.error('No package_dict is from Solr for package '
 #                              'id %s', package['id'])
 #
 #        count = query.count
@@ -286,14 +288,14 @@ def collection_search(context, data_dict):
 #        count = 0
 #        facets = {}
 #        results = []
-#
+###############################################################################
+
     search_results = {
         'count': results_count,
-        #'facets': facets,
         'results': results_list,
-        #'sort': data_dict['sort']
     }
-#
+
+# TODO: Sort front-end search #################################################
 #    # create a lookup table of group name to title for all the groups and
 #    # organizations in the current search's facets.
 #    group_names = []
@@ -318,7 +320,7 @@ def collection_search(context, data_dict):
 #            new_facet_dict['name'] = key_
 #            if key in ('groups', 'organization'):
 #                display_name = group_titles_by_name.get(key_, key_)
-#                display_name = display_name if display_name and display_name.strip() else key_
+#                display_name = display_name if display_name and display_name.strip() else key_  # noqa: E501
 #                new_facet_dict['display_name'] = display_name
 #            elif key == 'license_id':
 #                license = model.Package.get_license_register().get(key_)
@@ -342,19 +344,21 @@ def collection_search(context, data_dict):
 #        search_results['search_facets'][facet]['items'] = sorted(
 #            search_results['search_facets'][facet]['items'],
 #            key=lambda facet: facet['display_name'], reverse=True)
-#
+###############################################################################
+
     return search_results
 
 
 def process_grouped_results(results):
+    """Convert grouped results into dictionaries that we can work with."""
     processed_results = []
 
     # This is a hack to ensure that we have something for the atom:published
     # and atom:updated elements for the collection results. Each collection
-    # should have its own published and updated timestamp and they should either
-    # reflect the when the collection was first published on the source site
-    # or on the data hub and when the collection was last updated (e.g, date
-    # of the last change to any product in the collection). It's not clear
+    # should have its own published and updated timestamp and they should
+    # either reflect the when the collection was first published on the source
+    # site or on the data hub and when the collection was last updated (e.g,
+    # date of the last change to any product in the collection). It's not clear
     # which values we should use and we don't have access to that info in the
     # current version, hence the hack for now.
     published = '2018-01-16T00:00:00Z'
@@ -364,24 +368,24 @@ def process_grouped_results(results):
         dataset_json = i['doclist']['docs'][0]['validated_data_dict']
         dataset_dict = json.loads(dataset_json)
         processed_results.append(
-            {
-             'collection_name': get_from_extras(dataset_dict, 'Collection', dataset_dict['title']),
+            {'collection_name': get_from_extras(dataset_dict, 'Collection',
+                                                dataset_dict['title']),
              'collection_count': i['doclist']['numFound'],
-             'collection_id': get_from_extras(dataset_dict, 'Collection', dataset_dict['title']),
+             'collection_id': get_from_extras(dataset_dict, 'Collection',
+                                              dataset_dict['title']),
              'collection_description': dataset_dict['notes'],
-             'collection_title': get_from_extras(dataset_dict, 'Collection', dataset_dict['title']),
+             'collection_title': get_from_extras(dataset_dict, 'Collection',
+                                                 dataset_dict['title']),
              'collection_published': published,
              'collection_updated': updated,
-             'is_collection': True
-            }
+             'is_collection': True}
         )
 
     return processed_results
 
+
 def get_from_extras(data_dict, key, alt_value):
-    """
-    Return the value of an extra if it exists, or the alt_value if it doesn't.
-    """
+    """Return the value of an extra or the alt_value if it doesn't exist."""
     extras = data_dict.get('extras')
 
     for extra in extras:
@@ -392,10 +396,10 @@ def get_from_extras(data_dict, key, alt_value):
 
 
 class CollectionSearchQuery(SearchQuery):
+    """Create a Solr search query for collection/grouped search."""
+
     def get_all_entity_ids(self, max_results=1000):
-        """
-        Return a list of the IDs of all indexed packages.
-        """
+        """Return a list of the IDs of all indexed packages."""
         query = "*:*"
         fq = "+site_id:\"%s\" " % config.get('ckan.site_id')
         fq += "+state:active "
@@ -404,10 +408,11 @@ class CollectionSearchQuery(SearchQuery):
         data = conn.search(query, fq=fq, rows=max_results, fields='id')
         return [r.get('id') for r in data.docs]
 
-    def get_index(self,reference):
+    def get_index(self, reference):
+        """Check this method: it may not be necessary."""
         query = {
             'rows': 1,
-            'q': 'name:"%s" OR id:"%s"' % (reference,reference),
+            'q': 'name:"%s" OR id:"%s"' % (reference, reference),
             'wt': 'json',
             'fq': 'site_id:"%s"' % config.get('ckan.site_id')}
 
@@ -416,18 +421,17 @@ class CollectionSearchQuery(SearchQuery):
         try:
             solr_response = conn.search(**query)
         except pysolr.SolrError, e:
-            raise SearchError('SOLR returned an error running query: %r Error: %r' %
+            raise SearchError('SOLR returned an error running query: %r Error: %r' %  # noqa: E501
                               (query, e))
 
         if solr_response.hits == 0:
-            raise SearchError('Dataset not found in the search index: %s' % reference)
+            raise SearchError('Dataset not found in the search index: %s' % reference)  # noqa: E501
         else:
             return solr_response.docs[0]
 
-
     def run(self, query, permission_labels=None, **kwargs):
-        '''
-        Performs a dataset search using the given query.
+        """
+        Perform a dataset search using the given query.
 
         :param query: dictionary with keys like: q, fq, sort, rows, facet
         :type query: dict
@@ -438,12 +442,12 @@ class CollectionSearchQuery(SearchQuery):
         :returns: dictionary with keys results and count
 
         May raise SearchQueryError or SearchError.
-        '''
+        """
         assert isinstance(query, (dict, MultiDict))
         # check that query keys are valid
         if not set(query.keys()) <= VALID_SOLR_PARAMETERS:
-            invalid_params = [s for s in set(query.keys()) - VALID_SOLR_PARAMETERS]
-            raise SearchQueryError("Invalid search parameters: %s" % invalid_params)
+            invalid_params = [s for s in set(query.keys()) - VALID_SOLR_PARAMETERS]  # noqa: E501
+            raise SearchQueryError("Invalid search parameters: %s" % invalid_params)  # noqa: E501
 
         # default query is to return all documents
         q = query.get('q')
@@ -469,7 +473,7 @@ class CollectionSearchQuery(SearchQuery):
         fq.append('+site_id:%s' % solr_literal(config.get('ckan.site_id')))
 
         # filter for package status
-        if not '+state:' in query.get('fq', ''):
+        if '+state:' not in query.get('fq', ''):
             fq.append('+state:active')
 
         # only return things we should be able to see
@@ -480,7 +484,7 @@ class CollectionSearchQuery(SearchQuery):
 
         # faceting
         query['facet'] = query.get('facet', 'true')
-        query['facet.limit'] = query.get('facet.limit', config.get('search.facets.limit', '50'))
+        query['facet.limit'] = query.get('facet.limit', config.get('search.facets.limit', '50'))  # noqa: E501
         query['facet.mincount'] = query.get('facet.mincount', 1)
 
         # return the package ID and search scores
@@ -489,10 +493,11 @@ class CollectionSearchQuery(SearchQuery):
         # return results as json encoded string
         query['wt'] = query.get('wt', 'json')
 
-        # If the query has a colon in it then consider it a fielded search and do use dismax.
-        defType = query.get('defType', 'dismax')
-        if ':' not in query['q'] or defType == 'edismax':
-            query['defType'] = defType
+        # If the query has a colon in it then consider it a fielded search
+        # and do use dismax.
+        def_type = query.get('defType', 'dismax')
+        if ':' not in query['q'] or def_type == 'edismax':
+            query['defType'] = def_type
             query['tie'] = query.get('tie', '0.1')
             # this minimum match is explained
             # http://wiki.apache.org/solr/DisMaxQParserPlugin#mm_.28Minimum_.27Should.27_Match.29
@@ -513,10 +518,10 @@ class CollectionSearchQuery(SearchQuery):
                         "Can't determine Sort Order" in e.args[0] or \
                         'Unknown sort order' in e.args[0]:
                     raise SearchQueryError('Invalid "sort" parameter')
-            raise SearchError('SOLR returned an error running query: %r Error: %r' %
+            raise SearchError('SOLR returned an error running query: %r Error: %r' %  # noqa: E501
                               (query, e))
 
-        self.count = solr_response.grouped[GROUP_FIELD]['ngroups'] # ['matches'] gives the total number of datasets
+        self.count = solr_response.grouped[GROUP_FIELD]['ngroups']
         self.results = solr_response.grouped[GROUP_FIELD]['groups']
 
         # #1683 Filter out the last row that is sometimes out of order
@@ -524,7 +529,7 @@ class CollectionSearchQuery(SearchQuery):
 
         # get any extras and add to 'extras' dict
         for result in self.results:
-            extra_keys = filter(lambda x: x.startswith('extras_'), result.keys())
+            extra_keys = filter(lambda x: x.startswith('extras_'), result.keys())  # noqa: E501
             extras = {}
             for extra_key in extra_keys:
                 value = result.pop(extra_key)

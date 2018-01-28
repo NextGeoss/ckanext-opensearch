@@ -36,7 +36,6 @@ def construct_element(element_factory, element_dict):
     tag = element_dict['tag']
     content = element_dict.get('content')
     attr = element_dict.get('attr')
-    children = element_dict.get('children')
 
     if not content and not attr:
         new_el = element_factory(tag)
@@ -56,8 +55,13 @@ def create_nsmap(namespaces, root):
     """
     nsmap = {}
     for key, value in namespaces.items():
-        #if key == root:
-        #    key = None
+        # NOTE: Uncomment to omit the main document namespace
+        # prefix if desired for readability. This could be
+        # a setting.
+        #
+        # if key == root:
+        #     key = None
+        ######################################################
         nsmap[key] = value
 
     return nsmap

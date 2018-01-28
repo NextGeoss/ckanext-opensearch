@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Contains classes describing Atom feed elements."""
 
-import uuid
 import re
 from datetime import datetime
 
@@ -12,6 +11,7 @@ from .entry import Entry
 from ckanext.opensearch.config import SHORT_NAME
 from ckanext.opensearch.config import SITE_URL
 from ckanext.opensearch.config import COLLECTIONS
+
 
 class Feed(OSElement):
     """Define the Atom feed element for OpenSearch responses."""
@@ -74,7 +74,8 @@ class AtomSearch(OSElement):
         osdd = request.params.get('collection')
         if osdd in COLLECTIONS:
             title = 'Collection description document'
-            href = '{}/opensearch/description.xml?osdd={}'.format(SITE_URL, osdd)
+            href = ('{}/opensearch/description.xml?osdd={}'
+                    .format(SITE_URL, osdd))
         else:
             title = 'Description document'
             href = '{}/opensearch/description.xml'.format(SITE_URL)

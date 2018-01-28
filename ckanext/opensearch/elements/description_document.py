@@ -7,7 +7,6 @@ from ckan.common import request
 
 from ckanext.opensearch.config import PARAMETERS
 from ckanext.opensearch.config import SITE_URL
-from ckanext.opensearch.config import SITE_TITLE
 from ckanext.opensearch.config import NAMESPACES
 from ckanext.opensearch.config import SHORT_NAME
 from . import OSElement
@@ -26,7 +25,7 @@ class DescriptionDocument(OSElement):
             (SearchURL, description_type),
             (QueryExample, description_type)
         ]
-        attr = {'{http://commons.esipfed.org/ns/discovery/1.2/}version':'1.2'}
+        attr = {'{http://commons.esipfed.org/ns/discovery/1.2/}version': '1.2'}
 
         OSElement.__init__(self, 'opensearch', 'OpenSearchDescription',
                            attr=attr, children=children)
@@ -46,7 +45,8 @@ class DescDescription(OSElement):
         if description_type == 'collection':
             description = 'Search collections of products.'
         else:
-            description = 'Search products in the {} collection.'.format(description_type) 
+            description = ('Search products in the {} collection.'
+                           .format(description_type))
         OSElement.__init__(self, 'opensearch', 'Description',
                            content=description)
 
@@ -75,13 +75,15 @@ class DescSyndication(OSElement):
         OSElement.__init__(self, 'opensearch', 'SyndicationRight',
                            content=rights)
 
+
 class SelfURL(OSElement):
-    """Describe the OS element pointing back to the current description document."""
+    """Describe the OS element containing the link the description document."""
 
     def __init__(self):
         attr = {'rel': 'self', 'type': 'application/opensearchdescription+xml',
                 'template': request.url}
         OSElement.__init__(self, 'opensearch', 'Url', attr=attr)
+
 
 class SearchURL(OSElement):
     """Describe the OpenSearch search template."""
@@ -107,7 +109,6 @@ class SearchURL(OSElement):
         """Create the OpenSearch template based on the various parameters."""
         terms = []
         if description_type is not 'collection':
-            #collection_name = '%20'.join(description_type.split(' '))
             terms.append('collection={}'.format(description_type))
         for param, details in PARAMETERS[description_type].items():
             name = param
@@ -122,7 +123,8 @@ class SearchURL(OSElement):
             terms.append(term)
         terms = '&'.join(terms)
 
-        search_template = '{}/opensearch/search.atom?{}'.format(SITE_URL, terms)
+        search_template = '{}/opensearch/search.atom?{}'.format(SITE_URL,
+                                                                terms)
 
         return search_template
 
@@ -185,9 +187,9 @@ class SearchProfile(OSElement):
 
     def __init__(self):
         link = OrderedDict()
-        link['title'] = 'This parameter follows the Lucene free text search implementations'
+        link['title'] = 'This parameter follows the Lucene free text search implementations'  # noqa: E501
         link['rel'] = 'profile'
-        link['href'] = 'http://lucene.apache.org/core/2_9_4/queryparsersyntax.html'
+        link['href'] = 'http://lucene.apache.org/core/2_9_4/queryparsersyntax.html'  # noqa: E501
         OSElement.__init__(self, 'atom', 'link', attr=link)
 
 

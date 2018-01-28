@@ -6,7 +6,6 @@ from ckan.lib import helpers as h
 from ckan.common import request
 
 from . import OSElement
-from .earth_observation import EarthObservation
 
 
 class Entry(OSElement):
@@ -63,7 +62,8 @@ class CollectionID(OSElement):
     """Define a collection entry's Atom ID element."""
 
     def __init__(self, data_dict):
-        base_url = request.url.split('opensearch')[0] + 'opensearch/search.atom?collection='
+        base_url = '{}opensearch/search.atom?collection='.format(
+                request.url.split('opensearch')[0])
         identifier = base_url + data_dict['collection_id']
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
@@ -98,7 +98,8 @@ class CollectionDescription(OSElement):
     def __init__(self, data_dict):
         title = data_dict.get('collection_title', 'untitled')
         count = str(data_dict.get('collection_count', 0))
-        text = '{} matching products found in the {} collection.'.format(count, title)
+        text = '{} matching products found in the {} collection.'.format(
+                count, title)
         OSElement.__init__(self, 'atom', 'summary', content=text)
 
 
@@ -118,7 +119,7 @@ class CollectionDescribedBy(OSElement):
     def __init__(self, data_dict):
         collection_name = data_dict['collection_name']
         if 'urn:ogc:def:EOP:VITO' in collection_name:
-            url = 'http://www.vito-eodata.be/collections/srv/eng/main.home?uuid=' + collection_name
+            url = 'http://www.vito-eodata.be/collections/srv/eng/main.home?uuid=' + collection_name  # noqa: E501
         elif 'Sentinel' in collection_name:
             url = 'https://sentinels.copernicus.eu/web/sentinel'
         else:
@@ -131,6 +132,7 @@ class CollectionDescribedBy(OSElement):
         }
         OSElement.__init__(self, 'atom', 'link', attr=link)
 
+
 class CollectionOSDD(OSElement):
     """
     Define an element containing a link to the OpenSearch description
@@ -138,7 +140,8 @@ class CollectionOSDD(OSElement):
     """
 
     def __init__(self, data_dict):
-        base_url = request.url.split('opensearch')[0] + 'opensearch/description.xml?osdd='
+        base_url = '{}opensearch/description.xml?osdd='.format(
+                request.url.split('opensearch')[0])
         url = base_url + data_dict['collection_id']
         attr = {'rel': 'search',
                 'type': 'application/opensearchdescription+xml',
@@ -147,14 +150,14 @@ class CollectionOSDD(OSElement):
 
 
 class CollectionVia(OSElement):
-    """URL pointing to a metadata representation of the collection at the source."""
+    """URL pointing to the source's metadata about the collection."""
     # We can include pages on the Data Hub with info about the collections and
     # point there instead of to the original pages in the future.
 
     def __init__(self, data_dict):
         collection_name = data_dict['collection_name']
         if 'urn:ogc:def:EOP:VITO' in collection_name:
-            url = 'http://www.vito-eodata.be/collections/srv/eng/xml_iso19139?uuid=' + collection_name
+            url = 'http://www.vito-eodata.be/collections/srv/eng/xml_iso19139?uuid=' + collection_name  # noqa: E501
             content_type = 'application/vnd.iso.19139+xml'
         elif 'Sentinel' in collection_name:
             url = 'https://sentinels.copernicus.eu/web/sentinel'
@@ -177,7 +180,8 @@ class CollectionContent(OSElement):
     """
 
     def __init__(self, data_dict):
-        content = data_dict.get('collection_description', 'No description of this collection is available.')
+        content = data_dict.get('collection_description',
+                                'No description available.')
         attr = {'type': 'text'}
         OSElement.__init__(self, 'atom', 'content', attr=attr, content=content)
 
@@ -381,7 +385,8 @@ class ResourceLink(OSElement):
     """
 
     def __init__(self, resource_dict):
-        mime_type = resource_dict.get('mimetype') or 'application/octect-stream'
+        default = 'application/octet-stream'
+        mime_type = resource_dict.get('mimetype') or default
         name = resource_dict.get('name', 'Untitled')
         if name == 'Manifest Download':
             link = {
@@ -408,7 +413,7 @@ class ResourceLink(OSElement):
 
 
 class ThumbnailLink(OSElement):
-    """Define an Atom element linking to the quicklook/thumbnail for a dataset."""
+    """Define an Atom link to a dataset's thumbnail."""
 
     def __init__(self, entry_dict):
         thumbnail = OSElement._get_from_extras(self, entry_dict, ['thumbnail'])

@@ -357,7 +357,8 @@ class ProcessingInformation(OSElement):
         children = [
             (ProcessingCenter, entry_dict)
         ]
-        OSElement.__init__(self, 'eop', 'processingInformation', children=children)
+        OSElement.__init__(self, 'eop', 'processingInformation',
+                           children=children)
 
 
 class ProcessingCenter(OSElement):
@@ -370,13 +371,3 @@ class ProcessingCenter(OSElement):
         keys = []
         content = OSElement._get_from_extras(self, entry_dict, keys)
         OSElement.__init__(self, 'eop', 'processingCenter', content=content)
-
-
-class OMResult(OSElement):
-    """Define an om result element, which contains additional metadata."""
-
-    def __init__(self, entry_dict):
-        children = [
-            (OptEarthObservationResult, entry_dict),
-            ()
-        ]

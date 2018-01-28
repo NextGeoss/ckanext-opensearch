@@ -13,7 +13,6 @@ from ckan.lib.base import abort, BaseController
 from ckan.common import _, c, request, response
 import ckan.logic as logic
 import ckan.model as model
-from ckan import plugins
 
 from .config import ELEMENTS, NAMESPACES, PARAMETERS, TEMPORAL_START,\
     TEMPORAL_END, COLLECTIONS
@@ -76,8 +75,9 @@ class OpenSearchController(BaseController):
 
         fq = ''
         for (param, value) in param_dict.items():
-            if param not in ['q', 'page', 'sort', 'begin', 'end', 'rows', 'date_modified'] \
-                and len(value) and not param.startswith('_'):  # noqa: E125
+            skip = ['q', 'page', 'sort', 'begin', 'end', 'rows',
+                    'date_modified']
+            if param not in skip and len(value) and not param.startswith('_'):
                 if not param.startswith('ext_'):
                     fq += ' %s:"%s"' % (param, value)
 
@@ -87,8 +87,9 @@ class OpenSearchController(BaseController):
             begin = param_dict.get('begin')
             end = param_dict.get('end')
 
-            # If begin or end are empty (e.g., "begin="), get will return an empty
-            # string rather than the alternate value, so we need this second step.
+            # If begin or end are empty (e.g., "begin="), get will return an
+            # empty string rather than the alternate value,
+            # so we need this second step.
             if begin or end:
                 if not begin:
                     begin = '*'
@@ -112,7 +113,7 @@ class OpenSearchController(BaseController):
         geometry = param_dict.get('ext_geometry', None)
         if geometry:
             # Validate the polygon
-            geometry_filter = ' +spatial_geom:"Intersects({})"'.format(geometry)
+            geometry_filter = ' +spatial_geom:"Intersects({})"'.format(geometry)  # noqa: E501
             fq += geometry_filter
 
         # Add any additional facets that are necessary behind the scenes
@@ -131,26 +132,17 @@ class OpenSearchController(BaseController):
 
     def make_query_dict(self, param_dict, search_type):
         """
-        Make a dictionary of parameters and values that will be used for
-        the OpenSearch Query element in the response. The formatting is
-        is different from the query/parameter dictionary that CKAN already
-        provides, so we need to do a bit of work first to rename them
-        and combine parameters that occur more than once into a single
+        Make a dict of parames and values for Query element in the response.
+
+        The formatting is is different from the query/parameter dictionary that
+        CKAN already provides, so we need to do a bit of work first to rename
+        them and combine parameters that occur more than once into a single
         string.
         """
         query_dict = OrderedDict()
 
         # XML attributes are unique per element, so parameters that occur more
         # than once in a query must me combined into a space-delimited string.
-        #for (param, value) in param_dict.items():
-        #    os_name = PARAMETERS[search_type][param]['os_name']
-        #    if os_name not in query_dict:
-        #        query_dict[os_name] = value
-        #    else:
-        #        query_dict[os_name] += ' {}'.format(value)
-
-        #return query_dict
-
         for (param, value) in param_dict.items():
             if param != 'Collection':
                 os_name = PARAMETERS[search_type][param]['os_name']
@@ -170,6 +162,8 @@ class OpenSearchController(BaseController):
 
     def process_query(self, search_type):
         """
+        Process the search query.
+
         It may be possible to hook into CKAN's standard search method
         using the `before_search` and `after_search` interfaces,
         but it appears that those hooks are only intended for modifying
@@ -187,10 +181,7 @@ class OpenSearchController(BaseController):
             abort(403, _('Not authorized to see this page'))
 
         search_type = request.params.get('collection', 'collection')
-        #print search_type
-        #print search_type not in COLLECTIONS and search_type != 'collection'
-        #if search_type not in COLLECTIONS and search_type != 'collection':
-        #    abort(400, _('Invalid collection name'))
+
         # Get the query parameters and remove 'amp' if it has snuck in.
         # Strip any parameters that aren't valid as per CEOS-BP-009B.
         param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
@@ -227,7 +218,7 @@ class OpenSearchController(BaseController):
         if search_type == 'collection':
             results_dict = results_dict = collection_search(context, data_dict)
         else:
-            results_dict = logic.get_action('package_search')(context, data_dict)
+            results_dict = logic.get_action('package_search')(context, data_dict)  # noqa: E501
 
         results_dict['items_per_page'] = data_dict['rows']
 
@@ -249,7 +240,8 @@ class OpenSearchController(BaseController):
             previous_page = current_page - 1
         results_dict['prev_page'] = previous_page
 
-        results_dict['last_page'] = int(math.ceil(total_results / float(requested_rows)))
+        results_dict['last_page'] = int(
+            math.ceil(total_results / float(requested_rows)))
 
         results_dict['start_index'] = expected_results - requested_rows + 1
 
@@ -282,10 +274,7 @@ class OpenSearchController(BaseController):
         return self._finish(200, response_data, content_type)
 
     def _finish(self, status_int, response_data, content_type):
-        """
-        When a controller method has completed, call this method
-        to prepare the response.
-        """
+        """Prepare the response once the controller method has finished."""
         response.charset = 'UTF-8'
         response.status_int = status_int
         response.headers['Content-Type'] = content_type + '; charset=UTF-8'

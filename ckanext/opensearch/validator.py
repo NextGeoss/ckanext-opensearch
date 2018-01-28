@@ -23,7 +23,7 @@ class QueryValidator(object):
     def _has_params(self):
         """Verify that there really is a query."""
         if not self.param_dict:
-            self.errors.append(_('You must specify at least one valid parameter.'))
+            self.errors.append(_('You must specify at least one valid parameter.'))  # noqa: E501
 
     def _has_no_invalid_params(self):
         """Check for invalid query parameters."""
@@ -107,7 +107,7 @@ class QueryValidator(object):
     def _temporal_is_valid(self, temporal_param):
         """Check if the temporal search parameter is valid."""
         if temporal_param:
-            pattern = re.compile('^[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?(Z|[\+\-][0-9]{2}:[0-9]{2})?)?$')
+            pattern = re.compile('^[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]+)?(Z|[\+\-][0-9]{2}:[0-9]{2})?)?$')  # noqa: E501
             return pattern.match(temporal_param)
         else:
             return True
@@ -115,21 +115,21 @@ class QueryValidator(object):
     def _start_is_valid(self):
         """Check if the start timestamp is valid."""
         if not self._temporal_is_valid(self.param_dict.get('begin')):
-            self.errors.append(_('time:start must be in the form `YYYY-MM-DDTHH:MM:SS'))
+            self.errors.append(_('time:start must be in the form `YYYY-MM-DDTHH:MM:SS'))  # noqa: E501
 
     def _end_is_valid(self):
         """Check if the end timestamp is valid."""
         if not self._temporal_is_valid(self.param_dict.get('end')):
-            self.errors.append(_('time:end must be in the form `YYYY-MM-DDTHH:MM:SS'))
+            self.errors.append(_('time:end must be in the form `YYYY-MM-DDTHH:MM:SS'))  # noqa: E501
 
     def _date_modified_is_valid(self):
         """Check if the end timestamp is valid."""
         date_modified = self.param_dict.get('date_modified')
         if date_modified:
             print 'validating date modified'
-            pattern = re.compile('\[[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}]')
+            pattern = re.compile('\[[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}]')  # noqa: E501
             if not pattern.match(date_modified):
-                self.errors.append(_('eo:modificationDate must be in the form `[YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]`'))
+                self.errors.append(_('eo:modificationDate must be in the form `[YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]`'))  # noqa: E501
 
     def _validate_query(self):
         """Update the error list."""
