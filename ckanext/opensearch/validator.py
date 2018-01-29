@@ -3,6 +3,9 @@
 
 import re
 
+import shapely.wkt
+from shapely.geos import ReadingError
+
 from ckan.common import _, config
 
 plugins = config.get('ckan.plugins')
@@ -126,10 +129,18 @@ class QueryValidator(object):
         """Check if the end timestamp is valid."""
         date_modified = self.param_dict.get('date_modified')
         if date_modified:
-            print 'validating date modified'
             pattern = re.compile('\[[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}]')  # noqa: E501
             if not pattern.match(date_modified):
                 self.errors.append(_('eo:modificationDate must be in the form `[YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]`'))  # noqa: E501
+
+    def _geometry_is_valid(self):
+        """Check if the geo:geometry parameter is valid."""
+        geometry = self.param_dict.get('ext_geometry')
+        if geometry:
+            try:
+                shapely.wkt.loads(geometry)
+            except ReadingError:
+                self.errors.append(_('geo:geometry must be expressed as a valid WKT geometry. The following geometries are supported: POINT, LINESTRING, POLYGON, MULTIPOINT, MULTILINESTRING, and MULTIPOLYGON.'))  # noqa: E501
 
     def _validate_query(self):
         """Update the error list."""
@@ -142,7 +153,8 @@ class QueryValidator(object):
             self._bbox_is_valid,
             self._start_is_valid,
             self._end_is_valid,
-            self._date_modified_is_valid
+            self._date_modified_is_valid,
+            self._geometry_is_valid,
         ]
         for check in checks:
             check()
