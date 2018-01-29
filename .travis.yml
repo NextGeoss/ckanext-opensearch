@@ -14,6 +14,6 @@ install:
     - pip install coveralls
 script:
     - ./bin/travis-run.sh
-    - flake8
+    - flake8 --filename=./ckanext/opensearch
 after_success:
     - coveralls
