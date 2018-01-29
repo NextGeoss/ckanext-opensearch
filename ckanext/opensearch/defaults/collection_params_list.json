@@ -24,6 +24,11 @@
         "file": "SENTINEL2_L1C"
     },
     {
+        "name": "Sentinel-2 Level-2A",
+        "id": "SENTINEL2_L2A",
+        "file": "SENTINEL2_L2A"
+    },
+    {
         "name": "Sentinel-3 SRAL Level-1 Calibration",
         "id": "SENTINEL3_SRAL_L1_CAL",
         "file": "SENTINEL3_SRAL_L1_CAL"
