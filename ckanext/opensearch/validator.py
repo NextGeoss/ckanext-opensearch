@@ -4,7 +4,7 @@
 import re
 
 import shapely.wkt
-from shapely.geos import ReadingError
+from shapely.errors import ReadingError, WKTReadingError
 
 from ckan.common import _, config
 
@@ -139,7 +139,7 @@ class QueryValidator(object):
         if geometry:
             try:
                 shapely.wkt.loads(geometry)
-            except ReadingError:
+            except (ReadingError, WKTReadingError):
                 self.errors.append(_('geo:geometry must be expressed as a valid WKT geometry. The following geometries are supported: POINT, LINESTRING, POLYGON, MULTIPOINT, MULTILINESTRING, and MULTIPOLYGON.'))  # noqa: E501
 
     def _validate_query(self):
