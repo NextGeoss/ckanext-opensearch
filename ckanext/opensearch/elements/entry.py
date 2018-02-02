@@ -36,6 +36,7 @@ class Entry(OSElement):
                 (EntryID, entry_dict),
                 (EntryIdentifier, entry_dict),
                 (EntrySelfLink, entry_dict),
+                (EntryCollection, entry_dict),
                 (EntryPublisher, entry_dict),
                 (EntryPublished, entry_dict),
                 (EntryUpdated, entry_dict),
@@ -362,6 +363,32 @@ class AtomContent(OSElement):
     def __init__(self, data_dict):
         content = data_dict.get('notes', 'No summary available.')
         OSElement.__init__(self, 'atom', 'content', content=content)
+
+
+class EntryCollection(OSElement):
+    """
+    Define an Atom link with rel="up" for a product's collection.
+
+    For now, products can only belong to one collection and the collection
+    link will always be displayed.
+
+    This link will only be displayed when appropriate to the context, e.g., the
+    user has searched within collection 'foo', then the link will point to the
+    'foo' collection. If the user searches via the 'bar' collection, the link
+    will point to 'bar'. And if the user accesses the product directly,
+    no link will be displayed.
+    """
+    def __init__(self, entry_dict):
+        collection = entry_dict['extras'].get('Collection', '')
+        href = '{}?collection={}'.format(request.url.split('?')[0],
+                                         collection)
+        link = {
+            'href': href,
+            'title': 'Link to collection',
+            'rel': 'up',
+            'type': 'application/atom+xml'
+        }
+        OSElement.__init__(self, 'atom', 'link', attr=link)
 
 
 class EntryCategory(OSElement):
