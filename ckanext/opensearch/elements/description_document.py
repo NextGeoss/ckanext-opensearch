@@ -44,6 +44,8 @@ class DescDescription(OSElement):
     def __init__(self, description_type):
         if description_type == 'collection':
             description = 'Search collections of products.'
+        elif description_type == 'record':
+            description = 'Access a record by its identifier.'
         else:
             description = ('Search products in the {} collection.'
                            .format(description_type))
@@ -108,7 +110,7 @@ class SearchURL(OSElement):
     def _create_search_template(self, description_type):
         """Create the OpenSearch template based on the various parameters."""
         terms = []
-        if description_type is not 'collection':
+        if description_type not in {'collection', 'record'}:
             terms.append('collection={}'.format(description_type))
         for param, details in PARAMETERS[description_type].items():
             name = param
@@ -123,9 +125,11 @@ class SearchURL(OSElement):
             terms.append(term)
         terms = '&'.join(terms)
 
-        search_template = '{}/opensearch/search.atom?{}'.format(SITE_URL,
-                                                                terms)
-
+        if description_type == 'record':
+            search_template = '{}/opensearch/view_record.atom?{}'.format(SITE_URL, terms)  # noqa: E501
+        else:
+            search_template = '{}/opensearch/search.atom?{}'.format(SITE_URL,
+                                                                    terms)
         return search_template
 
     def _create_param_dicts(self, description_type):

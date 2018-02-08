@@ -5,8 +5,11 @@ import json
 import os
 import inspect
 from collections import OrderedDict
+import logging
 
 from ckan.common import config
+
+log = logging.getLogger(__name__)
 
 
 def load_config_file(file_path):
@@ -133,8 +136,9 @@ for param_pair in get_collection_params_list():
     PARAMETERS[param_pair['id']] = get_parameters(param_pair['file'])
 if config.get('ckanext.opensearch.enable_collections') == 'true':
     PARAMETERS['collection'] = get_parameters('collection_parameters')
+if config.get('ckanext.opensearch.record_view') == 'true':
+    PARAMETERS['record'] = get_parameters('record_parameters')
 COLLECTIONS = [i['id'] for i in get_collection_params_list()]
-print COLLECTIONS
 NAMESPACES = get_namespaces()
 ELEMENTS = get_elements()
 SITE_URL = get_site_url()

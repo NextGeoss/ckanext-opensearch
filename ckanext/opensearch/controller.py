@@ -39,7 +39,8 @@ class OpenSearchController(BaseController):
     def create_description_document(self):
         """Create the OpenSearch description document."""
         search_type = request.params.get('osdd', 'collection')
-        if search_type not in COLLECTIONS and search_type != 'collection':
+        if search_type not in COLLECTIONS and search_type not in {'collection',
+                                                                  'record'}:
             abort(400, _('Invalid osdd name'))
         frame = [DescriptionDocument(search_type).element]
         ns_root = 'opensearch'
@@ -180,13 +181,14 @@ class OpenSearchController(BaseController):
         except logic.NotAuthorized:
             abort(403, _('Not authorized to see this page'))
 
-        search_type = request.params.get('collection', 'collection')
+        if search_type != 'record':
+            search_type = request.params.get('collection', 'collection')
 
         # Get the query parameters and remove 'amp' if it has snuck in.
         # Strip any parameters that aren't valid as per CEOS-BP-009B.
         param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
         query_url = request.url.split('?')[0] + '?'
-        if search_type != 'collection':
+        if search_type not in {'collection', 'record'}:
             c_name = '%20'.join(search_type.split(' '))
             query_url += '{}={}'.format('collection', c_name)
         for param, value in request.params.items():
@@ -196,7 +198,7 @@ class OpenSearchController(BaseController):
                     query_url += '&'
                 query_url += '{}={}'.format(param, value)
 
-        if search_type != 'collection':
+        if search_type not in {'collection', 'record'}:
             param_dict['Collection'] = search_type
 
         # Work in progress: use client_id for usage metrics

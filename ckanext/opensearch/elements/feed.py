@@ -76,6 +76,10 @@ class AtomSearch(OSElement):
             title = 'Collection description document'
             href = ('{}/opensearch/description.xml?osdd={}'
                     .format(SITE_URL, osdd))
+        elif 'view_record' in request.url:
+            title = 'Record view description document'
+            href = ('{}/opensearch/description.xml?osdd={}'
+                    .format(SITE_URL, 'record'))
         else:
             title = 'Description document'
             href = '{}/opensearch/description.xml'.format(SITE_URL)

@@ -37,4 +37,11 @@ class OpensearchPlugin(plugins.SingletonPlugin):
                         controller=controller, action='process_query',
                         search_type='collection')
 
+        # Optional support for viewing XML records of specific datasets
+        if config.get('ckanext.opensearch.record_view') == 'true':
+
+            map.connect('process_query', '/opensearch/view_record.atom',
+                        controller=controller, action='process_query',
+                        search_type='record')
+
         return map
