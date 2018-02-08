@@ -205,8 +205,10 @@ class EntryID(OSElement):
 
     def __init__(self, data_dict):
         # As requested by Pedro for use with the VITO application
+        base_url = request.url.split('opensearch')[0]
         uuid = data_dict['extras'].get('uuid', '')
-        identifier = '{}opensearch/view_record.atom?&uuid={}'.format(uuid)
+        identifier = '{}opensearch/view_record.atom?&uuid={}'.format(
+            base_url, uuid)
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
 
