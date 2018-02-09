@@ -206,9 +206,9 @@ class EntryID(OSElement):
     def __init__(self, data_dict):
         # As requested by Pedro for use with the VITO application
         base_url = request.url.split('opensearch')[0]
-        uuid = data_dict['extras'].get('uuid', '')
-        identifier = '{}opensearch/view_record.atom?&uuid={}'.format(
-            base_url, uuid)
+        identifier = data_dict['extras'].get('identifier', '')
+        identifier = '{}opensearch/view_record.atom?&identifier={}'.format(
+            base_url, identifier)
         OSElement.__init__(self, 'atom', 'id', content=identifier)
 
 
@@ -219,9 +219,9 @@ class EntrySelfLink(OSElement):
         # As requested by Pedro for use with the VITO application
         base_url = request.url.split('opensearch')[0]
         collection = data_dict['extras'].get('Collection', '')
-        uuid = data_dict['extras'].get('uuid', '')
-        url = '{}opensearch/search.atom?collection={}&uuid={}'.format(
-            base_url, collection, uuid)
+        identifier = data_dict['extras'].get('identifier', '')
+        url = '{}opensearch/search.atom?collection={}&identifier={}'.format(
+            base_url, collection, identifier)
         link = {
             'href': url,
             'title': 'self',
@@ -234,7 +234,7 @@ class EntryIdentifier(OSElement):
     """Define the Dubin Core identifier element of an OpenSearch entry."""
 
     def __init__(self, data_dict):
-        identifier = data_dict['extras'].get('uuid', 'No_source_uuid_provided')
+        identifier = data_dict['extras'].get('identifier', 'No identifier')
         OSElement.__init__(self, 'dc', 'identifier', content=identifier)
 
 

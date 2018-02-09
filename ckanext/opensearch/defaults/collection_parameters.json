@@ -46,7 +46,7 @@
         ]
     },
     {
-      "ckan_name": "uuid",
+      "ckan_name": "identifier",
       "os_name": "uid",
       "namespace": "geo",
       "title": "UID",

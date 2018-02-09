@@ -4,7 +4,7 @@
   "about_url": "http://github.com/nextgeoss/ckanext-opensearch#parameters",
   "record_parameters": [
     {
-      "ckan_name": "uuid",
+      "ckan_name": "identifier",
       "os_name": "uid",
       "namespace": "geo",
       "title": "UID",
