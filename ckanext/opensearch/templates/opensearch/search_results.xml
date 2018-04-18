@@ -29,7 +29,7 @@
   <atom:entry>
     <atom:title>{{ entry.title }}</atom:title>
     <atom:id>{{ h.os_make_entry_atom_id(entry) }}</atom:id>
-    <dc:identifier>{{ entry.extras.identifier }}</dc:identifier>
+    <dc:identifier>{{ h.os_make_entry_dc_identifier(entry) }}</dc:identifier>
     <atom:link href="{{ h.os_make_entry_self_url(entry) }}" rel="self" title="self"/>
     {% set collection_url = h.os_make_entry_collection_url(entry) -%}
     {% if collection_url -%}

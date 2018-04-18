@@ -43,6 +43,7 @@ class OpensearchPlugin(plugins.SingletonPlugin):
             'os_make_entry_publisher': helpers.make_entry_publisher,
             'os_make_entry_resource': helpers.make_entry_resource,
             'os_filter_options': helpers.filter_options,
+            'os_make_entry_dc_identifier': helpers.make_entry_dc_identifier,
             'os_make_collection_search_url': helpers.make_collection_search_url
         }
 

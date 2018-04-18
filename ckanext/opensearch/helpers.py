@@ -144,7 +144,7 @@ def make_entry_atom_id(entry):
     """
     Define the ID element of an OpenSearch entry.
 
-    Here we define the ID as the URL  of the dataset created using the
+    Here we define the ID as the URL of the dataset created using the
     CKAN ID of the dataset.
     """
     # As requested by Pedro for use with the VITO application
@@ -152,6 +152,12 @@ def make_entry_atom_id(entry):
         SITE_URL, get_from_extras(entry, 'identifier'))
 
     return atom_id
+
+
+def make_entry_dc_identifier(entry):
+    """Define the dc:identifier element of an OpenSearch entry."""
+    # As requested by Pedro for use with the VITO application
+    return get_from_extras(entry, 'identifier')
 
 
 def make_entry_dc_date(entry):
