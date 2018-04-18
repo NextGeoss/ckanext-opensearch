@@ -181,7 +181,7 @@ These defaults are chosen to comply with OGC OpenSearch best practices. For more
     - atom:summary
     - dc:date
     - georss:polygon
-    - atom:link rel="alternate"/>
+    - atom:link rel="alternate"
     - atom:category
     - atom:link rel="enclosure"
 
