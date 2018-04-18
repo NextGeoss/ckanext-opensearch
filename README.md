@@ -1,5 +1,4 @@
 [![Travis](https://travis-ci.org/NextGeoss/ckanext-opensearch.svg?branch=master)](https://travis-ci.org/NextGeoss/ckanext-opensearch)
-[![Coveralls](https://coveralls.io/repos/NextGeoss/ckanext-opensearch/badge.svg)](https://coveralls.io/r/NextGeoss/ckanext-opensearch)
 
 # ckanext-opensearch
 
