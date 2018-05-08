@@ -47,6 +47,51 @@
         "name": "Sentinel-3 SRAL Level-2 Water",
         "id": "SENTINEL3_SRAL_L2_WAT",
         "file": "sentinel_parameters"
+    },
+    {
+        "name": "Global Observed Sea Surface Temperature",
+        "id": "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Arctic Ocean Observed Sea Ice Concentration",
+        "id": "METNO-GLO-SEAICE_CONC-NORTH-L4-NRT-OBS",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Antarctic Ocean Observed Sea Ice Concentration",
+        "id": "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Arctic Ocean Physics Analysis and Forecast",
+        "id": "ARCTIC_ANALYSIS_FORECAST_PHYS_002_001_A",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "MetOP-A GOME-2 Ozone (O3)",
+        "id": "METOP_A_GOME2_O3",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "MetOP-A GOME-2 Nitrogen Dioxide (NO2)",
+        "id": "METOP_A_GOME2_NO2",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "MetOP-A GOME-2 Tropospheric Nitrogen Dioxide (NO2)",
+        "id": "METOP_A_GOME2_TropNO3",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "MetOP-A GOME-2 Sulphur Dioxide (SO2)",
+        "id": "METOP_A_GOME2_SO3",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "MetOP-A GOME-2 Sulphur Dioxide (SO2) mass",
+        "id": "METOP_A_GOME2_SO2mass",
+        "file": "sentinel_parameters"
     }
   ]
 }
