@@ -32,6 +32,9 @@ class OpenSearchController(BaseController):
         except logic.NotAuthorized:
             abort(403, _('Not authorized to see this page'))
 
+        if not c.userobj.get("discoveryUserBeta") == "true":
+            abort(403, _('Not authorized to see this page'))
+
         return context
 
     def return_description_document(self):
