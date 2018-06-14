@@ -32,7 +32,7 @@ class OpenSearchController(BaseController):
         except logic.NotAuthorized:
             abort(403, _('Not authorized to see this page'))
 
-        if not c.userobj and c.userobj.get("discoveryUserBeta") == "true":
+        if not c.userobj.about == "true":
             abort(403, _('Not authorized to see this page'))
 
         return context
