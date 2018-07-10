@@ -5,6 +5,7 @@ import logging
 
 from ckan.lib.base import (abort,
                            BaseController)
+import ckan.lib.helpers as h
 from ckan.common import (_,
                          c,
                          config,
@@ -68,3 +69,6 @@ class OpenSearchController(BaseController):
         response.headers['Content-Type'] = content_type + '; charset=UTF-8'
 
         return response_data
+
+    def home(self):
+        return h.redirect_to('/')
