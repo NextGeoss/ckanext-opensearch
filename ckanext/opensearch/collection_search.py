@@ -8,6 +8,7 @@ import pysolr
 from paste.deploy.converters import asbool
 from paste.util.multidict import MultiDict
 import six
+import ast
 
 from ckan.common import config
 from ckan.lib.search.common import make_connection, SearchError,\
