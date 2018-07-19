@@ -304,6 +304,8 @@ def new_extras(package_extras, auto_clean=False, subs=None, exclude=None):
         exclude = config.get('package_hide_extras', [])
     output = []
     for extra in sorted(package_extras, key=lambda x: x['key']):
+        print type(extra)
+        print str(extra)
         if extra.get('state') == 'deleted':
             continue
         extras_tmp = ast.literal_eval(extra['value'])
