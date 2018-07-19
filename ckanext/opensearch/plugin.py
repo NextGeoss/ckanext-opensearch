@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """This module contains the OpenSearch plugin."""
 
+import os
+import six
+
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 from ckan.common import config
@@ -65,7 +68,7 @@ class OpensearchPlugin(plugins.SingletonPlugin):
                     search_type='dataset')
 
         # Optional support for two-step (collection->dataset) search
-        if config.get('ckanext.opensearch.enable_collections') == 'true':
+        if six.text_type(os.environ.get('CKANEXT__OPENSEARCH__ENABLE_COLLECTIONS', config.get('ckanext.opensearch.enable_collections', ''))).strip() == "true":
 
             map.connect('create_description_document',
                         '/opensearch/collections/description.xml',
@@ -78,7 +81,7 @@ class OpensearchPlugin(plugins.SingletonPlugin):
                         search_type='collection')
 
         # Optional support for viewing XML records of specific datasets
-        if config.get('ckanext.opensearch.record_view') == 'true':
+        if six.text_type(os.environ.get('CKANEXT__OPENSEARCH__RECORD_VIEW', config.get('ckanext.opensearch.record_view', ''))).strip() == "true":
 
             map.connect('process_query', '/opensearch/view_record.atom',
                         controller=controller, action='return_search_results',

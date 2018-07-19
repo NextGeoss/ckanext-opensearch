@@ -6,6 +6,7 @@ import os
 import inspect
 from collections import OrderedDict
 import logging
+import six
 
 from ckan.common import config
 
@@ -76,22 +77,22 @@ def get_namespaces():
 
 def get_site_url():
     """Return the URL of the site for constructing template URLs."""
-    return config.get('ckan.site_url', '')
+    return six.text_type(os.environ.get('CKAN_SITE_URL', config.get('ckan.site_url', ''))).strip()
 
 
 def get_site_title():
     """Return the name of the site."""
-    return config.get('ckan.site_title', 'CKAN Portal')
+    return six.text_type(os.environ.get('CKAN__SITE_TITLE', config.get('ckan.site_title', 'CKAN Portal'))).strip()
 
 
 def get_temporal_start_field():
     """Return the database field to use for the start of temporal searches."""
-    return config.get('ckanext.opensearch.temporal_start')
+    return six.text_type(os.environ.get('CKANEXT__OPENSEARCH__TEMPORAL_START', config.get('ckanext.opensearch.temporal_start', ''))).strip()
 
 
 def get_temporal_end_field():
     """Return the database field to use for the end of temporal searches."""
-    return config.get('ckanext.opensearch.temporal_end')
+    return six.text_type(os.environ.get('CKANEXT__OPENSEARCH__TEMPORAL_END', config.get('ckanext.opensearch.temporal_end', ''))).strip()
 
 
 def get_short_name():
@@ -101,7 +102,7 @@ def get_short_name():
     The short name must not be longer than 16 characters.
     """
     # TODO: Validate length of short name.
-    return config.get('ckanext.opensearch.short_name', 'CKAN Portal')
+    return six.text_type(os.environ.get('CKANEXT__OPENSEARCH__SHORT_NAME', config.get('ckanext.opensearch.short_name', 'CKAN Portal'))).strip()
 
 
 def get_collection_params_list():
@@ -115,7 +116,7 @@ def get_collection_params_list():
 
 def get_group_field():
     """Return the name of the field for grouping collection search results."""
-    return config.get('ckanext.opensearch.group_on', 'title')
+    return six.text_type(os.environ.get('CKANEXT__OPENSEARCH__GROUP_ON', config.get('ckanext.opensearch.group_on', 'title'))).strip()
 
 
 # Constants
@@ -133,4 +134,4 @@ TEMPORAL_START = get_temporal_start_field()
 TEMPORAL_END = get_temporal_end_field()
 SHORT_NAME = get_short_name()
 GROUP_FIELD = get_group_field()
-COLLECTIONS_ENABLED = config.get('ckanext.opensearch.enable_collections')
+COLLECTIONS_ENABLED = six.text_type(os.environ.get('CKANEXT__OPENSEARCH__ENABLE_COLLECTIONS', config.get('ckanext.opensearch.enable_collections', ''))).strip()
