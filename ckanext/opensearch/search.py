@@ -7,7 +7,7 @@ from collections import OrderedDict
 from datetime import datetime
 import math
 import re
-import json
+import ast
 
 from webob.multidict import (MultiDict,
                              UnicodeMultiDict)
@@ -300,5 +300,4 @@ def make_results_feed(search_type, params, request_url, context):
 def new_extras(package_extras, auto_clean=False, subs=None, exclude=None):
     """Necessary because we're storing them as a string."""
 
-    return json.loads(package_extras[0]["value"])
-
+    return ast.literal_eval(package_extras[0]["value"])
