@@ -6,6 +6,7 @@ import os
 import inspect
 from collections import OrderedDict
 import logging
+import six
 
 from ckan.common import config
 
@@ -133,4 +134,4 @@ TEMPORAL_START = get_temporal_start_field()
 TEMPORAL_END = get_temporal_end_field()
 SHORT_NAME = get_short_name()
 GROUP_FIELD = get_group_field()
-COLLECTIONS_ENABLED = config.get('ckanext.opensearch.enable_collections')
+COLLECTIONS_ENABLED = six.text_type(os.environ.get('CKANEXT__OPENSEARCH__ENABLE_COLLECTIONS', config.get('ckanext.opensearch.enable_collections', ''))).strip()
