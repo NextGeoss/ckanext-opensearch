@@ -218,7 +218,7 @@ def make_entry_collection_url(entry):
     """
     collection = get_from_extras(entry, 'collection_id')
     if collection:
-        return '{}?collection_id={}'.format(SITE_URL, collection)
+        return '{}/opensearch/search.atom?collection_id={}'.format(SITE_URL, collection)
     else:
         return None
 

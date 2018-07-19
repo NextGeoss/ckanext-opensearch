@@ -65,17 +65,17 @@ class OpensearchPlugin(plugins.SingletonPlugin):
                     search_type='dataset')
 
         # Optional support for two-step (collection->dataset) search
-        if config.get('ckanext.opensearch.enable_collections') == 'true':
+        #if config.get('ckanext.opensearch.enable_collections') == 'true':
 
-            map.connect('create_description_document',
-                        '/opensearch/collections/description.xml',
-                        controller=controller,
-                        action='create_description_document',
-                        search_type='collection')
+        #map.connect('create_description_document',
+        #            '/opensearch/collections/description.xml',
+        #            controller=controller,
+        #            action='create_description_document',
+        #            search_type='collection')
 
-            map.connect('process_query', '/opensearch/collection_search.atom',
-                        controller=controller, action='return_search_results',
-                        search_type='collection')
+        map.connect('process_query', '/opensearch/collection_search.atom',
+                    controller=controller, action='return_search_results',
+                    search_type='collection')
 
         # Optional support for viewing XML records of specific datasets
         #if config.get('ckanext.opensearch.record_view') == 'true':

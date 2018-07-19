@@ -31,11 +31,11 @@ def load_settings(settings_name):
     Load the JSON file containing the named settings specified in the
     INI file.
     """
-    config_name = 'ckanext.opensearch.' + settings_name
+    #config_name = 'ckanext.opensearch.' + settings_name
     default_location = 'ckanext.opensearch.defaults:{}.json'.\
         format(settings_name)
-    location = config.get(config_name, default_location)
-    file = load_config_file(location)
+    #location = config.get(config_name, default_location)
+    file = load_config_file(default_location)
     json_data = json.load(file)
     settings = json_data.get(settings_name)
 

@@ -194,6 +194,9 @@ def process_query(search_type, params, request_url, context):
     else:
         results_dict = logic.get_action('package_search')(context,
                                                           data_dict)
+        for result in results_dict['results']:
+            result['extras'] = new_extras(result['extras'])
+
     # We'll need to refactor this. we don't want to rely on the request
     # global when creating the feed, so we're adding this info here.
     results_dict['request_url'] = request_url
@@ -248,9 +251,6 @@ def process_query(search_type, params, request_url, context):
     results_dict['next_url'] = make_nav_url(query_url, next_page)
     results_dict['prev_url'] = make_nav_url(query_url, prev_page)
     results_dict['last_url'] = make_nav_url(query_url, last_page)
-
-    for result in results_dict['results']:
-        result['extras'] = new_extras(result['extras'])
 
     return results_dict
 
