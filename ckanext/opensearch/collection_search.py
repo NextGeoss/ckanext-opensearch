@@ -152,6 +152,7 @@ def process_grouped_results(results):
     for i in results:
         dataset_json = i['doclist']['docs'][0]['validated_data_dict']
         dataset_dict = json.loads(dataset_json)
+        dataset_dict['extras'] = convert_string_extras(dataset_dict['extras'])
         processed_results.append(
             {'collection_name': get_from_extras(dataset_dict,
                                                 'collection_name',
@@ -334,3 +335,13 @@ class CollectionSearchQuery(SearchQuery):
             self.facets[field] = dict(zip(values[0::2], values[1::2]))
 
         return {'results': self.results, 'count': self.count}
+
+
+def convert_string_extras(extras_list):
+    """Convert extras stored as a string back into a normal extras list."""
+    try:
+        extras = ast.literal_eval(extras_list[0]["value"])
+        assert type(extras) == list
+        return extras
+    except:
+        return extras_list
