@@ -299,6 +299,6 @@ def convert_string_extras(extras_list):
     try:
         extras = ast.literal_eval(extras_list[0]["value"])
         assert type(extras) == list
-        extras
+        return extras
     except:
         return extras_list
