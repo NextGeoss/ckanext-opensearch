@@ -7,6 +7,7 @@ from collections import OrderedDict
 from datetime import datetime
 import math
 import re
+import ast
 
 from webob.multidict import (MultiDict,
                              UnicodeMultiDict)
@@ -190,6 +191,9 @@ def process_query(search_type, params, request_url, context):
     else:
         results_dict = logic.get_action('package_search')(context,
                                                           data_dict)
+        for result in results_dict['results']:
+            result['extras'] = convert_string_extras(result['extras'])
+
     # We'll need to refactor this. we don't want to rely on the request
     # global when creating the feed, so we're adding this info here.
     results_dict['request_url'] = request_url
@@ -288,3 +292,13 @@ def make_results_feed(search_type, params, request_url, context):
     results_dict = process_query(search_type, params, request_url, context)
 
     return make_atom_feed(results_dict, search_type)
+
+
+def convert_string_extras(extras_list):
+    """Convert extras stored as a string back into a normal extras list."""
+    try:
+        extras = ast.literal_eval(extras_list[0]["value"])
+        assert type(extras) == list
+        extras
+    except:
+        return extras_list
