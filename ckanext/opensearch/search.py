@@ -24,6 +24,9 @@ from .config import (NAMESPACES,
                      SITE_URL)
 from .validator import QueryValidator
 
+from ckan.common import config
+import ast
+
 
 def translate_os_query(param_dict):
     """
@@ -245,6 +248,9 @@ def process_query(search_type, params, request_url, context):
     results_dict['prev_url'] = make_nav_url(query_url, prev_page)
     results_dict['last_url'] = make_nav_url(query_url, last_page)
 
+    for result in results_dict['results']:
+        result['extras'] = new_extras(result['extras'])
+
     return results_dict
 
 
@@ -288,3 +294,29 @@ def make_results_feed(search_type, params, request_url, context):
     results_dict = process_query(search_type, params, request_url, context)
 
     return make_atom_feed(results_dict, search_type)
+
+
+def new_extras(package_extras, auto_clean=False, subs=None, exclude=None):
+    """Necessary because we're storing them as a string."""
+
+    # If exclude is not supplied use values defined in the config
+    if not exclude:
+        exclude = config.get('package_hide_extras', [])
+    output = []
+    for extra in sorted(package_extras, key=lambda x: x['key']):
+        if extra.get('state') == 'deleted':
+            continue
+        extras_tmp = ast.literal_eval(extra['value'])
+
+        for ext in extras_tmp:
+            k, v = ext['key'], ext['value']
+            if k in exclude:
+                continue
+            if subs and k in subs:
+                k = subs[k]
+            elif auto_clean:
+                k = k.replace('_', ' ').replace('-', ' ').title()
+            if isinstance(v, (list, tuple)):
+                v = ", ".join(map(unicode, v))
+            output.append((k, v))
+    return output
