@@ -95,12 +95,12 @@
     },
     {
         "name": "MetOP-A GOME-2 Tropospheric Nitrogen Dioxide (NO2)",
-        "id": "METOP_A_GOME2_TropNO3",
+        "id": "METOP_A_GOME2_TropNO2",
         "file": "sentinel_parameters"
     },
     {
         "name": "MetOP-A GOME-2 Sulphur Dioxide (SO2)",
-        "id": "METOP_A_GOME2_SO3",
+        "id": "METOP_A_GOME2_SO2",
         "file": "sentinel_parameters"
     },
     {
