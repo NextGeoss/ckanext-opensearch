@@ -69,6 +69,21 @@
         "file": "sentinel_parameters"
     },
     {
+        "name": "Global Ocean Gridded L4 Sea Surface Heights and Derived Variables NRT",
+        "id": "SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Global Ocean Physics Analysis and Forecast (Hourly)",
+        "id": "GLOBAL_ANALYSIS_FORECAST_PHY_001_024",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Global Total Surface and 15m Current (Hourly)",
+        "id": "MULTIOBS_GLO_PHY_NRT_015_003",
+        "file": "sentinel_parameters"
+    },
+    {
         "name": "MetOP-A GOME-2 Ozone (O3)",
         "id": "METOP_A_GOME2_O3",
         "file": "sentinel_parameters"
