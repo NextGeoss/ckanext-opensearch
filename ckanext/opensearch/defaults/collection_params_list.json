@@ -49,6 +49,36 @@
         "file": "sentinel_parameters"
     },
     {
+        "name": "Sentinel-3 OLCI Level-1 Full Resolution",
+        "id": "SENTINEL3_OLCI_L1_EFR",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 OLCI Level-1 Reduced Resolution",
+        "id": "SENTINEL3_OLCI_L1_ERR",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 OLCI Level-2 Land Full Resolution",
+        "id": "SENTINEL3_OLCI_L2_LFR",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 OLCI Level-2 Land Reduced Resolution",
+        "id": "SENTINEL3_OLCI_L2_LRR",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 SLSTR Level-1 Radiances and Brightness Temperatures",
+        "id": "SENTINEL3_SLSTR_L1_RBT",
+        "file": "sentinel_parameters"
+    },
+    {
+        "name": "Sentinel-3 SLSTR Level-2 Land Surface Temperature",
+        "id": "SENTINEL3_SLSTR_L2_LST",
+        "file": "sentinel_parameters"
+    },
+    {
         "name": "Global Observed Sea Surface Temperature",
         "id": "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2",
         "file": "sentinel_parameters"
