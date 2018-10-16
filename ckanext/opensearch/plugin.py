@@ -55,9 +55,6 @@ class OpensearchPlugin(plugins.SingletonPlugin):
         """Add the OpenSearch endpoints to the map."""
         controller = 'ckanext.opensearch.controller:OpenSearchController'
 
-        map.connect('home', '/opensearch', controller=controller,
-                    action='home')
-
         map.connect('return_description_document',
                     '/opensearch/description.xml',
                     controller=controller,
