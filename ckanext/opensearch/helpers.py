@@ -99,10 +99,6 @@ def make_search_element_attrs(params, query_url):
         title = '{} description document'.format(osdd)
         href = ('{}/opensearch/description.xml?osdd={}'
                 .format(SITE_URL, osdd))
-    elif 'view_record' in query_url:
-        title = 'Record view description document'
-        href = ('{}/opensearch/description.xml?osdd={}'
-                .format(SITE_URL, 'record'))
     elif 'collection_search' in query_url:
         title = 'Collection description document'
         href = '{}/opensearch/description.xml?osdd=collection'.format(SITE_URL)
@@ -148,7 +144,7 @@ def make_entry_atom_id(entry):
     CKAN ID of the dataset.
     """
     # As requested by Pedro for use with the VITO application
-    atom_id = '{}/opensearch/view_record.atom?&identifier={}'.format(
+    atom_id = '{}/opensearch/search.atom?identifier={}'.format(
         SITE_URL, get_from_extras(entry, 'identifier'))
 
     return atom_id

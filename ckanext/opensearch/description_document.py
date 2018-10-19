@@ -21,8 +21,6 @@ def make_osdd_description(document_type):
         description = 'Search collections of products.'
     elif document_type == 'dataset':
         description = "Search all datasets."
-    elif document_type == 'record':
-        description = 'Access a record by its identifier.'
     else:
         description = ('Search products in the {} collection.'
                        .format(document_type))
@@ -57,7 +55,7 @@ def make_search_rel(document_type):
 def make_search_template(document_type):
     """Create the OpenSearch template based on the various parameters."""
     terms = []
-    if document_type not in {'collection', 'record'}:
+    if document_type not in {'collection'}:
         terms.append('collection_id={}'.format(document_type))
     for param, details in PARAMETERS[document_type].items():
         name = param
@@ -72,12 +70,8 @@ def make_search_template(document_type):
         terms.append(term)
     terms = '&'.join(terms)
 
-    if document_type == 'record':
-        search_template = '{}/opensearch/view_record.atom?{}'.format(SITE_URL,
-                                                                     terms)
-    else:
-        search_template = '{}/opensearch/search.atom?{}'.format(SITE_URL,
-                                                                terms)
+    search_template = '{}/opensearch/search.atom?{}'.format(SITE_URL,
+                                                            terms)
     return search_template
 
 
@@ -106,7 +100,7 @@ def make_parameters(document_type):
 def get_document_type_or_abort(params):
     """Return the type of description document or abort if it's invalid."""
     document_type = params.get('osdd')
-    permitted = {'dataset', 'record'}
+    permitted = {'dataset'}
     if COLLECTIONS_ENABLED:
         permitted = COLLECTIONS | permitted | {'collection'}
     if document_type not in permitted:

@@ -156,7 +156,7 @@ def process_query(search_type, params, request_url, context):
     # Strip any parameters that aren't valid as per CEOS-BP-009B.
     param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
     query_url = request_url.split('?')[0] + '?'
-    if search_type not in {'collection', 'dataset', 'record'}:
+    if search_type not in {'collection', 'dataset'}:
         c_name = '%20'.join(search_type.split(' '))  # TODO: This shouldn't be necessary anymore  # noqa: E501
         query_url += '{}={}'.format('collection_id', c_name)
     for param, value in params.items():
@@ -166,7 +166,7 @@ def process_query(search_type, params, request_url, context):
                 query_url += '&'
             query_url += '{}={}'.format(param, value)
 
-    if search_type not in {'collection', 'dataset', 'record'}:
+    if search_type not in {'collection', 'dataset'}:
         param_dict['collection_id'] = search_type
 
     # Work in progress: use client_id for usage metrics
