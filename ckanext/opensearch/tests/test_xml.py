@@ -4,6 +4,7 @@ import pathlib
 from io import BytesIO
 
 from lxml import etree
+from parameterized import parameterized
 
 import ckan.tests.helpers as helpers
 
@@ -55,6 +56,14 @@ def get_xml(request_url):
     return etree.parse(xml)
 
 
+def get_collection_ids():
+    """Return a list of collection IDs from the config."""
+    filepath = str(HERE.parent / "defaults" / "collection_params_list.json")
+    with open(filepath, "r") as f:
+        collection_params_list = json.load(f)["collection_params_list"]
+        return [collection["id"] for collection in collection_params_list]
+
+
 def setup_db():
     """Reset the test database and add some test datasets."""
     helpers.reset_db()
@@ -76,695 +85,84 @@ def setup_db():
 
 setup_db()
 
+collection_ids = get_collection_ids()
+collection_ids.extend(["collection", "dataset"])
 
-class TestCollectionDescriptionDocument(object):
+description_docs = [(get_xml('/opensearch/description.xml?osdd={}'
+                    .format(collection_id)),)
+                    for collection_id in collection_ids]
+
+
+class TestDescriptionDocuments(object):
     """Class for collection OSDD tests."""
 
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=collection')
-
-    def test_is_valid_osdd(self):
+    @parameterized(description_docs)
+    def test_is_valid_osdd(self, osdd):
         """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
+        assert validate_against_rng(osdd, 'schemas/osdd.rng')
 
-    def test_is_valid_osddgeo(self):
+    @parameterized(description_docs)
+    def test_is_valid_osddgeo(self, osdd):
         """
         Check if the OSDD geo elements are valid according to OGC's schema.
         """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
+        assert validate_against_rng(osdd, 'schemas/osddgeo.rng')
 
-    def test_is_valid_osddtime(self):
+    @parameterized(description_docs)
+    def test_is_valid_osddtime(self, osdd):
         """
         Check if the OSDD time elements are valid according to OGC's schema.
         """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
+        assert validate_against_rng(osdd, 'schemas/osddtime.rng')
 
-    def test_result_osd(self):
+    @parameterized(description_docs)
+    def test_result_osdd(self, osdd):
         """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
+        assert validate_against_rng(osdd, 'tests/result-osd.rng')
 
-    def test_result_osddgeo(self):
+    @parameterized(description_docs)
+    def test_result_osddgeo(self, osdd):
         """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
+        assert validate_against_rng(osdd, 'tests/result-osddgeo.rng')
 
-    def test_result_searchbygeometry(self):
+    @parameterized(description_docs)
+    def test_result_searchbygeometry(self, osdd):
         """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
+        assert validate_against_rng(osdd,
                                     'tests/result-searchbygeometry.rng')
 
-    def test_result_searchbyid(self):
+    @parameterized(description_docs)
+    def test_result_searchbyid(self, osdd):
         """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
+        assert validate_against_rng(osdd, 'tests/result-searchbyid.rng')
 
-    def test_result_searchbyname(self):
+    @parameterized(description_docs)
+    def test_result_searchbyname(self, osdd):
         """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
+        assert validate_against_rng(osdd, 'tests/result-searchbyname.rng')
 
-    def test_result_searchbypointradius(self):
+    @parameterized(description_docs)
+    def test_result_searchbypointradius(self, osdd):
         """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
+        assert validate_against_rng(osdd,
                                     'tests/result-searchbypointradius.rng')
 
-    def test_result_searchbytime(self):
+    @parameterized(description_docs)
+    def test_result_searchbytime(self, osdd):
         """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbytime.rng')
+        assert validate_against_rng(osdd, 'tests/result-searchbytime.rng')
 
-    def test_result_spatialrelations(self):
+    @parameterized(description_docs)
+    def test_result_spatialrelations(self, osdd):
         """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
+        assert validate_against_rng(osdd,
                                     'tests/result-spatialrelations.rng')
 
-    def test_result_timerelations(self):
+    @parameterized(description_docs)
+    def test_result_timerelations(self, osdd):
         """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
+        assert validate_against_rng(osdd,
                                     'tests/result-timerelations.rng')
-
-
-class TestRecordDescriptionDocument(object):
-    """Class for record OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=record')
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid accoridng to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
-
-
-class TestSENTINEL1_L1_SLCDescriptionDocument(object):
-    """Class for SENTINEL1_L1_SLC OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL1_L1_SLC')  # noqa: E501
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestSENTINEL1_L1_GRDDescriptionDocument(object):
-    """Class for SENTINEL1_L1_GRD OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL1_L1_GRD')  # noqa: E501
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestSENTINEL1_L2_OCNDescriptionDocument(object):
-    """Class for SENTINEL1_L2_OCN OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL1_L2_OCN')  # noqa: E501
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestSENTINEL2_L1CDescriptionDocument(object):
-    """Class for SENTINEL2_L1C OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL2_L1C')
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestSENTINEL2_L2ADescriptionDocument(object):
-    """Class for SENTINEL2_L2A OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL2_L2A')
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestSENTINEL3_SRAL_L1_CALDescriptionDocument(object):
-    """Class for SENTINEL3_SRAL_L1_CAL OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL3_SRAL_L1_CAL')  # noqa: E501
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestSENTINEL3_SRAL_L1_SRADescriptionDocument(object):
-    """Class for SENTINEL3_SRAL_L1_SRA OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL3_SRAL_L1_SRA')  # noqa: E501
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestSENTINEL3_SRAL_L2_LANDescriptionDocument(object):
-    """Class for SENTINEL3_SRAL_L2_LAN OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL3_SRAL_L2_LAN')  # noqa: E501
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestSENTINEL3_SRAL_L2_WATDescriptionDocument(object):
-    """Class for SENTINEL3_SRAL_L2_WAT OSDD tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed OSDD."""
-        self.osdd = get_xml('/opensearch/description.xml?osdd=SENTINEL3_SRAL_L2_WAT')  # noqa: E501
-
-    def test_is_valid_osdd(self):
-        """Check if the OSDD is valid according to OCG's schema."""
-        assert validate_against_rng(self.osdd, 'schemas/osdd.rng')
-
-    def test_is_valid_osddgeo(self):
-        """
-        Check if the OSDD geo elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddgeo.rng')
-
-    def test_is_valid_osddtime(self):
-        """
-        Check if the OSDD time elements are valid according to OGC's schema.
-        """
-        assert validate_against_rng(self.osdd, 'schemas/osddtime.rng')
-
-    def test_result_osd(self):
-        """Check if the OSDD passes OGC's result-osd test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osd.rng')
-
-    def test_result_osddgeo(self):
-        """Check if the OSDD passes OGC's result-osdggeo test."""
-        assert validate_against_rng(self.osdd, 'tests/result-osddgeo.rng')
-
-    def test_result_searchbygeometry(self):
-        """Check if the OSDD passes OGC's result-searchbygeometry test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbygeometry.rng')
-
-    def test_result_searchbyid(self):
-        """Check if the OSDD passes OGC's result-searchbyid test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyid.rng')
-
-    def test_result_searchbyname(self):
-        """Check if the OSDD passes OGC's result-searchbyname test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbyname.rng')
-
-    def test_result_searchbypointradius(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-searchbypointradius.rng')
-
-    def test_result_searchbytime(self):
-        """Check if the OSDD passes OGC's result-searchbypointradius test."""
-        assert validate_against_rng(self.osdd, 'tests/result-searchbytime.rng')
-
-    def test_result_spatialrelations(self):
-        """Check if the OSDD passes OGC's result-spatialrelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-spatialrelations.rng')
-
-    def test_result_timerelations(self):
-        """Check if the OSDD passes OGC's result-timerelations test."""
-        assert validate_against_rng(self.osdd,
-                                    'tests/result-timerelations.rng')
-
-
-class TestRecordResultsFeed(object):
-    """Class for record search results tests."""
-
-    def __init__(self):
-        """Initialize the class with a parsed results feed."""
-        params = 'identifier=S1A_IW_SLC__1SDV_20170226T105154_20170226T105221_015454_0195F7_BBA7'  # noqa: E501
-        self.atom_feed = get_xml('/opensearch/view_record.atom?{}'
-                                 .format(params))
-
-    def test_is_valid_atom_feed(self):
-        """Check if the feed is valid according to OGC's Atom schema."""
-        assert validate_against_rng(self.atom_feed, 'schemas/atom_feed.rng')
-
-    def test_is_valid_osatom(self):
-        """
-        Check if the feed is a valid according to OGC's OpenSearch schema.
-        """
-        assert validate_against_rng(self.atom_feed, 'schemas/osatom.rng')
-
-    def test_result_atom(self):
-        """Check if the OSDD passes OGC's result-atom test."""
-        print self.atom_feed
-        assert validate_against_rng(self.atom_feed, 'tests/result-atom.rng')
 
 
 class TestCollectionResultsFeed(object):

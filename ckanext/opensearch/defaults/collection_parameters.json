@@ -81,12 +81,6 @@
         ]
     },
     {
-      "ckan_name": "client_id",
-      "os_name": "source",
-      "namespace": "referrer",
-      "minimum": 0
-    },
-    {
       "ckan_name": "date_modified",
       "os_name": "modificationDate",
       "namespace": "eo",

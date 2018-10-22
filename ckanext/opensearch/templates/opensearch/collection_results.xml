@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<atom:feed {{ h.os_make_attributes(namespaces)|safe }}>
+<atom:feed {{ namespaces|xmlattr(False)|escape }}>
   <atom:title>{{ feed_title }}</atom:title>
   <atom:subtitle>{{ feed_subtitle }}</atom:subtitle>
   <atom:id>{{ feed_id }}</atom:id>
-  <atom:generator {{ h.os_make_attributes(feed_generator_attrs)|safe }}>{{ feed_generator_content}}</atom:generator>
+  <atom:generator {{ feed_generator_attrs|xmlattr(False)|escape }}>{{ feed_generator_content}}</atom:generator>
   <atom:author>
     <atom:name>No author information available</atom:name>
   </atom:author>
@@ -11,11 +11,11 @@
   <opensearch:totalResults>{{ count }}</opensearch:totalResults>
   <opensearch:startIndex>{{ start_index }}</opensearch:startIndex>
   <opensearch:itemsPerPage>{{ items_per_page }}</opensearch:itemsPerPage>
-  <opensearch:Query {{ h.os_make_attributes(query_attrs)|safe }}/>
+  <opensearch:Query {{ query_attrs|xmlattr(False)|escape }}/>
   {%- if feed_box -%}
   <georss:box>{{ feed_box }}</georss:box>
   {%- endif -%}
-  <atom:link {{ h.os_make_attributes(h.os_make_search_element_attrs(params, query_url))|safe}}/>
+  <atom:link {{ h.os_make_search_element_attrs(query_attrs, query_url)|xmlattr(False)|escape}}/>
   <atom:link href="{{ self_url }}" type="application/atom+xml" rel="self" title="self"/>
   <atom:link href="{{ first_url }}" type="application/atom+xml" rel="first" title="first"/>
   {%- if next_url -%}
@@ -38,7 +38,7 @@
     <atom:summary>{{ h.os_make_collection_summary(entry) }}</atom:summary>
     <atom:content type="text">{{ h.os_make_collection_content(entry) }}</atom:content>
     <atom:link href="{{ h.os_make_collection_search_url(entry) }}" type="application/opensearchdescription+xml" rel="search"/>
-    <atom:link {{ h.os_make_attributes(h.os_make_collection_via(entry))|safe }}/>
+    <atom:link {{ h.os_make_collection_via(entry)|xmlattr(False)|escape }}/>
   </atom:entry>
   {%- endfor -%}
 </atom:feed>

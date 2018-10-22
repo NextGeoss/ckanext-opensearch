@@ -27,7 +27,6 @@ class OpensearchPlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {
-            'os_make_attributes': helpers.make_attributes,
             'os_make_collection_id': helpers.make_collection_id,
             'os_make_collection_updated': helpers.make_collection_updated,
             'os_make_collection_dc_date': helpers.make_collection_dc_date,

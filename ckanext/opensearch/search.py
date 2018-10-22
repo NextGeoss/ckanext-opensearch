@@ -26,181 +26,28 @@ from .config import (NAMESPACES,
 from .validator import QueryValidator
 
 
-def translate_os_query(param_dict):
-    """
-    Translate the OpenSearch query parameters based on a template.
+def make_results_feed(search_type, params, request_url, context):
+    """Process the query and return the results feed."""
+    results_dict = process_query(search_type, params, request_url, context)
 
-    The parameters will already have been validated.
-    """
-    # convert params and build data dictionary
-    data_dict = dict()
-
-    data_dict['q'] = param_dict.get('q', '')
-
-    rows = param_dict.get('rows')
-    if not rows:
-        data_dict['rows'] = 20
-    else:
-        data_dict['rows'] = int(rows)
-
-    page = param_dict.get('page')
-    if not page:
-        page = 0
-    else:
-        page = int(page) - 1
-
-    # Set the Solr start index
-    data_dict['start'] = page * data_dict['rows']
-
-    fq = ''
-    for (param, value) in param_dict.items():
-        skip = ['q', 'page', 'sort', 'begin', 'end', 'rows',
-                'date_modified']
-        if param not in skip and len(value) and not param.startswith('_'):
-            if not param.startswith('ext_'):
-                fq += ' %s:"%s"' % (param, value)
-
-    # Temporal search across a start time field and an end time field
-    if TEMPORAL_START and TEMPORAL_END:
-        # Get time range
-        begin = param_dict.get('begin')
-        end = param_dict.get('end')
-
-        # If begin or end are empty (e.g., "begin="), get will return an
-        # empty string rather than the alternate value,
-        # so we need this second step.
-        if begin or end:
-            if not begin:
-                begin = '*'
-            if not end:
-                end = 'NOW'
-
-            time_range = '[{} TO {}]'.format(begin, end)
-            fq += ' {}:{}'.format(TEMPORAL_START, time_range)
-            fq += ' {}:{}'.format(TEMPORAL_END, time_range)
-
-    # Temporal search across metadata_modified
-    date_modified = param_dict.get('date_modified')
-    # Format: [YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]
-    if date_modified:
-        begin = '{}Z'.format(date_modified[1:20])
-        end = '{}Z'.format(date_modified[21:-1])
-        time_range = '[{} TO {}]'.format(begin, end)
-        fq += ' {}:{}'.format('metadata_modified', time_range)
-
-    # Add geometry spatial filter (only works with Solr spatial field)
-    geometry = param_dict.get('ext_geometry', None)
-    if geometry:
-        # Validate the polygon
-        geometry_filter = ' +spatial_geom:"Intersects({})"'.format(geometry)  # noqa: E501
-        fq += geometry_filter
-
-    # Add any additional facets that are necessary behind the scenes
-    fq += ' +dataset_type:dataset'  # Only search datasets; no harvesters
-
-    data_dict['fq'] = fq
-
-    data_dict['ext_bbox'] = param_dict.get('ext_bbox')
-
-    # Define the sorting method here, in case we want to change it vs.
-    # the CKAN defaults
-    data_dict['sort'] = 'score desc, metadata_modified desc'
-    return data_dict
-
-
-def make_query_dict(param_dict, search_type):
-    """
-    Make a dict of parames and values for Query element in the response.
-
-    The formatting is is different from the query/parameter dictionary that
-    CKAN already provides, so we need to do a bit of work first to rename
-    them and combine parameters that occur more than once into a single
-    string.
-    """
-    query_dict = OrderedDict()
-
-    # XML attributes are unique per element, so parameters that occur more
-    # than once in a query must be combined into a space-delimited string.
-    for (param, value) in param_dict.items():
-        if param != 'collection_id':
-            os_name = PARAMETERS[search_type][param]['os_name']
-            namespace = PARAMETERS[search_type][param]['namespace']
-            if namespace == 'opensearch':
-                os_param = os_name
-            else:
-                os_param = '{}:{}'.format(namespace, os_name)
-            if os_param not in query_dict:
-                query_dict[os_param] = value
-            else:
-                query_dict[os_param] += ' {}'.format(value)
-
-    query_dict['role'] = 'request'
-
-    return query_dict
+    return make_atom_feed(results_dict, search_type)
 
 
 def process_query(search_type, params, request_url, context):
     """
-    Process the search query.
-
-    It may be possible to hook into CKAN's standard search method
-    using the `before_search` and `after_search` interfaces,
-    but it appears that those hooks are only intended for modifying
-    the query and results as part of the normal search process,
-    (i.e., via the website or the API) rather than creating a new
-    search process. Underneath, we're still executing a standard
-    CKAN search. We're just using a different validation flow and
-    doing something different with the results.
+    Process the search query. Underneath, we're still executing a standard
+    CKAN search. We're just using a different validation flow and doing
+    something different with the results.
     """
-    # Get the query parameters and remove 'amp' if it has snuck in.
-    # Strip any parameters that aren't valid as per CEOS-BP-009B.
-    param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
-    query_url = request_url.split('?')[0] + '?'
-    if search_type not in {'collection', 'dataset'}:
-        c_name = '%20'.join(search_type.split(' '))  # TODO: This shouldn't be necessary anymore  # noqa: E501
-        query_url += '{}={}'.format('collection_id', c_name)
-    for param, value in params.items():
-        if param != 'amp' and param in PARAMETERS[search_type]:
-            param_dict.add(param, value)
-            if query_url[-1] != '?':
-                query_url += '&'
-            query_url += '{}={}'.format(param, value)
+    param_dict = make_param_dict(params, search_type)
 
-    if search_type not in {'collection', 'dataset'}:
-        param_dict['collection_id'] = search_type
-
-    # Work in progress: use client_id for usage metrics
-    # The client_id parameter is _not_ a search parameter,
-    # so don't treat it as one.
-    param_dict.pop('client_id', None)
-
-    # Validate the query and abort if there are errors.
-    validator = QueryValidator(param_dict, PARAMETERS[search_type])
-    if validator.errors:
-        error_report = '</br>'.join(validator.errors)
-        return abort(400, error_report)
+    validate_params(param_dict, search_type)
 
     # Translate the query parameters into a CKAN data_dict so we
     # can query the DB.
     data_dict = translate_os_query(param_dict)
 
-    # Query the DB.
-    if search_type == 'collection':
-        results_dict = results_dict = collection_search(context,
-                                                        data_dict)
-    else:
-        results_dict = logic.get_action('package_search')(context,
-                                                          data_dict)
-        for result in results_dict['results']:
-            result['extras'] = convert_string_extras(result['extras'])
-
-    # We'll need to refactor this. we don't want to rely on the request
-    # global when creating the feed, so we're adding this info here.
-    results_dict['request_url'] = request_url
-    results_dict['params'] = params
-    for result in results_dict['results']:
-        result['request_url'] = request_url
-        result['params'] = params
+    results_dict = search(data_dict, search_type, context)
 
     results_dict['items_per_page'] = data_dict['rows']
 
@@ -214,15 +61,15 @@ def process_query(search_type, params, request_url, context):
         next_page = None
     else:
         next_page = current_page + 1
-    results_dict['next_page'] = next_page
 
     if current_page == 1:
         prev_page = None
     else:
         prev_page = current_page - 1
-    results_dict['prev_page'] = prev_page
 
     last_page = int(math.ceil(total_results / float(requested_rows)))
+    if last_page == 0:
+        last_page = 1
 
     results_dict['namespaces'] = {'xmlns:{0}'.format(key): value
                                   for key, value
@@ -243,13 +90,182 @@ def process_query(search_type, params, request_url, context):
     results_dict['feed_box'] = make_feed_box(results_dict)
     results_dict['search_url'] = ('{}/opensearch/description.xml'
                                   .format(SITE_URL))
-    results_dict['self_url'] = query_url
-    results_dict['first_url'] = make_nav_url(query_url, 1)
-    results_dict['next_url'] = make_nav_url(query_url, next_page)
-    results_dict['prev_url'] = make_nav_url(query_url, prev_page)
-    results_dict['last_url'] = make_nav_url(query_url, last_page)
+    results_dict['self_url'] = request_url
+    results_dict['first_url'] = make_nav_url(request_url, 1)
+    results_dict['next_url'] = make_nav_url(request_url, next_page)
+    results_dict['prev_url'] = make_nav_url(request_url, prev_page)
+    results_dict['last_url'] = make_nav_url(request_url, last_page)
 
     return results_dict
+
+
+def make_param_dict(params, search_type):
+    # Get the query parameters and remove 'amp' if it has snuck in.
+    # Strip any parameters that aren't valid as per CEOS-BP-009B.
+    param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
+
+    for param, value in params.items():
+        if param != 'amp' and param in PARAMETERS[search_type]:
+            param_dict.add(param, value)
+
+    return param_dict
+
+
+def validate_params(param_dict, search_type):
+    # Validate the query and abort if there are errors.
+    validator = QueryValidator(param_dict, PARAMETERS[search_type])
+    if validator.errors:
+        error_report = '</br>'.join(validator.errors)
+        return abort(400, error_report)
+
+
+def translate_os_query(param_dict):
+    """
+    Translate the OpenSearch query parameters based on a template.
+
+    The parameters will already have been validated.
+    """
+    # convert params and build data dictionary
+    data_dict = {}
+    data_dict['q'] = param_dict.get('q', '')
+    data_dict['rows'] = set_rows(param_dict.get('rows'))
+    data_dict['start'] = set_start(data_dict['rows'], param_dict.get('page'))
+    data_dict['fq'] = add_simple_filters(param_dict)
+    data_dict['fq'] += add_complex_filters(param_dict)
+    data_dict['ext_bbox'] = param_dict.get('ext_bbox')
+
+    return data_dict
+
+
+def set_rows(rows_param):
+    if not rows_param:
+        return 20
+    else:
+        return int(rows_param)
+
+
+def set_start(rows, page_param):
+    if not page_param:
+        page = 0
+    else:
+        page = int(page_param) - 1
+
+    return rows * page
+
+
+def add_simple_filters(param_dict):
+    """
+    Some parameters map directly to filter queries; we can just append them.
+    """
+    simple_filters = ''
+    for (param, value) in param_dict.items():
+        # TODO: the params to skip should be defined elsewhere.
+        skip = {'q', 'page', 'sort', 'begin', 'end', 'rows',
+                'date_modified'}
+        if param not in skip and len(value) and not param.startswith('_'):
+            if not param.startswith('ext_'):
+                simple_filters += ' %s:"%s"' % (param, value)
+
+    return simple_filters + ' +dataset_type:dataset'
+
+
+def add_complex_filters(param_dict):
+
+    # Temporal search across a start time field and an end time field
+    complex_filters = ''
+    complex_filters += set_timerange(param_dict)
+    complex_filters += set_date_modified(param_dict)
+    complex_filters += set_geometry(param_dict)
+
+    return complex_filters
+
+
+def set_timerange(param_dict):
+    timerange_filter = ''
+
+    if TEMPORAL_START and TEMPORAL_END:
+        # Get time range
+        begin = param_dict.get('begin')
+        end = param_dict.get('end')
+
+        # If begin or end are empty (e.g., "begin="), get will return an
+        # empty string rather than the alternate value,
+        # so we need this second step.
+        if begin or end:
+            if not begin:
+                begin = '*'
+            if not end:
+                end = 'NOW'
+
+            time_range = '[{} TO {}]'.format(begin, end)
+            timerange_filter += ' {}:{}'.format(TEMPORAL_START, time_range)
+            timerange_filter += ' {}:{}'.format(TEMPORAL_END, time_range)
+
+    return timerange_filter
+
+
+def set_date_modified(param_dict):
+    # Temporal search across metadata_modified
+    date_modified_filter = ''
+    date_modified = param_dict.get('date_modified')
+    # Format: [YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]
+    if date_modified:
+        begin = '{}Z'.format(date_modified[1:20])
+        end = '{}Z'.format(date_modified[21:-1])
+        time_range = '[{} TO {}]'.format(begin, end)
+        date_modified_filter += ' {}:{}'.format('metadata_modified', time_range)
+
+    return date_modified_filter
+
+
+def set_geometry(param_dict):
+    # Add geometry spatial filter (only works with Solr spatial field)
+    geometry_filter = ''
+    geometry = param_dict.get('ext_geometry', None)
+    if geometry:
+        geometry_filter += ' +spatial_geom:"Intersects({})"'.format(geometry)
+
+    return geometry_filter
+
+
+def search(data_dict, search_type, context):
+    # Query the DB.
+    if search_type == 'collection':
+        results_dict = collection_search(context, data_dict)
+    else:
+        results_dict = logic.get_action('package_search')(context, data_dict)
+
+    return results_dict
+
+
+def make_query_dict(param_dict, search_type):
+    """
+    Make a dict of params and values for Query element in the response.
+
+    The formatting is is different from the query/parameter dictionary that
+    CKAN already provides, so we need to do a bit of work first to rename
+    them and combine parameters that occur more than once into a single
+    string.
+    """
+    query_dict = OrderedDict()
+
+    # XML attributes are unique per element, so parameters that occur more
+    # than once in a query must be combined into a space-delimited string.
+    for (param, value) in param_dict.items():
+        os_name = PARAMETERS[search_type][param]['os_name']
+        namespace = PARAMETERS[search_type][param]['namespace']
+        if namespace == 'opensearch':
+            os_param = os_name
+        else:
+            os_param = '{}:{}'.format(namespace, os_name)
+        if os_param not in query_dict:
+            query_dict[os_param] = value
+        else:
+            query_dict[os_param] += ' {}'.format(value)
+
+    query_dict['role'] = 'request'
+
+    return query_dict
 
 
 def make_feed_box(results_dict):
@@ -264,16 +280,19 @@ def make_feed_box(results_dict):
 
 def make_nav_url(query_url, page):
     """Create a navigation URL (next, prev, last, etc.)."""
-    if 'page=' not in query_url:
-        nav_url = '{0}&page={1}'.format(query_url, page)
+    if not page:
+        return None
     else:
-        halves = re.compile('page=\d*').split(query_url)
-        if len(halves) == 1:
-            nav_url = '{0}&page={1}'.format(halves[0], page)
+        if 'page=' not in query_url:
+            nav_url = '{0}&page={1}'.format(query_url, page)
         else:
-            nav_url = '{0}page={1}{2}'.format(halves[0], page, halves[1])
+            halves = re.compile('page=\d*').split(query_url)
+            if len(halves) == 1:
+                nav_url = '{0}&page={1}'.format(halves[0], page)
+            else:
+                nav_url = '{0}page={1}{2}'.format(halves[0], page, halves[1])
 
-    return nav_url
+        return nav_url
 
 
 def make_atom_feed(results_dict, search_type):
@@ -287,18 +306,11 @@ def make_atom_feed(results_dict, search_type):
                   extra_vars=results_dict)
 
 
-def make_results_feed(search_type, params, request_url, context):
-    """Process the query and return the results feed."""
-    results_dict = process_query(search_type, params, request_url, context)
-
-    return make_atom_feed(results_dict, search_type)
-
-
-def convert_string_extras(extras_list):
-    """Convert extras stored as a string back into a normal extras list."""
-    try:
-        extras = ast.literal_eval(extras_list[0]["value"])
-        assert type(extras) == list
-        return extras
-    except:
-        return extras_list
+#def convert_string_extras(extras_list):
+#    """Convert extras stored as a string back into a normal extras list."""
+#    try:
+#        extras = ast.literal_eval(extras_list[0]["value"])
+#        assert type(extras) == list
+#        return extras
+#    except:
+#        return extras_list

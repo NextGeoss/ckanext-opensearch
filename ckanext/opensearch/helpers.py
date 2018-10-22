@@ -1,26 +1,10 @@
 import json
 from datetime import datetime
 
+from ckan.lib.helpers import get_pkg_dict_extra
+
 from .config import (COLLECTIONS,
                      SITE_URL)
-
-
-def make_attributes(attr_dict):
-    """
-    Convert a dictionary of attributes into a string for use in XML.
-
-    Example: {'title': 'This is an example', 'rel': 'example'} becomes
-    'title="This is an example" rel="example"'
-    """
-
-    attr_list = ['{0}="{1}"'.format(key, value)
-                 for key, value
-                 in attr_dict.items()
-                 if value]
-    if attr_list:
-        return ' '.join(attr_list)
-    else:
-        return ''
 
 
 def make_collection_id(self_url, entry):
@@ -94,7 +78,7 @@ def make_search_element_attrs(params, query_url):
     Make the attributes for the element describing how to access the
     description document related to a given search.
     """
-    osdd = params.get('collection_id')
+    osdd = params.get('custom:collection_id')
     if osdd in COLLECTIONS:
         title = '{} description document'.format(osdd)
         href = ('{}/opensearch/description.xml?osdd={}'
@@ -145,7 +129,7 @@ def make_entry_atom_id(entry):
     """
     # As requested by Pedro for use with the VITO application
     atom_id = '{}/opensearch/search.atom?identifier={}'.format(
-        SITE_URL, get_from_extras(entry, 'identifier'))
+        SITE_URL, get_pkg_dict_extra(entry, 'identifier', ''))
 
     return atom_id
 
@@ -153,13 +137,13 @@ def make_entry_atom_id(entry):
 def make_entry_dc_identifier(entry):
     """Define the dc:identifier element of an OpenSearch entry."""
     # As requested by Pedro for use with the VITO application
-    return get_from_extras(entry, 'identifier')
+    return get_pkg_dict_extra(entry, 'identifier', '')
 
 
 def make_entry_dc_date(entry):
     """Define a DC date element representing the timespan of the result."""
-    start = get_from_extras(entry, 'StartTime')
-    end = get_from_extras(entry, 'StopTime')
+    start = get_pkg_dict_extra(entry, 'StartTime', '')
+    end = get_pkg_dict_extra(entry, 'StopTime', '')
     if start == end:
         date = start
     else:
@@ -170,7 +154,7 @@ def make_entry_dc_date(entry):
 
 def make_entry_polygon(entry):
     """Define a GEORSS polygon element based on an entry's spatial value."""
-    spatial = get_from_extras(entry, 'spatial')
+    spatial = get_pkg_dict_extra(entry, 'spatial', '')
     if spatial:
         spatial = json.loads(spatial)
         coordinates = spatial['coordinates'][0]
@@ -197,8 +181,8 @@ def make_entry_summary(entry):
 def make_entry_self_url(entry):
     """Define an atom self link for each entry."""
     # As requested by Pedro for use with the VITO application
-    collection = get_from_extras(entry, 'collection_id')
-    identifier = get_from_extras(entry, 'identifier')
+    collection = get_pkg_dict_extra(entry, 'collection_id', '')
+    identifier = get_pkg_dict_extra(entry, 'identifier', '')
     url = '{}/opensearch/search.atom?collection_id={}&identifier={}'.format(
         SITE_URL, collection, identifier)
 
@@ -212,7 +196,7 @@ def make_entry_collection_url(entry):
     For now, products can only belong to one collection and the collection
     link will always be displayed.
     """
-    collection = get_from_extras(entry, 'collection_id')
+    collection = get_pkg_dict_extra(entry, 'collection_id', '')
     if collection:
         return '{}/opensearch/search.atom?collection_id={}'.format(SITE_URL,
                                                                    collection)
@@ -268,17 +252,6 @@ def make_entry_resource(resource):
         }
 
     return link
-
-
-def get_from_extras(data_dict, term):
-    """Get the value of an extra."""
-    extras = data_dict.get('extras', [])
-
-    for extra in extras:
-        if extra['key'] == term:
-            return extra['value']
-
-    return ''
 
 
 def filter_options(param):

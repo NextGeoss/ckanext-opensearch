@@ -77,12 +77,6 @@
         ]
     },
     {
-      "ckan_name": "client_id",
-      "os_name": "source",
-      "namespace": "referrer",
-      "minimum": 0
-    },
-    {
       "ckan_name": "date_modified",
       "os_name": "modificationDate",
       "namespace": "eo",
@@ -107,6 +101,19 @@
             "label": "Mali"
           }
         ]
-    }
+    },
+    {
+      "ckan_name": "collection_id",
+      "os_name": "collection_id",
+      "namespace": "custom",
+      "minimum": 0,
+      "options":
+        [
+          {
+            "value": "SENTINEL3_SLSTR_L2_LST",
+            "label": "Sentinel-3 SLSTR Level-2 Land Surface Temperature Collection"
+          }
+        ]
+    }    
   ]
 }
