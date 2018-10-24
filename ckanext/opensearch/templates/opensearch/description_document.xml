@@ -8,11 +8,11 @@
     <opensearch:Url pageOffset="1" type="application/atom+xml" rel="{{ search_rel }}" indexOffset="1" template="{{ search_url }}">
         {# We may have more than one parameter and each parameter may have attributes not shown here (name="name" value="value" minimum="" maximum="") #}
         {% for param in parameters %}
-            {% if param.options or param.name == 'q' %}
-                <param:Parameter {{ h.os_filter_options(param)|xmlattr(False)|escape }}>
+            {% if param.options or param.attrs.name == 'q' %}
+                <param:Parameter {{ param.attrs|xmlattr(False)|escape }}>
                 {# The free text query parameter ('q' by default) needs a search profile #}
-                {% if param.name == 'q' %}
-                    <atom:link title="This parameter follows the Solr free text search implementation." rel="profile" href="https://wiki.apache.org/solr/SolrQuerySyntax"/>
+                {% if param.attrs.name == 'q' %}
+                    <atom:link title="This parameter follows CKAN's free text search syntax, which is based on Solr's query syntax." rel="profile" href="https://docs.ckan.org/en/latest/api/index.html#ckan.logic.action.get.package_search"/>
                 {% endif %}
                 {# A parameter may have zero or more Options #}
                 {% if param.options %}
@@ -22,7 +22,7 @@
                 {% endif %}
             </param:Parameter>
             {% else %}
-            <param:Parameter {{ param|xmlattr(False)|escape }}/>
+            <param:Parameter {{ param.attrs|xmlattr(False)|escape }}/>
             {% endif %}
         {% endfor %}
     </opensearch:Url>

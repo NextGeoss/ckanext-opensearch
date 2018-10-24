@@ -7,7 +7,6 @@ from collections import OrderedDict
 from datetime import datetime
 import math
 import re
-import ast
 
 from webob.multidict import (MultiDict,
                              UnicodeMultiDict)
@@ -16,8 +15,8 @@ from ckan.lib.base import (abort,
                            render)
 import ckan.logic as logic
 
-from .collection_search import collection_search
-from .config import (NAMESPACES,
+from .config import (COLLECTIONS,
+                     NAMESPACES,
                      PARAMETERS,
                      TEMPORAL_START,
                      TEMPORAL_END,
@@ -28,9 +27,37 @@ from .validator import QueryValidator
 
 def make_results_feed(search_type, params, request_url, context):
     """Process the query and return the results feed."""
+    abort_if_collection_id_invalid(params)
+    abort_if_collections_not_configured(search_type)
+
     results_dict = process_query(search_type, params, request_url, context)
 
     return make_atom_feed(results_dict, search_type)
+
+
+def abort_if_collection_id_invalid(params):
+    """
+    Abort if the collection_id is invalid. Every search has specific parameters
+    that are permitted or available. If a user tries to search
+    in a collection that doesn't exist, we have no way of looking up the
+    valid parameters.
+    """
+    collection_id = params.get('collection_id')
+
+    if collection_id:
+        try:
+            PARAMETERS[collection_id]
+        except KeyError:
+            abort(400, 'Invalid collection_id ({})'.format(collection_id))
+
+
+def abort_if_collections_not_configured(search_type):
+    """
+    Abort if no collections are configured but a user is trying to perform a
+    collection search.
+    """
+    if search_type == "collection" and not COLLECTIONS:
+        abort(400, 'Collection search is unavailable.')
 
 
 def process_query(search_type, params, request_url, context):
@@ -78,7 +105,6 @@ def process_query(search_type, params, request_url, context):
                                   .format(SHORT_NAME))
     results_dict['feed_subtitle'] = ('{} results for your search'
                                      .format(total_results))
-    results_dict['feed_id'] = request_url
     results_dict['feed_generator_attrs'] = {'version': '0.1',
                                             'uri': request_url.replace('&', '&amp;')}  # noqa: E501
     results_dict['feed_generator_content'] = ('{} search results'
@@ -88,6 +114,7 @@ def process_query(search_type, params, request_url, context):
     results_dict['start_index'] = expected_results - requested_rows + 1
     results_dict['query_attrs'] = make_query_dict(param_dict, search_type)
     results_dict['feed_box'] = make_feed_box(results_dict)
+    results_dict['site_url'] = SITE_URL
     results_dict['search_url'] = ('{}/opensearch/description.xml'
                                   .format(SITE_URL))
     results_dict['self_url'] = request_url
@@ -105,7 +132,7 @@ def make_param_dict(params, search_type):
     param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
 
     for param, value in params.items():
-        if param != 'amp' and param in PARAMETERS[search_type]:
+        if param != 'amp' and param in PARAMETERS.get(search_type, {}):
             param_dict.add(param, value)
 
     return param_dict
@@ -213,7 +240,8 @@ def set_date_modified(param_dict):
         begin = '{}Z'.format(date_modified[1:20])
         end = '{}Z'.format(date_modified[21:-1])
         time_range = '[{} TO {}]'.format(begin, end)
-        date_modified_filter += ' {}:{}'.format('metadata_modified', time_range)
+        date_modified_filter += ' {}:{}'.format('metadata_modified',
+                                                time_range)
 
     return date_modified_filter
 
@@ -231,9 +259,47 @@ def set_geometry(param_dict):
 def search(data_dict, search_type, context):
     # Query the DB.
     if search_type == 'collection':
-        results_dict = collection_search(context, data_dict)
+        data_dict["facet.field"] = ["collection_id"]
+
+    results_dict = logic.get_action('package_search')(context, data_dict)
+
+    if search_type == "collection":
+        return make_collection_results_dict(results_dict)
+
     else:
-        results_dict = logic.get_action('package_search')(context, data_dict)
+        return results_dict_with_accessible_extras(results_dict)
+
+
+def make_collection_results_dict(results_dict):
+    """Return a new results_dict with just the collection information."""
+    collection_results = []
+
+    # We don't have published/updated information for collections right now,
+    # so we have to fake it.
+    published = '2018-01-16T00:00:00Z'
+    updated = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    collections = results_dict["facets"].get("collection_id", {})
+
+    for _id, count in collections.items():
+        collection_results.append({
+            "id": _id,
+            "count": count,
+            "description": COLLECTIONS[_id]["description"],
+            "name": COLLECTIONS[_id]["name"],
+            "published": published,
+            "updated": updated
+        })
+
+    return {"results": collection_results, "count": len(collections)}
+
+
+def results_dict_with_accessible_extras(results_dict):
+    """Get the extras from their list and make them normal key/value pairs."""
+    for entry in results_dict["results"]:
+        extras = {extra["key"]: extra["value"]
+                  for extra in entry.pop("extras", [])}
+        entry.update(extras)
 
     return results_dict
 
@@ -304,13 +370,3 @@ def make_atom_feed(results_dict, search_type):
 
     return render('opensearch/{}.xml'.format(template),
                   extra_vars=results_dict)
-
-
-#def convert_string_extras(extras_list):
-#    """Convert extras stored as a string back into a normal extras list."""
-#    try:
-#        extras = ast.literal_eval(extras_list[0]["value"])
-#        assert type(extras) == list
-#        return extras
-#    except:
-#        return extras_list

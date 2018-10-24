@@ -1,0 +1,25 @@
+# Additional parameters for Sentinel-2 collections
+# NOTE: This implementation of cloudcoverage works,
+# but it's just an example. The "real" implementation
+# of cloudcoverage will depend on a standard
+# like geo, eo, etc. This version just lets the user
+# query the CloudCoverage field in the Solr index
+# directly using Solr syntax as though it were a
+# CKAN fq query.
+
+[CloudCoverage]
+title = "Cloud coverage range"
+os_name = "cloudcoverage"
+namespace = "custom"
+minimum = 0
+maximum = 1
+example = "[* TO 0.3715]"
+  [[CloudCoverage.options]]
+  value = "[* TO 0.3715]"
+  label = "All products with a cloud coverage less than or equal to 0.3715%"
+  [[CloudCoverage.options]]
+  value = "[0.3715 to *]"
+  label = "All products with a cloud coverage greater than or equal to 0.3715%"
+  [[CloudCoverage.options]]
+  value = "0.3715"
+  label = "All products with a cloud coverage equal to 0.3715%"

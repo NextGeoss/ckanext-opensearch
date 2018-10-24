@@ -5,11 +5,8 @@ from collections import OrderedDict
 
 from ckan.lib.base import (abort,
                            render)
-from ckan.common import _
 
-from .config import (COLLECTIONS,
-                     COLLECTIONS_ENABLED,
-                     PARAMETERS,
+from .config import (PARAMETERS,
                      NAMESPACES,
                      SHORT_NAME,
                      SITE_URL)
@@ -39,11 +36,11 @@ def make_description_document(params, request_url):
 def get_document_type_or_abort(params):
     """Return the type of description document or abort if it's invalid."""
     document_type = params.get('osdd')
-    permitted = {'dataset'}
-    if COLLECTIONS_ENABLED:
-        permitted = COLLECTIONS | permitted | {'collection'}
-    if document_type not in permitted:
-        abort(400, _('Invalid osdd name (osdd={})'.format(document_type)))
+
+    try:
+        PARAMETERS[document_type]
+    except KeyError:
+        abort(400, 'Invalid osdd name (osdd={})'.format(document_type))
 
     return document_type
 
@@ -114,16 +111,18 @@ def make_parameters(document_type):
     param_dicts = []
 
     for param, details in PARAMETERS[document_type].items():
-        param_dict = OrderedDict()
-        param_dict['name'] = param
-        param_dict['value'] = '{%s:%s}' % (details['namespace'],
-                                           details['os_name'])
-        param_dict['title'] = details.get('title')
-        param_dict['minimum'] = details.get('minimum')
-        param_dict['maximum'] = details.get('maximum')
-        param_dict['minInclusive'] = details.get('min_inclusive')
-        param_dict['maxExclusive'] = details.get('max_exclusive')
-        param_dict['options'] = details.get('options')
-        param_dicts.append(param_dict)
+        attrs = OrderedDict()
+        attrs['name'] = param
+        attrs['value'] = '{%s:%s}' % (details['namespace'],
+                                      details['os_name'])
+        attrs['title'] = details.get('title')
+        attrs['minimum'] = details.get('minimum')
+        attrs['maximum'] = details.get('maximum')
+        attrs['minInclusive'] = details.get('min_inclusive')
+        attrs['maxExclusive'] = details.get('max_exclusive')
+
+        options = details.get('options')
+
+        param_dicts.append({"attrs": attrs, "options": options})
 
     return param_dicts

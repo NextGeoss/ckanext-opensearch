@@ -2,7 +2,7 @@
 <atom:feed {{ namespaces|xmlattr(False)|escape }}>
   <atom:title>{{ feed_title }}</atom:title>
   <atom:subtitle>{{ feed_subtitle }}</atom:subtitle>
-  <atom:id>{{ feed_id }}</atom:id>
+  <atom:id>{{ self_url }}</atom:id>
   <atom:generator {{ feed_generator_attrs|xmlattr(False)|escape }}>{{ feed_generator_content}}</atom:generator>
   <atom:author>
     <atom:name>No author information available</atom:name>
@@ -12,10 +12,12 @@
   <opensearch:startIndex>{{ start_index }}</opensearch:startIndex>
   <opensearch:itemsPerPage>{{ items_per_page }}</opensearch:itemsPerPage>
   <opensearch:Query {{ query_attrs|xmlattr(False)|escape }}/>
-  {%- if feed_box -%}
+  {%- if feed_box %}
   <georss:box>{{ feed_box }}</georss:box>
-  {%- endif -%}
-  <atom:link {{ h.os_make_search_element_attrs(query_attrs, query_url)|xmlattr(False)|escape}}/>
+  {%- endif %}
+  <atom:link {{ {'title': "Collection description document", 'rel': 'search',
+            'type': 'application/opensearchdescription+xml',
+            'href': "{}/opensearch/description.xml?osdd=collection".format(site_url)}|xmlattr(False)|escape}}/>
   <atom:link href="{{ self_url }}" type="application/atom+xml" rel="self" title="self"/>
   <atom:link href="{{ first_url }}" type="application/atom+xml" rel="first" title="first"/>
   {%- if next_url -%}
@@ -27,17 +29,20 @@
   <atom:link href="{{ last_url }}" type="application/atom+xml" rel="last" title="last"/>
   {%- for entry in results -%}
   <atom:entry>
-    <atom:title>{{ entry.title }}</atom:title>
-    <atom:id>{{ h.os_make_collection_id(self_url, entry) }}</atom:id>
-    <dc:identifier>{{ entry.collection_id }}</dc:identifier>
-    <atom:published>{{ entry.collection_published }}</atom:published>
-    <atom:updated>{{ h.os_make_collection_updated() }}</atom:updated>
-    <dc:date>{{ h.os_make_collection_dc_date(entry) }}</dc:date>
-    <georss:box>{{ h.os_make_collection_box() }}</georss:box>
-    <georss:polygon>{{ h.os_make_collection_polygon() }}</georss:polygon>
-    <atom:summary>{{ h.os_make_collection_summary(entry) }}</atom:summary>
-    <atom:content type="text">{{ h.os_make_collection_content(entry) }}</atom:content>
-    <atom:link href="{{ h.os_make_collection_search_url(entry) }}" type="application/opensearchdescription+xml" rel="search"/>
+    <atom:title>{{ entry.name }}</atom:title>
+    <atom:id>{{ site_url }}/opensearch/search.atom?collection_id={{ entry.id }}</atom:id>
+    <dc:identifier>{{ entry.id }}</dc:identifier>
+    <atom:published>{{ entry.published }}</atom:published>
+    <atom:updated>{{ entry.updated }}</atom:updated>
+    {#- We don't have the data required for dc:date, which should reflect the timespan of the collection (i.e., the dates of the earliest and latest products in the collection) so we're faking it for now. #}
+    <dc:date>1900-01-01T00:00:00.000Z/{{ entry.updated }}</dc:date>
+    {#- We don't have the data required for georss:box, which should reflect bounding box of the collection itself, so we're faking it for now. #}
+    <georss:box>-180.0 -90.0 180.0 90.0</georss:box>
+    {#- We don't have the data required for georss:polygon, which should reflect the polygon that encloses the collection itself, so we're faking it for now. #}
+    <georss:polygon>-180 -90 -180 90 180 90 180 -90 -180 90</georss:polygon>
+    <atom:summary>{{ entry.count }} matching products found in the {{ entry.name }} collection. }}|safe</atom:summary>
+    <atom:content type="text">{{ entry.description|default("No description available") }}</atom:content>
+    <atom:link href="{{ site_url }}/opensearch/description.xml?osdd={{ entry.id }}" type="application/opensearchdescription+xml" rel="search"/>
     <atom:link {{ h.os_make_collection_via(entry)|xmlattr(False)|escape }}/>
   </atom:entry>
   {%- endfor -%}

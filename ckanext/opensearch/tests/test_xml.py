@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Tests for XML documents."""
 import json
 import pathlib
@@ -5,6 +6,7 @@ from io import BytesIO
 
 from lxml import etree
 from parameterized import parameterized
+import toml
 
 import ckan.tests.helpers as helpers
 
@@ -58,10 +60,10 @@ def get_xml(request_url):
 
 def get_collection_ids():
     """Return a list of collection IDs from the config."""
-    filepath = str(HERE.parent / "defaults" / "collection_params_list.json")
+    filepath = str(HERE.parent / "defaults" / "collections_list.toml")
     with open(filepath, "r") as f:
-        collection_params_list = json.load(f)["collection_params_list"]
-        return [collection["id"] for collection in collection_params_list]
+        collection_params_list = toml.load(f)
+        return [_id for _id, details in collection_params_list.items()]
 
 
 def setup_db():

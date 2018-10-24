@@ -15,7 +15,10 @@
   {% if feed_box -%}
   <georss:box>{{ feed_box }}</georss:box>
   {% endif -%}
-  <atom:link {{ h.os_make_search_element_attrs(query_attrs, query_url)|xmlattr(False)|escape }}/>
+  {% set osdd = query_attrs.get("custom:collection_id", "dataset") -%}
+  <atom:link {{ {'title': "{} description document".format(osdd.title()), 'rel': 'search',
+            'type': 'application/opensearchdescription+xml',
+            'href': "{}/opensearch/description.xml?osdd={}".format(site_url, osdd)}|xmlattr(False)|escape }}/>
   <atom:link href="{{ self_url }}" type="application/atom+xml" rel="self" title="self"/>
   <atom:link href="{{ first_url }}" type="application/atom+xml" rel="first" title="first"/>
   {% if next_url -%}
@@ -28,18 +31,20 @@
   {% for entry in results -%}
   <atom:entry>
     <atom:title>{{ entry.title }}</atom:title>
-    <atom:id>{{ h.os_make_entry_atom_id(entry) }}</atom:id>
-    <dc:identifier>{{ h.os_make_entry_dc_identifier(entry) }}</dc:identifier>
-    <atom:link href="{{ h.os_make_entry_self_url(entry) }}" rel="self" title="self"/>
-    {% set collection_url = h.os_make_entry_collection_url(entry) -%}
-    {% if collection_url -%}
-    <atom:link href="{{ collection_url }}" type="application/atom+xml" rel="up" title="Link to collection"/>
+    {# atom:id implementation at request of Terradue. -#}
+    <atom:id>{{ site_url }}/opensearch/search.atom?identifier={{ entry.identifier }}</atom:id>
+    <dc:identifier>{{ entry.identifier }}</dc:identifier>
+    {# atom:link implementation at request of Terradue. -#}
+    <atom:link {{ {"href": "{}/opensearch/search.atom?collection_id={}&identifier={}".format(self_url, entry.collection_id, entry.identifier), "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
+    {% if entry.collection_id -%}
+    {# Define an Atom link with rel="up" for a product's collection. -#}
+    <atom:link {{ {"href": "{}/opensearch/search.atom?collection_id={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "up", "title": "Link to collection"}|xmlattr(False)|escape }}/>
     {% endif -%}
-    <dc:publisher>{{ h.os_make_entry_publisher(entry) }}</dc:publisher>
+    <dc:publisher>{{ entry.organization.title|default("No publisher information provided.") }}</dc:publisher>
     <atom:published>{{ entry.metadata_created }}</atom:published>
     <atom:updated>{{ entry.metadata_modified }}</atom:updated>
-    <atom:summary>{{ h.os_make_entry_summary(entry) }}</atom:summary>
-    <dc:date>{{ h.os_make_entry_dc_date(entry) }}</dc:date>
+    <atom:summary>{{ entry.notes|default("No summary available.")|safe }}</atom:summary>
+    <dc:date>{{ entry.StartTime }}/{{ entry.StopTime }}</dc:date>
     <georss:polygon>{{ h.os_make_entry_polygon(entry) }}</georss:polygon>
     <atom:link href="{{ h.url_for(controller='package', action='read', id=entry.id, qualified=True)}}" type="text/html" rel="alternate"/>
     {% for tag in entry.tags -%}

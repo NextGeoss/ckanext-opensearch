@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 """Contains the OpenSearch controller and methods for transforming queries."""
 
-import logging
-
 from ckan.lib.base import (abort,
                            BaseController)
-import ckan.lib.helpers as h
 from ckan.common import (_,
                          c,
                          config,
@@ -16,9 +13,6 @@ import ckan.model as model
 
 from .description_document import make_description_document
 from .search import make_results_feed
-
-
-log = logging.getLogger(__name__)
 
 
 class OpenSearchController(BaseController):
@@ -54,7 +48,8 @@ class OpenSearchController(BaseController):
         request_url = request.url
         params = request.params
 
-        search_type = params.get('collection_id', search_type)
+        if search_type != "collection":
+            search_type = params.get('collection_id', search_type)
 
         results_feed = make_results_feed(search_type, params, request_url,
                                          context)
@@ -69,6 +64,3 @@ class OpenSearchController(BaseController):
         response.headers['Content-Type'] = content_type + '; charset=UTF-8'
 
         return response_data
-
-    def home(self):
-        return h.redirect_to('/')

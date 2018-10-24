@@ -6,11 +6,7 @@ import re
 import shapely.wkt
 from shapely.errors import ReadingError, WKTReadingError
 
-from ckan.common import _, config
-
-plugins = config.get('ckan.plugins')
-if plugins and 'spatial_query' in plugins:
-    from ckanext.spatial.lib import validate_bbox
+from ckan.common import _
 
 
 class QueryValidator(object):
@@ -103,9 +99,14 @@ class QueryValidator(object):
     def _bbox_is_valid(self):
         """Check if the bounding box has a valid form."""
         ext_bbox = self.param_dict.get('ext_bbox')
-        if ext_bbox and not validate_bbox(ext_bbox):
-            self.errors.append(
-                _('geo:box must be in the form `west,south,east,north` or `minX,minY,maxX,maxY`.'))  # noqa: E501
+        if ext_bbox:
+            try:
+                bbox = ext_bbox.split(",")
+                assert len(bbox) == 4
+                [float(i) for i in bbox]
+            except (AssertionError, ValueError):
+                self.errors.append(
+                    _('geo:box must be in the form `west,south,east,north` or `minX,minY,maxX,maxY`.'))  # noqa: E501
 
     def _temporal_is_valid(self, temporal_param):
         """Check if the temporal search parameter is valid."""

@@ -1,0 +1,117 @@
+# A list of collections in the format
+# [id]
+# name = "collection name"
+# description = "collection description"
+# parameters_file = "name of file containing parameters for the collection _without_ the file extension"
+#
+# parameters_file is _optional_. If no file is specified, the default `dataset_parameters` file will be used.
+
+[SENTINEL1_L1_SLC]
+name = "Sentinel-1 Level-1 (SLC)"
+description = "The Sentinel-1 Level-1 Single Look Complex (SLC) products consist of focused SAR data geo-referenced using orbit and attitude data from the satellite and provided in zero-Doppler slant-range geometry. The products include a single look in each dimension using the full TX signal bandwidth and consist of complex samples preserving the phase information."
+
+[SENTINEL1_L1_GRD]
+name = "Sentinel-1 Level-1 (GRD)"
+description = "The Sentinel-1 Level-1 Ground Range Detected (GRD) products consist of focused SAR data that has been detected, multi-looked and projected to ground range using an Earth ellipsoid model. Phase information is lost. The resulting product has approximately square resolution pixels and square pixel spacing with reduced speckle at the cost of reduced geometric resolution."
+
+[SENTINEL1_L2_OCN]
+name = "Sentinel-1 Level-2 (OCN)"
+description = "The Sentinel-1 Level-2 OCN products include components for Ocean Swell spectra (OSW) providing continuity with ERS and ASAR WV and two new components: Ocean Wind Fields (OWI) and Surface Radial Velocities (RVL). The OSW is a two-dimensional ocean surface swell spectrum and includes an estimate of the wind speed and direction per swell spectrum. The OWI is a ground range gridded estimate of the surface wind speed and direction at 10 m above the surface derived from internally generated Level-1 GRD images of SM, IW or EW modes. The RVL is a ground range gridded difference between the measured Level-2 Doppler grid and the Level-1 calculated geometrical Doppler."
+
+[SENTINEL2_L1C]
+name = "Sentinel-2 Level-1C"
+description = "The Sentinel-2 Level-1C products are Top-of-atmosphere reflectances in cartographic geometry. These products are systematically generated and the data volume is 500MB for each 100x100 km²."
+parameters_file = "sentinel-2_parameters"
+
+[SENTINEL2_L2A]
+name = "Sentinel-2 Level-2A"
+description = "The Sentinel-2 Level-2A products are Bottom-of-atmosphere reflectances in cartographic geometry (prototype product). These products are generated using Sentinel-2 Toolbox and the data volume is 600MB for each 100x100 km²."
+parameters_file = "sentinel-2_parameters"
+
+[SENTINEL3_SRAL_L1_CAL]
+name = "Sentinel-3 SRAL Level-1 Calibration"
+description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a Level 1 Calibration product."
+
+[SENTINEL3_SRAL_L1_SRA]
+name = "Sentinel-3 SRAL Level-1 SRA"
+description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a Level 1 SRA product."
+
+[SENTINEL3_SRAL_L2_LAN]
+name = "Sentinel-3 SRAL Level-2 Land"
+description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a product of Level 2 processing and geographical coverage over land."
+
+[SENTINEL3_SRAL_L2_WAT]
+name = "Sentinel-3 SRAL Level-2 Water"
+description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a product of Level 2 processing and geographical coverage over water."
+
+[SENTINEL3_OLCI_L1_EFR]
+name = "Sentinel-3 OLCI Level-1 Full Resolution"
+description = "SENTINEL-3 OLCI Level-1 product provides radiances for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. The output of this product is during EO processing mode for Full Resolution."
+
+[SENTINEL3_OLCI_L1_ERR]
+name = "Sentinel-3 OLCI Level-1 Reduced Resolution"
+description = "SENTINEL-3 OLCI Level-1 product provides radiances for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. The output of this product is during EO processing mode for Reduced Resolution."
+
+[SENTINEL3_OLCI_L2_LFR]
+name = "Sentinel-3 OLCI Level-2 Land Full Resolution"
+description = "SENTINEL-3 OLCI level-2 land product provides land and atmospheric geophysical parameters computed for full Resolution."
+
+[SENTINEL3_OLCI_L2_LRR]
+name = "Sentinel-3 OLCI Level-2 Land Reduced Resolution"
+description = "SENTINEL-3 OLCI level-2 land product provides land and atmospheric geophysical parameters computed for reduced Resolution."
+
+[SENTINEL3_SLSTR_L1_RBT]
+name = "Sentinel-3 SLSTR Level-1 Radiances and Brightness Temperatures"
+description = "SENTINEL-3 SLSTR Level-1 product provides radiances and brightness temperatures for each pixel in a regular image grid, each view and each SLSTR channel, plus annotations data associated with SLSTR pixels."
+
+[SENTINEL3_SLSTR_L2_LST]
+name = "Sentinel-3 SLSTR Level-2 Land Surface Temperature"
+description = "SENTINEL-3 SLSTR Level-2 LST product provides land surface parameters generated on the wide 1 km measurement grid."
+
+[METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2]
+name = "Global Observed Sea Surface Temperature"
+description = "Daily analysis of sea surface temperature (SST), based on measurements from several satellite and in situ SST datasets, for the global ocean and some lakes."
+
+[METNO-GLO-SEAICE_CONC-NORTH-L4-NRT-OBS]
+name = "Arctic Ocean Observed Sea Ice Concentration"
+description = "Daily sea ice concentration at 10km resolution in polar stereographic and EASE grid projections covering the Northern Hemisphere."
+
+[METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS]
+name = "Antarctic Ocean Observed Sea Ice Concentration"
+description = "Daily sea ice concentration at 10km resolution in polar stereographic and EASE grid projections covering the Southern Hemisphere."
+
+[ARCTIC_ANALYSIS_FORECAST_PHYS_002_001_A]
+name = "Arctic Ocean Physics Analysis and Forecast"
+description = "Daily Arctic Ocean physics analysis to provide 10 days of forecast of the 3D physical ocean, including temperature, salinity, sea ice concentration, sea ice thickness, sea ice velocity and sea ice type."
+
+[SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046]
+name = "Global Ocean Gridded L4 Sea Surface Heights and Derived Variables NRT"
+description = "Daily products processed by the DUACS multimission altimeter data processing system. The geostrophic currents are derived from sla (geostrophic velocities anomalies, ugosa and vgosa variables) and from adt (absolute geostrophic velicities, ugos and vgos variables"
+
+[GLOBAL_ANALYSIS_FORECAST_PHY_001_024]
+name = "Global Ocean Physics Analysis and Forecast (Hourly)"
+description = "Daily global ocean analysis and forecast system at 1/12 degree providing 10 days of 3D global ocean forecasts. These datasets include hourly mean surface fields for sea level height, temperature and currents (eastward sea water velocity, northward sea water velocity."
+
+[MULTIOBS_GLO_PHY_NRT_015_003]
+name = "Global Total Surface and 15m Current (Hourly)"
+description = "This product is a 6 hourly NRT L4 global total velocity field at 0m and 15m. It consists of the zonal and meridional velocity at a 6h frequency and at 1/4 degree regular grid produced on a daily basis. These total velocity fields are obtained by combining CMEMS NRT satellite Geostrophic Surface Currents and modelled Ekman current at the surface and 15m depth (using ECMWF NRT wind)."
+
+[METOP_A_GOME2_O3]
+name = "MetOP-A GOME-2 Ozone (O3)"
+description = "Daily global concentrations of atmospheric ozone. These data are crucial for monitoring atmospheric pollutants to keep a check on the health of the Earth's atmosphere."
+
+[METOP_A_GOME2_NO2]
+name = "MetOP-A GOME-2 Nitrogen Dioxide (NO2)"
+description = "Daily global concentrations of atmospheric nitrogen dioxide. These data are crucial for monitoring atmospheric pollutants to keep a check on the health of the Earth's atmosphere."
+
+[METOP_A_GOME2_TropNO2]
+name = "MetOP-A GOME-2 Tropospheric Nitrogen Dioxide (NO2)"
+description = "Daily global concentrations of tropospheric nitrogen dioxide. These data are crucial for monitoring atmospheric pollutants to keep a check on the health of the Earth's atmosphere."
+
+[METOP_A_GOME2_SO2]
+name = "MetOP-A GOME-2 Sulphur Dioxide (SO2)"
+description = "Daily global concentrations of atmospheric sulphur dioxide. These data are crucial for monitoring atmospheric pollutants to keep a check on the health of the Earth's atmosphere."
+
+[METOP_A_GOME2_SO2mass]
+name = "MetOP-A GOME-2 Sulphur Dioxide (SO2) mass"
+description = "Daily global concentrations of atmospheric sulphur dioxide mass. These data are crucial for monitoring atmospheric pollutants to keep a check on the health of the Earth's atmosphere."
