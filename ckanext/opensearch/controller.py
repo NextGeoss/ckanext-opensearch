@@ -1,13 +1,8 @@
 # -*- coding: utf-8 -*-
 """Contains the OpenSearch controller and methods for transforming queries."""
 
-from ckan.lib.base import (abort,
-                           BaseController)
-from ckan.common import (_,
-                         c,
-                         config,
-                         request,
-                         response)
+from ckan.lib.base import abort, BaseController
+from ckan.common import _, c, config, request, response
 import ckan.logic as logic
 import ckan.model as model
 
@@ -20,12 +15,11 @@ class OpenSearchController(BaseController):
 
     def check_auth_context(self):
         try:
-            context = {'model': model, 'user': c.user,
-                       'auth_user_obj': c.userobj}
-            if not config.get('testing'):
-                logic.check_access('site_read', context)
+            context = {"model": model, "user": c.user, "auth_user_obj": c.userobj}
+            if not config.get("testing"):
+                logic.check_access("site_read", context)
         except logic.NotAuthorized:
-            abort(403, _('Not authorized to see this page'))
+            abort(403, _("Not authorized to see this page"))
 
         return context
 
@@ -37,7 +31,7 @@ class OpenSearchController(BaseController):
         params = request.params
 
         description_document = make_description_document(params, request_url)
-        content_type = 'application/opensearchdescription+xml'
+        content_type = "application/opensearchdescription+xml"
 
         return self._finish(200, description_document, content_type)
 
@@ -49,18 +43,17 @@ class OpenSearchController(BaseController):
         params = request.params
 
         if search_type != "collection":
-            search_type = params.get('collection_id', search_type)
+            search_type = params.get("collection_id", search_type)
 
-        results_feed = make_results_feed(search_type, params, request_url,
-                                         context)
-        content_type = 'application/atom+xml'
+        results_feed = make_results_feed(search_type, params, request_url, context)
+        content_type = "application/atom+xml"
 
         return self._finish(200, results_feed, content_type)
 
     def _finish(self, status_int, response_data, content_type):
         """Prepare the response once the controller method has finished."""
-        response.charset = 'UTF-8'
+        response.charset = "UTF-8"
         response.status_int = status_int
-        response.headers['Content-Type'] = content_type + '; charset=UTF-8'
+        response.headers["Content-Type"] = content_type + "; charset=UTF-8"
 
         return response_data

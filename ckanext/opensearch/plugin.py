@@ -17,33 +17,43 @@ class OpensearchPlugin(plugins.SingletonPlugin):
     # IConfigurer
 
     def update_config(self, config_):
-        toolkit.add_template_directory(config_, 'templates')
+        toolkit.add_template_directory(config_, "templates")
 
     # ITemplateHelpers
 
     def get_helpers(self):
         return {
-            'os_make_collection_via': helpers.make_collection_via,
-            'os_make_entry_polygon': helpers.make_entry_polygon,
-            'os_make_entry_resource': helpers.make_entry_resource,
+            "os_make_collection_via": helpers.make_collection_via,
+            "os_make_entry_polygon": helpers.make_entry_polygon,
+            "os_make_entry_resource": helpers.make_entry_resource,
         }
 
     # IRoutes
     def before_map(self, map):
         """Add the OpenSearch endpoints to the map."""
-        controller = 'ckanext.opensearch.controller:OpenSearchController'
+        controller = "ckanext.opensearch.controller:OpenSearchController"
 
-        map.connect('return_description_document',
-                    '/opensearch/description.xml',
-                    controller=controller,
-                    action='return_description_document')
+        map.connect(
+            "return_description_document",
+            "/opensearch/description.xml",
+            controller=controller,
+            action="return_description_document",
+        )
 
-        map.connect('process_query', '/opensearch/search.atom',
-                    controller=controller, action='return_search_results',
-                    search_type='dataset')
+        map.connect(
+            "process_query",
+            "/opensearch/search.atom",
+            controller=controller,
+            action="return_search_results",
+            search_type="dataset",
+        )
 
-        map.connect('process_query', '/opensearch/collection_search.atom',
-                    controller=controller, action='return_search_results',
-                    search_type='collection')
+        map.connect(
+            "process_query",
+            "/opensearch/collection_search.atom",
+            controller=controller,
+            action="return_search_results",
+            search_type="collection",
+        )
 
         return map

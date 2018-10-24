@@ -8,20 +8,20 @@ from datetime import datetime
 import math
 import re
 
-from webob.multidict import (MultiDict,
-                             UnicodeMultiDict)
+from webob.multidict import MultiDict, UnicodeMultiDict
 
-from ckan.lib.base import (abort,
-                           render)
+from ckan.lib.base import abort, render
 import ckan.logic as logic
 
-from .config import (COLLECTIONS,
-                     NAMESPACES,
-                     PARAMETERS,
-                     TEMPORAL_START,
-                     TEMPORAL_END,
-                     SHORT_NAME,
-                     SITE_URL)
+from .config import (
+    COLLECTIONS,
+    NAMESPACES,
+    PARAMETERS,
+    TEMPORAL_START,
+    TEMPORAL_END,
+    SHORT_NAME,
+    SITE_URL,
+)
 from .validator import QueryValidator
 
 
@@ -42,13 +42,13 @@ def abort_if_collection_id_invalid(params):
     in a collection that doesn't exist, we have no way of looking up the
     valid parameters.
     """
-    collection_id = params.get('collection_id')
+    collection_id = params.get("collection_id")
 
     if collection_id:
         try:
             PARAMETERS[collection_id]
         except KeyError:
-            abort(400, 'Invalid collection_id ({})'.format(collection_id))
+            abort(400, "Invalid collection_id ({})".format(collection_id))
 
 
 def abort_if_collections_not_configured(search_type):
@@ -57,7 +57,7 @@ def abort_if_collections_not_configured(search_type):
     collection search.
     """
     if search_type == "collection" and not COLLECTIONS:
-        abort(400, 'Collection search is unavailable.')
+        abort(400, "Collection search is unavailable.")
 
 
 def process_query(search_type, params, request_url, context):
@@ -76,12 +76,12 @@ def process_query(search_type, params, request_url, context):
 
     results_dict = search(data_dict, search_type, context)
 
-    results_dict['items_per_page'] = data_dict['rows']
+    results_dict["items_per_page"] = data_dict["rows"]
 
     # Get next page, previous page and index of first element on page.
-    current_page = int(param_dict.get('page') or 1)
-    total_results = results_dict['count']
-    requested_rows = results_dict['items_per_page']
+    current_page = int(param_dict.get("page") or 1)
+    total_results = results_dict["count"]
+    requested_rows = results_dict["items_per_page"]
     expected_results = requested_rows * current_page
 
     if expected_results >= total_results:
@@ -98,30 +98,27 @@ def process_query(search_type, params, request_url, context):
     if last_page == 0:
         last_page = 1
 
-    results_dict['namespaces'] = {'xmlns:{0}'.format(key): value
-                                  for key, value
-                                  in NAMESPACES.items()}
-    results_dict['feed_title'] = ('{} OpenSearch Search Results'
-                                  .format(SHORT_NAME))
-    results_dict['feed_subtitle'] = ('{} results for your search'
-                                     .format(total_results))
-    results_dict['feed_generator_attrs'] = {'version': '0.1',
-                                            'uri': request_url.replace('&', '&amp;')}  # noqa: E501
-    results_dict['feed_generator_content'] = ('{} search results'
-                                              .format(SHORT_NAME))
-    results_dict['feed_updated'] = (datetime.utcnow()
-                                    .strftime('%Y-%m-%dT%H:%M:%SZ'))
-    results_dict['start_index'] = expected_results - requested_rows + 1
-    results_dict['query_attrs'] = make_query_dict(param_dict, search_type)
-    results_dict['feed_box'] = make_feed_box(results_dict)
-    results_dict['site_url'] = SITE_URL
-    results_dict['search_url'] = ('{}/opensearch/description.xml'
-                                  .format(SITE_URL))
-    results_dict['self_url'] = request_url
-    results_dict['first_url'] = make_nav_url(request_url, 1)
-    results_dict['next_url'] = make_nav_url(request_url, next_page)
-    results_dict['prev_url'] = make_nav_url(request_url, prev_page)
-    results_dict['last_url'] = make_nav_url(request_url, last_page)
+    results_dict["namespaces"] = {
+        "xmlns:{0}".format(key): value for key, value in NAMESPACES.items()
+    }
+    results_dict["feed_title"] = "{} OpenSearch Search Results".format(SHORT_NAME)
+    results_dict["feed_subtitle"] = "{} results for your search".format(total_results)
+    results_dict["feed_generator_attrs"] = {
+        "version": "0.1",
+        "uri": request_url.replace("&", "&amp;"),
+    }
+    results_dict["feed_generator_content"] = "{} search results".format(SHORT_NAME)
+    results_dict["feed_updated"] = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    results_dict["start_index"] = expected_results - requested_rows + 1
+    results_dict["query_attrs"] = make_query_dict(param_dict, search_type)
+    results_dict["feed_box"] = make_feed_box(results_dict)
+    results_dict["site_url"] = SITE_URL
+    results_dict["search_url"] = "{}/opensearch/description.xml".format(SITE_URL)
+    results_dict["self_url"] = request_url
+    results_dict["first_url"] = make_nav_url(request_url, 1)
+    results_dict["next_url"] = make_nav_url(request_url, next_page)
+    results_dict["prev_url"] = make_nav_url(request_url, prev_page)
+    results_dict["last_url"] = make_nav_url(request_url, last_page)
 
     return results_dict
 
@@ -129,10 +126,10 @@ def process_query(search_type, params, request_url, context):
 def make_param_dict(params, search_type):
     # Get the query parameters and remove 'amp' if it has snuck in.
     # Strip any parameters that aren't valid as per CEOS-BP-009B.
-    param_dict = UnicodeMultiDict(MultiDict(), encoding='utf-8')
+    param_dict = UnicodeMultiDict(MultiDict(), encoding="utf-8")
 
     for param, value in params.items():
-        if param != 'amp' and param in PARAMETERS.get(search_type, {}):
+        if param != "amp" and param in PARAMETERS.get(search_type, {}):
             param_dict.add(param, value)
 
     return param_dict
@@ -142,7 +139,7 @@ def validate_params(param_dict, search_type):
     # Validate the query and abort if there are errors.
     validator = QueryValidator(param_dict, PARAMETERS[search_type])
     if validator.errors:
-        error_report = '</br>'.join(validator.errors)
+        error_report = "</br>".join(validator.errors)
         return abort(400, error_report)
 
 
@@ -154,12 +151,12 @@ def translate_os_query(param_dict):
     """
     # convert params and build data dictionary
     data_dict = {}
-    data_dict['q'] = param_dict.get('q', '')
-    data_dict['rows'] = set_rows(param_dict.get('rows'))
-    data_dict['start'] = set_start(data_dict['rows'], param_dict.get('page'))
-    data_dict['fq'] = add_simple_filters(param_dict)
-    data_dict['fq'] += add_complex_filters(param_dict)
-    data_dict['ext_bbox'] = param_dict.get('ext_bbox')
+    data_dict["q"] = param_dict.get("q", "")
+    data_dict["rows"] = set_rows(param_dict.get("rows"))
+    data_dict["start"] = set_start(data_dict["rows"], param_dict.get("page"))
+    data_dict["fq"] = add_simple_filters(param_dict)
+    data_dict["fq"] += add_complex_filters(param_dict)
+    data_dict["ext_bbox"] = param_dict.get("ext_bbox")
 
     return data_dict
 
@@ -184,22 +181,21 @@ def add_simple_filters(param_dict):
     """
     Some parameters map directly to filter queries; we can just append them.
     """
-    simple_filters = ''
+    simple_filters = ""
     for (param, value) in param_dict.items():
         # TODO: the params to skip should be defined elsewhere.
-        skip = {'q', 'page', 'sort', 'begin', 'end', 'rows',
-                'date_modified'}
-        if param not in skip and len(value) and not param.startswith('_'):
-            if not param.startswith('ext_'):
+        skip = {"q", "page", "sort", "begin", "end", "rows", "date_modified"}
+        if param not in skip and len(value) and not param.startswith("_"):
+            if not param.startswith("ext_"):
                 simple_filters += ' %s:"%s"' % (param, value)
 
-    return simple_filters + ' +dataset_type:dataset'
+    return simple_filters + " +dataset_type:dataset"
 
 
 def add_complex_filters(param_dict):
 
     # Temporal search across a start time field and an end time field
-    complex_filters = ''
+    complex_filters = ""
     complex_filters += set_timerange(param_dict)
     complex_filters += set_date_modified(param_dict)
     complex_filters += set_geometry(param_dict)
@@ -208,48 +204,47 @@ def add_complex_filters(param_dict):
 
 
 def set_timerange(param_dict):
-    timerange_filter = ''
+    timerange_filter = ""
 
     if TEMPORAL_START and TEMPORAL_END:
         # Get time range
-        begin = param_dict.get('begin')
-        end = param_dict.get('end')
+        begin = param_dict.get("begin")
+        end = param_dict.get("end")
 
         # If begin or end are empty (e.g., "begin="), get will return an
         # empty string rather than the alternate value,
         # so we need this second step.
         if begin or end:
             if not begin:
-                begin = '*'
+                begin = "*"
             if not end:
-                end = 'NOW'
+                end = "NOW"
 
-            time_range = '[{} TO {}]'.format(begin, end)
-            timerange_filter += ' {}:{}'.format(TEMPORAL_START, time_range)
-            timerange_filter += ' {}:{}'.format(TEMPORAL_END, time_range)
+            time_range = "[{} TO {}]".format(begin, end)
+            timerange_filter += " {}:{}".format(TEMPORAL_START, time_range)
+            timerange_filter += " {}:{}".format(TEMPORAL_END, time_range)
 
     return timerange_filter
 
 
 def set_date_modified(param_dict):
     # Temporal search across metadata_modified
-    date_modified_filter = ''
-    date_modified = param_dict.get('date_modified')
+    date_modified_filter = ""
+    date_modified = param_dict.get("date_modified")
     # Format: [YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]
     if date_modified:
-        begin = '{}Z'.format(date_modified[1:20])
-        end = '{}Z'.format(date_modified[21:-1])
-        time_range = '[{} TO {}]'.format(begin, end)
-        date_modified_filter += ' {}:{}'.format('metadata_modified',
-                                                time_range)
+        begin = "{}Z".format(date_modified[1:20])
+        end = "{}Z".format(date_modified[21:-1])
+        time_range = "[{} TO {}]".format(begin, end)
+        date_modified_filter += " {}:{}".format("metadata_modified", time_range)
 
     return date_modified_filter
 
 
 def set_geometry(param_dict):
     # Add geometry spatial filter (only works with Solr spatial field)
-    geometry_filter = ''
-    geometry = param_dict.get('ext_geometry', None)
+    geometry_filter = ""
+    geometry = param_dict.get("ext_geometry", None)
     if geometry:
         geometry_filter += ' +spatial_geom:"Intersects({})"'.format(geometry)
 
@@ -258,10 +253,10 @@ def set_geometry(param_dict):
 
 def search(data_dict, search_type, context):
     # Query the DB.
-    if search_type == 'collection':
+    if search_type == "collection":
         data_dict["facet.field"] = ["collection_id"]
 
-    results_dict = logic.get_action('package_search')(context, data_dict)
+    results_dict = logic.get_action("package_search")(context, data_dict)
 
     if search_type == "collection":
         return make_collection_results_dict(results_dict)
@@ -276,20 +271,22 @@ def make_collection_results_dict(results_dict):
 
     # We don't have published/updated information for collections right now,
     # so we have to fake it.
-    published = '2018-01-16T00:00:00Z'
+    published = "2018-01-16T00:00:00Z"
     updated = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
     collections = results_dict["facets"].get("collection_id", {})
 
     for _id, count in collections.items():
-        collection_results.append({
-            "id": _id,
-            "count": count,
-            "description": COLLECTIONS[_id]["description"],
-            "name": COLLECTIONS[_id]["name"],
-            "published": published,
-            "updated": updated
-        })
+        collection_results.append(
+            {
+                "id": _id,
+                "count": count,
+                "description": COLLECTIONS[_id]["description"],
+                "name": COLLECTIONS[_id]["name"],
+                "published": published,
+                "updated": updated,
+            }
+        )
 
     return {"results": collection_results, "count": len(collections)}
 
@@ -297,8 +294,7 @@ def make_collection_results_dict(results_dict):
 def results_dict_with_accessible_extras(results_dict):
     """Get the extras from their list and make them normal key/value pairs."""
     for entry in results_dict["results"]:
-        extras = {extra["key"]: extra["value"]
-                  for extra in entry.pop("extras", [])}
+        extras = {extra["key"]: extra["value"] for extra in entry.pop("extras", [])}
         entry.update(extras)
 
     return results_dict
@@ -318,30 +314,30 @@ def make_query_dict(param_dict, search_type):
     # XML attributes are unique per element, so parameters that occur more
     # than once in a query must be combined into a space-delimited string.
     for (param, value) in param_dict.items():
-        os_name = PARAMETERS[search_type][param]['os_name']
-        namespace = PARAMETERS[search_type][param]['namespace']
-        if namespace == 'opensearch':
+        os_name = PARAMETERS[search_type][param]["os_name"]
+        namespace = PARAMETERS[search_type][param]["namespace"]
+        if namespace == "opensearch":
             os_param = os_name
         else:
-            os_param = '{}:{}'.format(namespace, os_name)
+            os_param = "{}:{}".format(namespace, os_name)
         if os_param not in query_dict:
             query_dict[os_param] = value
         else:
-            query_dict[os_param] += ' {}'.format(value)
+            query_dict[os_param] += " {}".format(value)
 
-    query_dict['role'] = 'request'
+    query_dict["role"] = "request"
 
     return query_dict
 
 
 def make_feed_box(results_dict):
     """Return the content of the GeoRSS box element for the feed."""
-    bbox_param = '{http://a9.com/-/opensearch/extensions/geo/1.0/}box'
-    bbox = results_dict['query_attrs'].get(bbox_param)
+    bbox_param = "{http://a9.com/-/opensearch/extensions/geo/1.0/}box"
+    bbox = results_dict["query_attrs"].get(bbox_param)
     if bbox:
-        return bbox.replace(',', ' ')
+        return bbox.replace(",", " ")
     else:
-        return '-180.0 -90.0 180.0 90.0'
+        return "-180.0 -90.0 180.0 90.0"
 
 
 def make_nav_url(query_url, page):
@@ -349,24 +345,23 @@ def make_nav_url(query_url, page):
     if not page:
         return None
     else:
-        if 'page=' not in query_url:
-            nav_url = '{0}&page={1}'.format(query_url, page)
+        if "page=" not in query_url:
+            nav_url = "{0}&page={1}".format(query_url, page)
         else:
-            halves = re.compile('page=\d*').split(query_url)
+            halves = re.compile(r"page=\d*").split(query_url)
             if len(halves) == 1:
-                nav_url = '{0}&page={1}'.format(halves[0], page)
+                nav_url = "{0}&page={1}".format(halves[0], page)
             else:
-                nav_url = '{0}page={1}{2}'.format(halves[0], page, halves[1])
+                nav_url = "{0}page={1}{2}".format(halves[0], page, halves[1])
 
         return nav_url
 
 
 def make_atom_feed(results_dict, search_type):
     """Convert the modified search results dictionary into Atom XML."""
-    if search_type == 'collection':
-        template = 'collection_results'
+    if search_type == "collection":
+        template = "collection_results"
     else:
-        template = 'search_results'
+        template = "search_results"
 
-    return render('opensearch/{}.xml'.format(template),
-                  extra_vars=results_dict)
+    return render("opensearch/{}.xml".format(template), extra_vars=results_dict)
