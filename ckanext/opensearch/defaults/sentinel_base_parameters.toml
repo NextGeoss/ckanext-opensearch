@@ -1,0 +1,26 @@
+# Additional parameters for _all_ Sentinel collections
+# NOTE: This implementation of "FamilyName" is just an example.
+# Users query the FamilyName field that all Sentinel datasets have
+# in the Solr index directly using Solr syntax as though it were a
+# CKAN fq query. The "real" verison of FamilyName would have a different
+# name and would have a standardized OpenSearch parameter and namespace
+# associated with it.
+#
+# This is just a demo showing how to add new parameters and how mutliple
+# parameter files can be combined. Since all the Sentinel datasets are
+# already sorted by "FamilyName" (because all the collections currently in
+# use are segmented by Sentinel-1/2/3), if the user searches for
+# FamilyName="Sentinel-3" in a Sentinel-1 collection, they'll get 0 results.
+# If they search for FamilyName="Sentinel-3" in a Sentinel-3 collection,
+# they'll get the same results as if they'd searched without the parameter.
+# In both cases, the results will be correct. Remember, this is just a demo.
+
+[FamilyName]
+title = "The name of the family to which the products belong"
+os_name = "familyname"
+namespace = "custom"
+minimum = 0
+maximum = 1
+  [[FamilyName.options]]
+  value = "Sentinel-3"
+  label = "Products in the Sentinel-3 family"

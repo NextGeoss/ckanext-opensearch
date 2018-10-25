@@ -13,16 +13,10 @@ from webob.multidict import MultiDict, UnicodeMultiDict
 from ckan.lib.base import abort, render
 import ckan.logic as logic
 
-from .config import (
-    COLLECTIONS,
-    NAMESPACES,
-    PARAMETERS,
-    TEMPORAL_START,
-    TEMPORAL_END,
-    SHORT_NAME,
-    SITE_URL,
-)
-from .validator import QueryValidator
+from .config import COLLECTIONS, NAMESPACES, PARAMETERS, SHORT_NAME, SITE_URL
+import converters
+from plugin import OpenSearchError
+import validators
 
 
 def make_results_feed(search_type, params, request_url, context):
@@ -30,7 +24,11 @@ def make_results_feed(search_type, params, request_url, context):
     abort_if_collection_id_invalid(params)
     abort_if_collections_not_configured(search_type)
 
-    results_dict = process_query(search_type, params, request_url, context)
+    param_dict = make_param_dict(params, search_type)
+
+    validate_params(param_dict, PARAMETERS[search_type])
+
+    results_dict = process_query(search_type, param_dict, request_url, context)
 
     return make_atom_feed(results_dict, search_type)
 
@@ -60,19 +58,52 @@ def abort_if_collections_not_configured(search_type):
         abort(400, "Collection search is unavailable.")
 
 
-def process_query(search_type, params, request_url, context):
+def validate_params(submitted_params, expected_params):
+    """Validate each submitted parameter and raise an exception if one is invalid."""
+    try:
+        param_counts = {}
+        for param_name, _ in submitted_params.items():
+            if param_name not in param_counts:
+                param_counts[param_name] = 1
+            else:
+                param_counts[param_name] += 1
+
+        for param_name, param_value in submitted_params.items():
+            param_config = expected_params[param_name]
+            display_name = "{}:{}".format(
+                param_config["namespace"], param_config["os_name"]
+            )
+            min_occurances = param_config.get("minimum", 0)
+            max_occurances = param_config.get("maximum", "*")
+            value_min_inclusive = param_config.get("min_inclusive", None)
+            value_max_exclusive = param_config.get("max_exclusive", None)
+            additional_validators = param_config.get("validators", [])
+
+            # Base validators for all parameters
+            validators.valid_occurances(
+                param_counts[param_name], min_occurances, max_occurances, display_name
+            )
+            validators.valid_value_min_max(
+                param_value, value_min_inclusive, value_max_exclusive, display_name
+            )
+
+            # Additional validators from the parameter config
+            for validator in additional_validators:
+                getattr(validators, validator)(param_value, display_name)
+
+    except OpenSearchError as e:
+        abort(400, str(e))
+
+
+def process_query(search_type, param_dict, request_url, context):
     """
     Process the search query. Underneath, we're still executing a standard
     CKAN search. We're just using a different validation flow and doing
     something different with the results.
     """
-    param_dict = make_param_dict(params, search_type)
-
-    validate_params(param_dict, search_type)
-
     # Translate the query parameters into a CKAN data_dict so we
     # can query the DB.
-    data_dict = translate_os_query(param_dict)
+    data_dict = translate_os_query(param_dict, search_type)
 
     results_dict = search(data_dict, search_type, context)
 
@@ -124,26 +155,21 @@ def process_query(search_type, params, request_url, context):
 
 
 def make_param_dict(params, search_type):
-    # Get the query parameters and remove 'amp' if it has snuck in.
-    # Strip any parameters that aren't valid as per CEOS-BP-009B.
+    """
+    Get the query parameters and remove 'amp' if it has snuck in.
+    Strip any parameters that aren't valid as per CEOS-BP-009B.
+    Exclude empty parameters.
+    """
     param_dict = UnicodeMultiDict(MultiDict(), encoding="utf-8")
 
     for param, value in params.items():
-        if param != "amp" and param in PARAMETERS.get(search_type, {}):
+        if param != "amp" and param in PARAMETERS.get(search_type, {}) and value:
             param_dict.add(param, value)
 
     return param_dict
 
 
-def validate_params(param_dict, search_type):
-    # Validate the query and abort if there are errors.
-    validator = QueryValidator(param_dict, PARAMETERS[search_type])
-    if validator.errors:
-        error_report = "</br>".join(validator.errors)
-        return abort(400, error_report)
-
-
-def translate_os_query(param_dict):
+def translate_os_query(param_dict, search_type):
     """
     Translate the OpenSearch query parameters based on a template.
 
@@ -154,9 +180,8 @@ def translate_os_query(param_dict):
     data_dict["q"] = param_dict.get("q", "")
     data_dict["rows"] = set_rows(param_dict.get("rows"))
     data_dict["start"] = set_start(data_dict["rows"], param_dict.get("page"))
-    data_dict["fq"] = add_simple_filters(param_dict)
-    data_dict["fq"] += add_complex_filters(param_dict)
     data_dict["ext_bbox"] = param_dict.get("ext_bbox")
+    data_dict["fq"] = add_filters(param_dict, search_type)
 
     return data_dict
 
@@ -177,78 +202,20 @@ def set_start(rows, page_param):
     return rows * page
 
 
-def add_simple_filters(param_dict):
+def add_filters(param_dict, search_type):
     """
     Some parameters map directly to filter queries; we can just append them.
     """
-    simple_filters = ""
+    filters = ""
     for (param, value) in param_dict.items():
         # TODO: the params to skip should be defined elsewhere.
-        skip = {"q", "page", "sort", "begin", "end", "rows", "date_modified"}
-        if param not in skip and len(value) and not param.startswith("_"):
-            if not param.startswith("ext_"):
-                simple_filters += ' %s:"%s"' % (param, value)
+        skip = {"q", "rows", "page", "ext_bbox"}
+        if param not in skip:
+            for converter in PARAMETERS[search_type][param].get("converters", []):
+                value = getattr(converters, converter)(value)
+            filters += " %s:%s" % (param, value)
 
-    return simple_filters + " +dataset_type:dataset"
-
-
-def add_complex_filters(param_dict):
-
-    # Temporal search across a start time field and an end time field
-    complex_filters = ""
-    complex_filters += set_timerange(param_dict)
-    complex_filters += set_date_modified(param_dict)
-    complex_filters += set_geometry(param_dict)
-
-    return complex_filters
-
-
-def set_timerange(param_dict):
-    timerange_filter = ""
-
-    if TEMPORAL_START and TEMPORAL_END:
-        # Get time range
-        begin = param_dict.get("begin")
-        end = param_dict.get("end")
-
-        # If begin or end are empty (e.g., "begin="), get will return an
-        # empty string rather than the alternate value,
-        # so we need this second step.
-        if begin or end:
-            if not begin:
-                begin = "*"
-            if not end:
-                end = "NOW"
-
-            time_range = "[{} TO {}]".format(begin, end)
-            timerange_filter += " {}:{}".format(TEMPORAL_START, time_range)
-            timerange_filter += " {}:{}".format(TEMPORAL_END, time_range)
-
-    return timerange_filter
-
-
-def set_date_modified(param_dict):
-    # Temporal search across metadata_modified
-    date_modified_filter = ""
-    date_modified = param_dict.get("date_modified")
-    # Format: [YYYY-MM-DDTHH:MM:SS,YYYY-MM-DDTHH:MM:SS]
-    if date_modified:
-        begin = "{}Z".format(date_modified[1:20])
-        end = "{}Z".format(date_modified[21:-1])
-        time_range = "[{} TO {}]".format(begin, end)
-        date_modified_filter += " {}:{}".format("metadata_modified", time_range)
-
-    return date_modified_filter
-
-
-def set_geometry(param_dict):
-    # Add geometry spatial filter (only works with Solr spatial field)
-    geometry_filter = ""
-    geometry = param_dict.get("ext_geometry", None)
-    if geometry:
-        geometry_filter += ' +spatial_geom:"Intersects({})"'.format(geometry)
-
-    return geometry_filter
+    return filters + " +dataset_type:dataset"
 
 
 def search(data_dict, search_type, context):
@@ -259,13 +226,12 @@ def search(data_dict, search_type, context):
     results_dict = logic.get_action("package_search")(context, data_dict)
 
     if search_type == "collection":
-        return make_collection_results_dict(results_dict)
-
+        return collection_results_dict(results_dict)
     else:
         return results_dict_with_accessible_extras(results_dict)
 
 
-def make_collection_results_dict(results_dict):
+def collection_results_dict(results_dict):
     """Return a new results_dict with just the collection information."""
     collection_results = []
 

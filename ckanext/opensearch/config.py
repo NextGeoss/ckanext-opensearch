@@ -10,6 +10,7 @@ import six
 
 from ckan.common import config
 
+
 log = logging.getLogger(__name__)
 
 
@@ -100,14 +101,12 @@ if COLLECTIONS:
     PARAMETERS["collection"] = load_settings("collection_parameters")
 for _id, details in COLLECTIONS.items():
     PARAMETERS[_id] = dict(PARAMETERS["dataset"])
-    extended_parameters = details.get("parameters_file")
-    if extended_parameters:
-        PARAMETERS[_id].update(load_settings(extended_parameters))
+    additional_parameters = details.get("additional_parameters", [])
+    for parameters_file in additional_parameters:
+        PARAMETERS[_id].update(load_settings(parameters_file))
 
 NAMESPACES = load_settings("namespaces")
 
 SITE_URL = get_site_url()
 SITE_TITLE = get_site_title()
-TEMPORAL_START = get_temporal_start_field()
-TEMPORAL_END = get_temporal_end_field()
 SHORT_NAME = get_short_name()

@@ -13,7 +13,6 @@ os_name = "cloudcoverage"
 namespace = "custom"
 minimum = 0
 maximum = 1
-example = "[* TO 0.3715]"
   [[CloudCoverage.options]]
   value = "[* TO 0.3715]"
   label = "All products with a cloud coverage less than or equal to 0.3715%"

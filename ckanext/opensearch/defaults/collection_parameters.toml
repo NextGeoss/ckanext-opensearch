@@ -43,6 +43,7 @@ os_name = "box"
 namespace = "geo"
 minimum = 0
 maximum = 1
+validators = ["valid_bbox"]
   [[ext_bbox.options]]
   value = "-0.489,51.28,0.236,51.686"
   label = "Bounding Box of Greater London"
@@ -54,42 +55,51 @@ namespace = "geo"
 minimum = 0
 maximum = 1
 
-[begin]
+[timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"
 namespace = "time"
 minimum = 0
 maximum = 1
-  [[begin.options]]
-  value = "2014-04-03"
+validators = ["valid_datetime_string"]
+converters = ["solr_timerange_start"]
+  [[timerange_start.options]]
+  value = "2014-04-03T00:00:00"
   label = "Example start time"
  
-[end]
+[timerange_end]
 title = "End of time range that results should cover"
 os_name = "end"
 namespace = "time"
 minimum = 0
 maximum = 1
-  [[begin.options]]
-  value = "2017-12-21"
+validators = ["valid_datetime_string"]
+converters = ["solr_timerange_stop"]
+  [[timerange_end.options]]
+  value = "2017-12-21T00:00:00"
   label = "Example end time"
 
-[date_modified]
+[metadata_modified]
 title = "Date range within which metadata was modified"
 os_name = "modificationDate"
 namespace = "eo"
 minimum = 0
 maximum = 1
-  [[date_modified.options]]
+validators = ["valid_date_range"]
+converters = ["range_array_to_solr_range", "add_timezone"]
+  [[metadata_modified.options]]
   value = "[2017-11-05T00:00:00,2017-11-05T12:00:00]"
   label = "Example modification date range"
 
-[ext_geometry]
+
+[spatial_geom]
 title = "Arbitrary WKT shape that intersects with results"
 os_name = "geometry"
 namespace = "geo"
 minimum = 0
 maximum = 1
-  [[ext_geometry.options]]
+validators = ["valid_geometry"]
+converters = ["intersects_spatial"]
+  [[spatial_geom.options]]
   value = "POLYGON((-6.284 24.727,-4.834 24.867,0.879 20.982,1.077 20.592,1.912 20.015,2.197 20.118,2.966 19.58,2.944 18.958,3.34 18.813,4.043 18.854,4.021 16.426,3.384 15.581,-0.747 15.242,-3.01 14.179,-3.56 13.411,-3.955 13.646,-4.57 13.261,-4.702 12.426,-5.669 11.867,-5.647 10.661,-6.196 10.92,-6.812 10.833,-7.031 10.445,-7.625 10.682,-7.866 10.509,-8.086 11.394,-9.009 12.726,-10.195 12.404,-11.096 12.469,-11.316 13.518,-11.909 14.499,-11.448 15.178,-10.833 14.796,-10.173 15.263,-5.295 15.305,-5.076 16.32,-5.427 16.784,-6.284 24.727))"
   label = "Mali"

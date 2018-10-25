@@ -57,3 +57,7 @@ class OpensearchPlugin(plugins.SingletonPlugin):
         )
 
         return map
+
+
+class OpenSearchError(Exception):
+    pass
