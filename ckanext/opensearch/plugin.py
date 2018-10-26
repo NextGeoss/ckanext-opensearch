@@ -60,4 +60,5 @@ class OpensearchPlugin(plugins.SingletonPlugin):
 
 
 class OpenSearchError(Exception):
+    """Used for OpenSearch-related errors, like invalid parameters in queries."""
     pass

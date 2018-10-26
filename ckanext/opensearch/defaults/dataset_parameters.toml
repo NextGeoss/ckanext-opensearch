@@ -6,8 +6,10 @@
 # namespace = "The XML namespace that the parameter belongs to. The full namespace must be defined in the namespaces document."
 # minimum = "The minimum number (integer) of instances of the parameter. 0 means that the parameter is optional."
 # maximum = "The maximum number (integer) of instances of the parameter. In most cases, this value should be 1."
-# min_inclusive = "The (optional) minimum value (integer) that this parameter can have. For instance, the value of rows must be greater than 0, so min_inclusive is 1."
-# max_exclusive = "The (optional) maximum value (integer) that this parameter can have. For instance, the value of rows can't be greater than 1000, so max_exclusive is 1001."
+# min_inclusive = The (optional) minimum value (integer) that this parameter can have. For instance, the value of rows must be greater than 0, so min_inclusive is 1.
+# max_exclusive = The (optional) maximum value (integer) that this parameter can have. For instance, the value of rows can't be greater than 1000, so max_exclusive is 1001.
+# validators = [An optional array listing the names of any validation functions from validators.py that should be applied to the parameter before executing a search. Validators are applied in the order they are listed here. Note that all parameters are subjected to two default validations regardless of whether this array is included: the number of instances of each parameter (defined by minimum and maximum above) is validated and, if min_inclusive/max_exclusive are defined, the parameter's value is also validated against those values.]
+# converters = [An optional array listing the converter functions from converters.py that should be applied to the parameter before executing a search. If no covnerter is included, the parameter value is just passed directly to package_search. Some OpenSearch parameters are formatted just like CKAN parameters, so no conversion is necessary. In other cases, like date ranges, the value must be converted first.]
 #   [[ckan_name.options]] (create an element in a list of parameter options/examples)
 #   value = "An example of a value that the user can submit for this parameter"
 #   label = "A brief explanation of what this value represents, e.g., 'An example start time' or 'The bounding box of London'"
