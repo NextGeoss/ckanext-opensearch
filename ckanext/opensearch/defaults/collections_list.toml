@@ -16,7 +16,7 @@ additional_parameters = ["sentinel_base_parameters"]
 [SENTINEL1_L1_GRD]
 name = "Sentinel-1 Level-1 (GRD)"
 description = "The Sentinel-1 Level-1 Ground Range Detected (GRD) products consist of focused SAR data that has been detected, multi-looked and projected to ground range using an Earth ellipsoid model. Phase information is lost. The resulting product has approximately square resolution pixels and square pixel spacing with reduced speckle at the cost of reduced geometric resolution."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel-1-grd_parameters"]
 
 [SENTINEL1_L2_OCN]
 name = "Sentinel-1 Level-2 (OCN)"
@@ -130,3 +130,30 @@ description = "Daily global concentrations of atmospheric sulphur dioxide. These
 [METOP_A_GOME2_SO2mass]
 name = "MetOP-A GOME-2 Sulphur Dioxide (SO2) mass"
 description = "Daily global concentrations of atmospheric sulphur dioxide mass. These data are crucial for monitoring atmospheric pollutants to keep a check on the health of the Earth's atmosphere."
+
+
+# Static EBV collections
+
+[TREE_SPECIES_DISTRIBUTION_HABITAT_SUITABILITY]
+name = "Tree Species Distribution Habitat Suitability"
+description = " "
+
+[FLOOD_HAZARD_EU_GL]
+name = "Flood Hazard Europe/Global"
+description = " "
+
+[RSP_AVHRR_1KM_ANNUAL_USA]
+name = "AVHRR Remote Sensing Phenology"
+description = " "
+
+[EMODIS_PHENOLOGY_250M_ANNUAL_USA]
+name = "eMODIS Remote Sensing Phenology"
+description = " "
+
+[LAI_1KM_AVHRR_8DAYS_GL]
+name = "GLASS Leaf Area Index AVHRR 8 days"
+description = " "
+
+[LAI_1KM_MODIS_8DAYS_GL]
+name = "GLASS Leaf Area Index MODIS 8 days"
+description = " "
