@@ -130,3 +130,93 @@ description = "Daily global concentrations of atmospheric sulphur dioxide. These
 [METOP_A_GOME2_SO2mass]
 name = "MetOP-A GOME-2 Sulphur Dioxide (SO2) mass"
 description = "Daily global concentrations of atmospheric sulphur dioxide mass. These data are crucial for monitoring atmospheric pollutants to keep a check on the health of the Earth's atmosphere."
+
+
+[PROBAV_L2A_333M_V001]
+name = "Proba-V Level-2A (333M)"
+description = ""
+
+
+[PROBAV_S1-TOC_1KM_V001]
+name = "Proba-V S1-TOC (1KM)"
+description = "Synthesis products with Top of Canopy (TOC) reflectances composited over defined time frame of 1 day for 1Km of spatial resolution."
+
+
+[PROBAV_S1-TOA_1KM_V001]
+name = "Proba-V S1-TOA (1KM)"
+description = "Synthesis products with Top of Atmosphere (TOA) reflectances composited over defined time frame of 1 day for 1Km of spatial resolution."
+
+
+[PROBAV_S10-TOC_1KM_V001]
+name = "Proba-V S10-TOC (1KM)"
+description = "Synthesis products with Top of Canopy (TOC) reflectances composited over defined time frame of 10 days for 1Km of spatial resolution."
+
+
+[PROBAV_S10-TOC-NDVI_1KM_V001]
+name = "Proba-V S10-TOC NDVI (1KM)"
+description = "Synthesis products with Top of Canopy (TOC) reflectances composited over defined time frame of 10 days for 1Km of spatial resolution, containing only Normalized Difference Vegetation Index (NDVI)."
+
+
+[PROBAV_L2A_1KM_V001]
+name = "Proba-V Level-2A (1KM)"
+description = "PROBA-V Level2A - 1KM segments contain the Level 1C (P product) data projected on a uniform 1Km grid."
+
+
+[PROBAV_P_V001]
+name = "Proba-V Level-1C"
+description = "Raw data which is geo-located and radiometrically calibrated to Top Of Atmosphere (TOA) reflectance values."
+
+
+[PROBAV_S1-TOC_333M_V001]
+name = "Proba-V S1-TOC (333M)"
+description = "Synthesis products with Top of Canopy (TOC) reflectances composited over defined time frame of 1 day for 333m of spatial resolution."
+
+
+[PROBAV_S1-TOA_333M_V001]
+name = "Proba-V S1-TOA (333M)"
+description = "Synthesis products with Top of Atmosphere (TOA) reflectances composited over defined time frame of 1 day for 333m of spatial resolution."
+
+
+[PROBAV_S10-TOC_333M_V001]
+name = "PROBAV_S10-TOC_333M_V001"
+description = "Synthesis products with Top of Canopy (TOC) reflectances composited over defined time frame of 10 days for 333m of spatial resolution."
+
+
+[PROBAV_S10-TOC-NDVI_333M_V001]
+name = "Proba-V S10-TOC NDVI (333M)"
+description = "Synthesis products with Top of Canopy (TOC) reflectances composited over defined time frame of 10 days for 333m of spatial resolution, containing only Normalized Difference Vegetation Index (NDVI)."
+
+
+[PROBAV_S1-TOC_100M_V001]
+name = "Proba-V S1-TOC (100M)"
+description = "Synthesis products with Top of Canopy (TOC) reflectances composited over defined time frame of 1 day for 100m of spatial resolution."
+
+
+[PROBAV_S1-TOA_100M_V001]
+name = "Proba-V S1-TOA (100M)"
+description = "Synthesis products with Top of Atmosphere (TOA) reflectances composited over defined time frame of 1 day for 100m of spatial resolution."
+
+
+[PROBAV_S1-TOC-NDVI_100M_V001]
+name = "Proba-V S1-TOC NDVI (100M)"
+description = "Synthesis products with Top of Atmosphere (TOA) reflectances composited over defined time frame of 1 day for 100m of spatial resolution containing only Normalized Difference Vegetation Index (NDVI)"
+
+
+[PROBAV_S5-TOC_100M_V001]
+name = "Proba-V S5-TOC (100M)"
+description = "Synthesis products with Top of Canopy (TOC) reflectances composited over defined time frame of 5 days for 100m of spatial resolution."
+
+
+[PROBAV_S5-TOA_100M_V001]
+name = "Proba-V S5-TOA (100M)"
+description = "Synthesis products with Top of Atmosphere (TOA) reflectances composited over defined time frame of 5 days for 100m of spatial resolution."
+
+
+[PROBAV_S5-TOC-NDVI_100M_V001]
+name = "Proba-V S5-TOC NDVI (100M)"
+description = "Synthesis products with Top of Atmosphere (TOA) reflectances composited over defined time frame of 5 days for 100m of spatial resolution.
+
+
+[PROBAV_L2A_100M_V001]
+name = "Proba-V Level-2A (100M)"
+description = "PROBA-V Level2A - 100M segments contain the Level 1C (P product) data projected on a uniform 100m grid."
