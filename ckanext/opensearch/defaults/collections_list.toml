@@ -216,7 +216,6 @@ description = "Synthesis products with Top of Atmosphere (TOA) reflectances comp
 name = "Proba-V S5-TOC NDVI (100M)"
 description = "Synthesis products with Top of Atmosphere (TOA) reflectances composited over defined time frame of 5 days for 100m of spatial resolution.
 
-
 [PROBAV_L2A_100M_V001]
-name = "Proba-V Level-2A (100M)"
+name = "PROBAV_L2A_100M_V001"
 description = "PROBA-V Level2A - 100M segments contain the Level 1C (P product) data projected on a uniform 100m grid."
