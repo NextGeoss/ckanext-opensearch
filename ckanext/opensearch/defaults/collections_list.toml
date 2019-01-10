@@ -130,3 +130,9 @@ description = "Daily global concentrations of atmospheric sulphur dioxide. These
 [METOP_A_GOME2_SO2mass]
 name = "MetOP-A GOME-2 Sulphur Dioxide (SO2) mass"
 description = "Daily global concentrations of atmospheric sulphur dioxide mass. These data are crucial for monitoring atmospheric pollutants to keep a check on the health of the Earth's atmosphere."
+
+
+# Plan4All collections
+[OPEN_LAND_USE_MAP]
+name = "Open Land Use Map"
+description = "The main idea is to put Open Land Use dataset and also its metadata (from micka.lesprojekt.cz) in RDF format into Virtuoso and explore SPARQL queries that would combine data with metadata. For instance: Show me the datasets (municipalities) where more than 50% of the area is covered by residential areas and data were collected not later than 5 years ago? This query combines some metadata (such as year of data collection and municipality which data covers) with data itself (object features with residential land use). For automatization of such queries it is necessary to have both data and metadata available for querying and interconnected. In ideal case the output will be endpoint where it will be possible to query both OLU data and metadata, some model queries and possibly some visualization of query results."
