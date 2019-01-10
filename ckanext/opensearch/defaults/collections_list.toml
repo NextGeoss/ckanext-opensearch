@@ -237,3 +237,24 @@ description = "The GLASS Leaf Area Index (LAI) product, a global LAI product wit
 [LAI_1KM_MODIS_8DAYS_GL]
 name = "GLASS Leaf Area Index MODIS 8 days"
 description = "The GLASS Leaf Area Index (LAI) product, a global LAI product with long time series, derived from MODIS land surface reflectance (MOD09A1), and released by the Center for Global Change Data Processing and Analysis of Beijing Normal University. The GLASS LAI product has a temporal resolution of 8 days and is available from 1982 to 2015."
+
+
+# Static EBV collections
+[TREE_SPECIES_DISTRIBUTION_HABITAT_SUITABILITY]
+name = "Tree Species Distribution Habitat Suitability"
+description = "European Distribution of the specie Fagus sylvatica for the years 2020, 2050 and 2080, based on different models such as ENS, CCCMA, CSIRO, HADCM3 (Habitat Suitability future)."
+
+
+[FLOOD_HAZARD_EU_GL]
+name = "Flood Hazard Europe/Global"
+description = "The map depicts flood prone areas in Europe for flood events with 10-year return period. Cell values indicate water depth (in m). The map can be used to assess flood exposure and risk of population and assets. NOTE: this dataset is based on JRC elaborations and is not an official flood hazard map."
+
+
+[RSP_AVHRR_1KM_ANNUAL_USA]
+name = "AVHRR Remote Sensing Phenology"
+description = "The Remote Sensing Phenology (RSP) collection is a set of nine annual phenological metrics for the conterminous United States. Researchers at the U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center utilize data gathered by satellite sensors to track seasonal changes in vegetation. These datasets are provided by the sensor Advanced Very High Resolution Radiometer (AVHRR) from National Oceanic and Atmospheric Administration (NOAA) polar-orbiting satellites."
+
+
+[EMODIS_PHENOLOGY_250M_ANNUAL_USA]
+name = "eMODIS Remote Sensing Phenology"
+description = "The Remote Sensing Phenology (RSP) collection is a set of nine annual phenological metrics for the conterminous United States. Researchers at the U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center utilize data gathered by satellite sensors to track seasonal changes in vegetation. These datasets are provided by the sensor Moderate Resolution Imaging Spectroradiometer (MODIS) carried aboard National Aeronautics and Space Administration (NASA) Terra and Aqua satellites."
