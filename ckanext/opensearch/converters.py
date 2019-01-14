@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 """
 Contains functions for converting OpenSearch parameters to CKAN/Solr parameters.
@@ -51,6 +52,10 @@ def solr_timerange_stop(stop_time):
         stop_time = "NOW"
 
     return "[{} TO {}]".format("*", stop_time)
+
+
+def solr_timerange(start_time, stop_time):
+    return "[{} TO {}]".format(start_time, stop_time)
 
 
 def intersects_spatial(geometry):

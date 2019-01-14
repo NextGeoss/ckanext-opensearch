@@ -220,8 +220,11 @@ def add_filters(param_dict, search_type):
 
 def search(data_dict, search_type, context):
     # Query the DB.
+    print search_type
     if search_type == "collection":
         data_dict["facet.field"] = ["collection_id"]
+
+    print data_dict
 
     results_dict = logic.get_action("package_search")(context, data_dict)
 

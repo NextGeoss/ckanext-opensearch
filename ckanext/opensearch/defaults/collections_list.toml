@@ -12,56 +12,81 @@
 name = "Sentinel-1 Level-1 (SLC)"
 description = "The Sentinel-1 Level-1 Single Look Complex (SLC) products consist of focused SAR data geo-referenced using orbit and attitude data from the satellite and provided in zero-Doppler slant-range geometry. The products include a single look in each dimension using the full TX signal bandwidth and consist of complex samples preserving the phase information."
 additional_parameters = ["sentinel_base_parameters"]
+tags = ["Sentinel-1"]
+product_type = ["SLC"]
 
 [SENTINEL1_L1_GRD]
 name = "Sentinel-1 Level-1 (GRD)"
 description = "The Sentinel-1 Level-1 Ground Range Detected (GRD) products consist of focused SAR data that has been detected, multi-looked and projected to ground range using an Earth ellipsoid model. Phase information is lost. The resulting product has approximately square resolution pixels and square pixel spacing with reduced speckle at the cost of reduced geometric resolution."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel-1-grd_parameters"]
+tags = ["Sentinel-1"]
+product_type = ["GRD"]
+
 
 [SENTINEL1_L2_OCN]
 name = "Sentinel-1 Level-2 (OCN)"
 description = "The Sentinel-1 Level-2 OCN products include components for Ocean Swell spectra (OSW) providing continuity with ERS and ASAR WV and two new components: Ocean Wind Fields (OWI) and Surface Radial Velocities (RVL). The OSW is a two-dimensional ocean surface swell spectrum and includes an estimate of the wind speed and direction per swell spectrum. The OWI is a ground range gridded estimate of the surface wind speed and direction at 10 m above the surface derived from internally generated Level-1 GRD images of SM, IW or EW modes. The RVL is a ground range gridded difference between the measured Level-2 Doppler grid and the Level-1 calculated geometrical Doppler."
 additional_parameters = ["sentinel_base_parameters"]
+tags = ["Sentinel-1"]
+product_type = ["OCN"]
+
 
 [SENTINEL2_L1C]
 name = "Sentinel-2 Level-1C"
 description = "The Sentinel-2 Level-1C products are Top-of-atmosphere reflectances in cartographic geometry. These products are systematically generated and the data volume is 500MB for each 100x100 km²."
 additional_parameters = ["sentinel_base_parameters", "sentinel-2_parameters"]
+tags = ["Sentinel-2"]
+product_type = ["Level-1C"]
+
 
 [SENTINEL2_L2A]
 name = "Sentinel-2 Level-2A"
 description = "The Sentinel-2 Level-2A products are Bottom-of-atmosphere reflectances in cartographic geometry (prototype product). These products are generated using Sentinel-2 Toolbox and the data volume is 600MB for each 100x100 km²."
 additional_parameters = ["sentinel_base_parameters", "sentinel-2_parameters"]
+tags = ["Sentinel-2"]
+product_type = ["Level-2A"]
 
 [SENTINEL3_SRAL_L1_CAL]
 name = "Sentinel-3 SRAL Level-1 Calibration"
 description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a Level 1 Calibration product."
 additional_parameters = ["sentinel_base_parameters"]
+tags = ["Sentinel-3", "Level-1", "CAL"]
+
 
 [SENTINEL3_SRAL_L1_SRA]
 name = "Sentinel-3 SRAL Level-1 SRA"
 description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a Level 1 SRA product."
 additional_parameters = ["sentinel_base_parameters"]
+tags = ["Sentinel-3", "Level-1", "SRA"]
+
 
 [SENTINEL3_SRAL_L2_LAN]
 name = "Sentinel-3 SRAL Level-2 Land"
 description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a product of Level 2 processing and geographical coverage over land."
 additional_parameters = ["sentinel_base_parameters"]
+tags = ["Sentinel-3", "Level-2", "Land"]
+
 
 [SENTINEL3_SRAL_L2_WAT]
 name = "Sentinel-3 SRAL Level-2 Water"
 description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a product of Level 2 processing and geographical coverage over water."
 additional_parameters = ["sentinel_base_parameters"]
+tags = ["Sentinel-3", "Level-2", "Water"]
+
 
 [SENTINEL3_OLCI_L1_EFR]
 name = "Sentinel-3 OLCI Level-1 Full Resolution"
 description = "SENTINEL-3 OLCI Level-1 product provides radiances for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. The output of this product is during EO processing mode for Full Resolution."
 additional_parameters = ["sentinel_base_parameters"]
+tags = ["Sentinel-3", "Level-2", "Water"]
+
 
 [SENTINEL3_OLCI_L1_ERR]
 name = "Sentinel-3 OLCI Level-1 Reduced Resolution"
 description = "SENTINEL-3 OLCI Level-1 product provides radiances for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. The output of this product is during EO processing mode for Reduced Resolution."
 additional_parameters = ["sentinel_base_parameters"]
+tags = ["Sentinel-3"]
+product_type = ["OL_1_EFR___"]
 
 [SENTINEL3_OLCI_L2_LFR]
 name = "Sentinel-3 OLCI Level-2 Land Full Resolution"
