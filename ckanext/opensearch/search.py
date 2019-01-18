@@ -207,24 +207,29 @@ def add_filters(param_dict, search_type):
     Some parameters map directly to filter queries; we can just append them.
     """
     filters = ""
+
     for (param, value) in param_dict.items():
         # TODO: the params to skip should be defined elsewhere.
         skip = {"q", "rows", "page", "ext_bbox"}
-        if param not in skip:
+        extra_params = {"swath", "orbit_direction", "polarisation", "product_type",
+                "cloud_coverage", "family_name"}
+
+        if param not in skip and param not in extra_params:
             for converter in PARAMETERS[search_type][param].get("converters", []):
                 value = getattr(converters, converter)(value)
             filters += " %s:%s" % (param, value)
+
+        if param in extra_params:
+            os_name = PARAMETERS[search_type][param]["os_name"]
+            filters += " %s:%s" % (os_name, value)
 
     return filters + " +dataset_type:dataset"
 
 
 def search(data_dict, search_type, context):
     # Query the DB.
-    print search_type
     if search_type == "collection":
         data_dict["facet.field"] = ["collection_id"]
-
-    print data_dict
 
     results_dict = logic.get_action("package_search")(context, data_dict)
 

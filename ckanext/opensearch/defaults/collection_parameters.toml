@@ -69,7 +69,7 @@ converters = ["solr_timerange_start"]
   [[timerange_start.options]]
   value = "2014-04-03T00:00:00"
   label = "Example start time"
- 
+
 [timerange_end]
 title = "End of time range that results should cover"
 os_name = "end"

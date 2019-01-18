@@ -1,6 +1,6 @@
 # Additional parameters for Sentinel-1 GRD collections
 
-[Swath]
+[swath]
 title = "acquisition mode"
 os_name = "Swath"
 namespace = "custom"
@@ -8,20 +8,20 @@ minimum = 0
 maximum = 1
 
 [orbit_direction]
-title = "Orbin direction"
-os_name = "OrbinDirection"
+title = "Orbit direction"
+os_name = "OrbitDirection"
 namespace = "custom"
 minimum = 0
 maximum = 1
 
-[TransmitterReceiverPolarisation]
-title = "Polarization"
+[polarisation]
+title = "Polarisation"
 os_name = "TransmitterReceiverPolarisation"
 namespace = "custom"
 minimum = 0
 maximum = 1
 
-[ProductType]
+[product_type]
 title = "Product Type"
 os_name = "ProductType"
 namespace = "custom"

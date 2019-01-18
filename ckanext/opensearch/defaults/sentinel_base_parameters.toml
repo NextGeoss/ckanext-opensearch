@@ -15,9 +15,9 @@
 # they'll get the same results as if they'd searched without the parameter.
 # In both cases, the results will be correct. Remember, this is just a demo.
 
-[FamilyName]
+[family_name]
 title = "The name of the family to which the products belong"
-os_name = "familyname"
+os_name = "FamilyName"
 namespace = "custom"
 minimum = 0
 maximum = 1

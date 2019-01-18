@@ -7,9 +7,9 @@
 # directly using Solr syntax as though it were a
 # CKAN fq query.
 
-[CloudCoverage]
+[cloud_coverage]
 title = "Cloud coverage range"
-os_name = "cloudcoverage"
+os_name = "CloudCoverage"
 namespace = "custom"
 minimum = 0
 maximum = 1
