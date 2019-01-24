@@ -26,7 +26,7 @@
   {% endif -%}
   {% if prev_url -%}
   <atom:link href="{{ prev_url }}" type="application/atom+xml" rel="prev" title="prev"/>
-  {% endif -%} 
+  {% endif -%}
   <atom:link href="{{ last_url }}" type="application/atom+xml" rel="last" title="last"/>
   {% for entry in results -%}
   <atom:entry>
@@ -35,7 +35,7 @@
     <atom:id>{{ site_url }}/opensearch/search.atom?identifier={{ entry.identifier }}</atom:id>
     <dc:identifier>{{ entry.identifier }}</dc:identifier>
     {# atom:link implementation at request of Terradue. -#}
-    <atom:link {{ {"href": "{}/opensearch/search.atom?collection_id={}&identifier={}".format(self_url, entry.collection_id, entry.identifier), "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
+    <atom:link {{ {"href": "{}&identifier={}".format(self_url, entry.identifier), "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
     {% if entry.collection_id -%}
     {# Define an Atom link with rel="up" for a product's collection. -#}
     <atom:link {{ {"href": "{}/opensearch/search.atom?collection_id={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "up", "title": "Link to collection"}|xmlattr(False)|escape }}/>
