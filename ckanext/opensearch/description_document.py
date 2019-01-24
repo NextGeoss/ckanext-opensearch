@@ -80,19 +80,24 @@ def make_search_rel(document_type):
 def make_search_template(document_type):
     """Create the OpenSearch template based on the various parameters."""
     terms = []
+    skip = []
+
     if document_type != "collection":
         terms.append("collection_id={}".format(document_type))
+        skip.append('collection_id')
+
     for param, details in PARAMETERS[document_type].items():
-        name = param
-        value = details["os_name"]
-        # Add namespace and required flag to value if necessary
-        namespace = details.get("namespace", "opensearch")
-        value = namespace + ":" + value
-        required = details.get("minimum")
-        if not required:
-            value = value + "?"
-        term = name + "={" + value + "}"
-        terms.append(term)
+        if param not in skip:
+            name = param
+            value = details["os_name"]
+            # Add namespace and required flag to value if necessary
+            namespace = details.get("namespace", "opensearch")
+            value = namespace + ":" + value
+            required = details.get("minimum")
+            if not required:
+                value = value + "?"
+            term = name + "={" + value + "}"
+            terms.append(term)
     terms = "&".join(terms)
 
     search_template = "{}/opensearch/search.atom?{}".format(SITE_URL, terms)
