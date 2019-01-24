@@ -30,6 +30,16 @@ maximum = 1
 min_inclusive = 1
 max_exclusive = 1001
 
+#startIndex
+[start_index]
+title = "Replaced with the index of the first search result desired by the search client."
+os_name = "startIndex"
+namespace = "opensearch"
+minimum = 0
+maximum = 1
+min_inclusive = 1
+max_exclusive = 1001
+
 [page]
 title = "Page number"
 os_name = "startPage"
