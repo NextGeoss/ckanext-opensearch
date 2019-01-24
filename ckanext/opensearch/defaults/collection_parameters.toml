@@ -24,7 +24,7 @@ maximum = 1
 
 [rows]
 title = "Max. results per page"
-os_name = "maxResults"
+os_name = "count"
 namespace = "opensearch"
 minimum = 0
 maximum = 1
