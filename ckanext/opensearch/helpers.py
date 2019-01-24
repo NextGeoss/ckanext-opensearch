@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
+import ast
+import ckan.logic as logic
 
 from ckan.lib.helpers import get_pkg_dict_extra
-
 
 def make_collection_via(entry):
     """URL pointing to the source's metadata about the collection."""
@@ -24,9 +25,28 @@ def make_collection_via(entry):
     return {"href": url, "type": content_type, "rel": "via"}
 
 
+def convert_dataset_extra(dataset_extra_string):
+    """Convert the dataset_extra string into indexable extras."""
+    extras = ast.literal_eval(dataset_extra_string)
+
+    return [(extra["key"], extra["value"]) for extra in extras]
+
+
+def string_extras_to_extras_list(pkg_dict):
+    """Convert extras saved as a string to a normal extras list."""
+    extras = pkg_dict.get("extras")
+
+    if extras and extras[0]["key"] == "dataset_extra":
+        pkg_dict["extras"] = ast.literal_eval(extras[0]["value"])
+
+    return pkg_dict
+
+
 def make_entry_polygon(entry):
     """Define a GEORSS polygon element based on an entry's spatial value."""
-    spatial = get_pkg_dict_extra(entry, "spatial", "")
+    #spatial = get_pkg_dict_extra(entry, "noa_expiration_date", "")
+    spatial = entry['spatial']
+
     if spatial:
         spatial = json.loads(spatial)
         coordinates = spatial["coordinates"][0]

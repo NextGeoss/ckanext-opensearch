@@ -25,7 +25,7 @@
   {%- endif -%}
   {%- if prev_url -%}
   <atom:link href="{{ prev_url }}" type="application/atom+xml" rel="prev" title="prev"/>
-  {%- endif -%} 
+  {%- endif -%}
   <atom:link href="{{ last_url }}" type="application/atom+xml" rel="last" title="last"/>
   {%- for entry in results -%}
   <atom:entry>
