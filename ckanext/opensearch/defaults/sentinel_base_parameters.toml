@@ -16,11 +16,11 @@
 # In both cases, the results will be correct. Remember, this is just a demo.
 
 [family_name]
-title = "The name of the family to which the products belong"
-os_name = "FamilyName"
-namespace = "custom"
+title = "A string with the platform short name (e.g. Sentinel-1)"
+os_name = "platformName"
+namespace = "eo"
 minimum = 0
 maximum = 1
-  [[FamilyName.options]]
+  [[family_name.options]]
   value = "Sentinel-3"
   label = "Products in the Sentinel-3 family"

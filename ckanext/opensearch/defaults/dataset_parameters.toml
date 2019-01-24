@@ -68,7 +68,7 @@ converters = ["solr_timerange_start"]
   [[timerange_start.options]]
   value = "2014-04-03T:00:00:00"
   label = "Example start time"
- 
+
 [timerange_end]
 title = "End of time range that results should cover"
 os_name = "end"
@@ -106,9 +106,9 @@ converters = ["intersects_spatial"]
   label = "Mali"
 
 [collection_id]
-title = "ID of collection to search within"
-os_name = "collection_id"
-namespace = "custom"
+title = "A string identifying the entry type (e.g. SENTINEL2_L2A, PROBAV_S5-TOA_100M_V001). "
+os_name = "productType"
+namespace = "eo"
 minimum = 0
 maximum = 1
   [[collection_id.options]]
