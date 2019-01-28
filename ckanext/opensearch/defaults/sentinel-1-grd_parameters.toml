@@ -13,10 +13,10 @@ os_name = "orbitDirection"
 namespace = "eo"
 minimum = 0
 maximum = 1
-  [[orbitDirection.options]]
+  [[orbit_direction.options]]
   value = "ASCENDING"
   label = "ASCENDING acquisition orbit direction"
-  [[orbitDirection.options]]
+  [[orbit_direction.options]]
   value = "DESCENDING"
   label = "DESCENDING acquisition orbit direction"
 
@@ -29,7 +29,7 @@ maximum = 1
 
 [product_type]
 title = "A string identifying the ProductType (eg. GRD)"
-os_name = "ProductType"
+os_name = "c"
 namespace = "custom"
 minimum = 0
 maximum = 1
