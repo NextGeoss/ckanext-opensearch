@@ -212,7 +212,7 @@ def set_start(rows, start_index, page_param):
     else:
         page = int(page_param) - 1
 
-    if start_index:
+    if start_index > 1:
         return start_index
     else:
         return rows * page
