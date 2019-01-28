@@ -21,6 +21,4 @@ os_name = "platformName"
 namespace = "eo"
 minimum = 0
 maximum = 1
-  [[family_name.options]]
-  value = "Sentinel-3"
-  label = "Products in the Sentinel-3 family"
+## TO DO ADD OPTIONS FOR PLATFORM NAME

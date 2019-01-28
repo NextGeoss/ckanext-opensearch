@@ -17,6 +17,7 @@ from .config import COLLECTIONS, NAMESPACES, PARAMETERS, SHORT_NAME, SITE_URL
 import converters
 from plugin import OpenSearchError
 import validators
+from ckanext.opensearch import helpers
 
 
 def make_results_feed(search_type, params, request_url, context):
@@ -104,8 +105,7 @@ def process_query(search_type, param_dict, request_url, context):
     # Translate the query parameters into a CKAN data_dict so we
     # can query the DB.
     data_dict = translate_os_query(param_dict, search_type)
-    start_index = data_dict["start_index"]
-    del data_dict["start_index"]
+    print param_dict
 
     results_dict = search(data_dict, search_type, context)
 
@@ -142,7 +142,7 @@ def process_query(search_type, param_dict, request_url, context):
     }
     results_dict["feed_generator_content"] = "{} search results".format(SHORT_NAME)
     results_dict["feed_updated"] = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-    results_dict["start_index"] = start_index
+    results_dict["start_index"] = expected_results - requested_rows + 1
     results_dict["query_attrs"] = make_query_dict(param_dict, search_type)
     results_dict["feed_box"] = make_feed_box(results_dict)
     results_dict["site_url"] = SITE_URL
@@ -179,13 +179,12 @@ def translate_os_query(param_dict, search_type):
     """
     # convert params and build data dictionary
     data_dict = {}
-    data_dict["q"] = param_dict.get("q", "")
+    if param_dict.get("q") != "":
+        data_dict["q"] = param_dict.get("q")
     data_dict["rows"] = set_rows(param_dict.get("rows"))
-    data_dict["start_index"] = set_start_index(param_dict.get("start_index"))
-    # print data_dict["start_index"]
-    #print (param_dict.get("start_index"))
-    data_dict["start"] = set_start(data_dict["rows"], data_dict["start_index"], param_dict.get("page"))
+    data_dict["start"] = set_start(data_dict["rows"], param_dict.get("page"))
     data_dict["ext_bbox"] = param_dict.get("ext_bbox")
+    print param_dict
     data_dict["fq"] = add_filters(param_dict, search_type)
 
     return data_dict
@@ -198,25 +197,13 @@ def set_rows(rows_param):
         return int(rows_param)
 
 
-def set_start_index(start_index_param):
-    if not start_index_param:
-        return 1
-    else:
-        return int(start_index_param)
-
-
-def set_start(rows, start_index, page_param):
+def set_start(rows, page_param):
     if not page_param:
         page = 0
     else:
         page = int(page_param) - 1
 
-    if start_index < (rows * page):
-        return rows * page - start_index
-    elif start_index > (rows * page):
-        return start_index
-    else:
-        return rows * page
+    return rows * page
 
 
 def add_filters(param_dict, search_type):
@@ -226,19 +213,26 @@ def add_filters(param_dict, search_type):
     filters = ""
 
     for (param, value) in param_dict.items():
+        print param
         # TODO: the params to skip should be defined elsewhere.
         skip = {"q", "rows", "page", "ext_bbox", "start_index", "start"}
         extra_params = {"swath", "orbit_direction", "polarisation", "product_type",
                 "cloud_coverage", "family_name"}
 
-        if param not in skip and param not in extra_params:
+        if param not in skip:
             for converter in PARAMETERS[search_type][param].get("converters", []):
                 value = getattr(converters, converter)(value)
+            names = helpers.get_extra_names()
+            if param in names:
+                param = names[param]
+
             filters += " %s:%s" % (param, value)
 
-        if param in extra_params:
-            os_name = PARAMETERS[search_type][param]["os_name"]
-            filters += " %s:%s" % (os_name, value)
+        # if param in extra_params:
+        #     os_name = PARAMETERS[search_type][param]["os_name"]
+        #     filters += " %s:%s" % (os_name, value)
+
+        print filters
 
     return filters + " +dataset_type:dataset"
 
@@ -247,6 +241,8 @@ def search(data_dict, search_type, context):
     # Query the DB.
     if search_type == "collection":
         data_dict["facet.field"] = ["collection_id"]
+
+    print data_dict
 
     results_dict = logic.get_action("package_search")(context, data_dict)
 

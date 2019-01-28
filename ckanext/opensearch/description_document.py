@@ -89,6 +89,8 @@ def make_search_template(document_type):
     for param, details in PARAMETERS[document_type].items():
         if param not in skip:
             name = param
+            print name
+            print details
             value = details["os_name"]
             # Add namespace and required flag to value if necessary
             namespace = details.get("namespace", "opensearch")

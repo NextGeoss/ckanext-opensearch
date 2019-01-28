@@ -47,6 +47,13 @@
     <dc:date>{{ entry.StartTime }}/{{ entry.StopTime }}</dc:date>
     <georss:polygon>{{ h.os_make_entry_polygon(entry) }}</georss:polygon>
     <atom:link href="{{ h.url_for(controller='package', action='read', id=entry.id, qualified=True)}}" type="text/html" rel="alternate"/>
+    {% if entry.collection_id == 'SENTINEL1_L1_GRD'-%}
+    {# Define an Atom link with rel="up" for a product's collection. -#}
+      <atom:swath>{{ entry.Swath }}</atom:swath>
+      <atom:orbit_direction>{{ entry.OrbitDirection }}</atom:orbit_direction>
+      <atom:polarisation>{{ entry.TransmitterReceiverPolarisation }}</atom:polarisation>
+      <atom:product_type>{{ entry.ProductType }}</atom:product_type>
+    {% endif -%}
     {% for tag in entry.tags -%}
     <atom:category term="{{ tag.name }}"/>
     {% endfor -%}

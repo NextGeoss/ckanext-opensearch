@@ -8,21 +8,27 @@ minimum = 0
 maximum = 1
 
 [orbit_direction]
-title = "Orbit direction"
-os_name = "OrbitDirection"
-namespace = "custom"
+title = "A string identifying the acquisition orbit direction. Possible values are: ASCENDING, DESCENDING"
+os_name = "orbitDirection"
+namespace = "eo"
 minimum = 0
 maximum = 1
+  [[orbitDirection.options]]
+  value = "ASCENDING"
+  label = "ASCENDING acquisition orbit direction"
+  [[orbitDirection.options]]
+  value = "DESCENDING"
+  label = "DESCENDING acquisition orbit direction"
 
 [polarisation]
-title = "Polarisation"
+title = "A string identifying polarisation"
 os_name = "TransmitterReceiverPolarisation"
 namespace = "custom"
 minimum = 0
 maximum = 1
 
 [product_type]
-title = "Product Type"
+title = "A string identifying the ProductType (eg. GRD)"
 os_name = "ProductType"
 namespace = "custom"
 minimum = 0

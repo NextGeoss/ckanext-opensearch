@@ -9,16 +9,16 @@
 
 [cloud_coverage]
 title = "Cloud coverage range"
-os_name = "CloudCoverage"
-namespace = "custom"
+os_name = "cloudCover"
+namespace = "eo"
 minimum = 0
 maximum = 1
-  [[CloudCoverage.options]]
+  [[cloud_coverage.options]]
   value = "[* TO 0.3715]"
   label = "All products with a cloud coverage less than or equal to 0.3715%"
-  [[CloudCoverage.options]]
+  [[cloud_coverage.options]]
   value = "[0.3715 to *]"
   label = "All products with a cloud coverage greater than or equal to 0.3715%"
-  [[CloudCoverage.options]]
+  [[cloud_coverage.options]]
   value = "0.3715"
   label = "All products with a cloud coverage equal to 0.3715%"

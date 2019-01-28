@@ -89,3 +89,19 @@ def make_entry_resource(resource):
         }
 
     return link
+
+
+def get_extra_names():
+    """
+    Return a dictionary of new names for use with the subs parameter of
+    h.sorted_extras. We may want to grab these names from the config
+    in the future.
+    """
+    new_names = {
+        'swath': 'Swath',
+        'orbit_direction': 'OrbitDirection',
+        'polarisation': 'TransmitterReceiverPolarisation',
+        'product_type': 'ProductType'
+    }
+
+    return new_names
