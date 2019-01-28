@@ -24,7 +24,7 @@ maximum = 1
 
 #itemsPerPage
 [rows]
-title = "Max. results per page"
+title = "Number of search results per page desired by the search client"
 os_name = "count"
 namespace = "opensearch"
 minimum = 0
@@ -43,7 +43,7 @@ min_inclusive = 1
 max_exclusive = 1001
 
 [page]
-title = "Page number"
+title = "Page number of the set of search results desired by the search client"
 os_name = "startPage"
 namespace = "opensearch"
 minimum = 0
