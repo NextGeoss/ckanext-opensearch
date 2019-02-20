@@ -181,9 +181,15 @@ def translate_os_query(param_dict, search_type):
     data_dict["rows"] = set_rows(param_dict.get("rows"))
     data_dict["start"] = set_start(data_dict["rows"], param_dict.get("page"))
     data_dict["ext_bbox"] = param_dict.get("bbox")
+
     if param_dict.get('geom'):
         param_dict['geom'] = param_dict['spatail_geom']
         del param_dict['geom']
+
+    if param_dict.get('swath'):
+        param_dict['Swath'] = param_dict['swath']
+        del param_dict['swath']
+
     data_dict["fq"] = add_filters(param_dict, search_type)
 
     return data_dict
