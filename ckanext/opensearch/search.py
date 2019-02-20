@@ -190,6 +190,10 @@ def translate_os_query(param_dict, search_type):
         param_dict['Swath'] = param_dict['swath']
         del param_dict['swath']
 
+    if param_dict.get('orbit_direction'):
+        param_dict['orbitDirection'] = param_dict['orbit_direction']
+        del param_dict['orbit_direction']
+
     data_dict["fq"] = add_filters(param_dict, search_type)
 
     return data_dict

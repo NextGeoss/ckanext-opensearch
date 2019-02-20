@@ -8,9 +8,9 @@ minimum = 0
 maximum = 1
 
 [orbit_direction]
-title = "Orbit direction"
-os_name = "OrbitDirection"
-namespace = "custom"
+title = "A string identifying the acquisition orbit direction. Possible values are: ASCENDING, DESCENDING"
+os_name = "orbitDirection"
+namespace = "eo"
 minimum = 0
 maximum = 1
 
