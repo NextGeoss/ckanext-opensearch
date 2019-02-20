@@ -1,9 +1,9 @@
 # Additional parameters for Sentinel-1 GRD collections
 
 [swath]
-title = "acquisition mode"
-os_name = "Swath"
-namespace = "custom"
+title = "Swath identifier (e.g. Envisat ASAR has 7 distinct swaths (I1,I2,I3...I7) that correspond to precise incidence angles for the sensor). Value list can be retrieved with codeSpace"
+os_name = "swathIdentifier"
+namespace = "eo"
 minimum = 0
 maximum = 1
 
