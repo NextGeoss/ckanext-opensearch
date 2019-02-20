@@ -40,14 +40,14 @@ maximum = 1
 min_inclusive = 1
 max_exclusive = 100000000
 
-[ext_bbox]
+[bbox]
 title = "Bounding box that intersects with results"
 os_name = "box"
 namespace = "geo"
 minimum = 0
 maximum = 1
 validators = ["valid_bbox"]
-  [[ext_bbox.options]]
+  [[bbox.options]]
   value = "-0.489,51.28,0.236,51.686"
   label = "Bounding Box of Greater London"
 

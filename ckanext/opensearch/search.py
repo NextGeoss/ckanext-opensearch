@@ -180,7 +180,7 @@ def translate_os_query(param_dict, search_type):
     data_dict["q"] = param_dict.get("q", "")
     data_dict["rows"] = set_rows(param_dict.get("rows"))
     data_dict["start"] = set_start(data_dict["rows"], param_dict.get("page"))
-    data_dict["ext_bbox"] = param_dict.get("ext_bbox")
+    data_dict["ext_bbox"] = param_dict.get("bbox")
     data_dict["fq"] = add_filters(param_dict, search_type)
 
     return data_dict
