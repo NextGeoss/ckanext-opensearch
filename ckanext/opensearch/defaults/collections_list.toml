@@ -11,14 +11,14 @@
 [SENTINEL1_L1_SLC]
 name = "Sentinel-1 Level-1 (SLC)"
 description = "The Sentinel-1 Level-1 Single Look Complex (SLC) products consist of focused SAR data geo-referenced using orbit and attitude data from the satellite and provided in zero-Doppler slant-range geometry. The products include a single look in each dimension using the full TX signal bandwidth and consist of complex samples preserving the phase information."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel-1-grd_parameters"]
 tags = ["Sentinel-1"]
 product_type = ["SLC"]
 
 [SENTINEL1_L1_GRD]
 name = "Sentinel-1 Level-1 (GRD)"
 description = "The Sentinel-1 Level-1 Ground Range Detected (GRD) products consist of focused SAR data that has been detected, multi-looked and projected to ground range using an Earth ellipsoid model. Phase information is lost. The resulting product has approximately square resolution pixels and square pixel spacing with reduced speckle at the cost of reduced geometric resolution."
-additional_parameters = ["sentinel_base_parameters", "sentinel-1-grd_parameters"]
+additional_parameters = ["sentinel-1-grd_parameters"]
 tags = ["Sentinel-1"]
 product_type = ["GRD"]
 

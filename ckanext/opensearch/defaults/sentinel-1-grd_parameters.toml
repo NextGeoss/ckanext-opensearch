@@ -6,6 +6,36 @@ os_name = "swathIdentifier"
 namespace = "eo"
 minimum = 0
 maximum = 1
+  [[swath.options]]
+  value = "IW"
+  label = "IW"
+  [[swath.options]]
+  value = "IW1 IW2 IW3"
+  label = "IW1 IW2 IW3"
+  [[swath.options]]
+  value = "EW"
+  label = "EW"
+  [[swath.options]]
+  value = "WV1 WV2"
+  label = "WV1 WV2"
+  [[swath.options]]
+  value = "WV1WV2"
+  label = "WV1WV2"
+  [[swath.options]]
+  value = "IW1IW2IW3"
+  label = "IW1IW2IW3"
+  [[swath.options]]
+  value = "S3"
+  label = "S3"
+  [[swath.options]]
+  value = "S6"
+  label = "S6"
+  [[swath.options]]
+  value = "EW1 EW2 EW3 EW4 EW5"
+  label = "EW1 EW2 EW3 EW4 EW5"
+  [[swath.options]]
+  value = "S1"
+  label = "S1"
 
 [orbit_direction]
 title = "A string identifying the acquisition orbit direction. Possible values are: ASCENDING, DESCENDING"
@@ -21,15 +51,15 @@ maximum = 1
   label = "DESCENDING acquisition orbit direction"
 
 [polarisation]
-title = "A string identifying polarisation"
-os_name = "TransmitterReceiverPolarisation"
-namespace = "custom"
+title = "A string identifying polarisation. A Polarisation channel transmit/receive configuration: horizontal, vertical."
+os_name = "polarisationChannels"
+namespace = "eo"
 minimum = 0
 maximum = 1
 
-[product_type]
-title = "A string identifying the ProductType (eg. GRD)"
-os_name = "ProductType"
-namespace = "custom"
-minimum = 0
-maximum = 1
+#[product_type]
+#title = "A string identifying the ProductType (eg. GRD)"
+#os_name = "ProductType"
+#namespace = "custom"
+#minimum = 0
+#maximum = 1

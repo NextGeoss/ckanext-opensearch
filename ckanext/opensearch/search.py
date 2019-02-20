@@ -200,6 +200,10 @@ def translate_os_query(param_dict, search_type):
         param_dict['orbitDirection'] = param_dict['orbit_direction']
         del param_dict['orbit_direction']
 
+    if param_dict.get('polarisation'):
+        param_dict['TransmitterReceiverPolarisation'] = param_dict['polarisation']
+        del param_dict['polarisation']
+
     data_dict["fq"] = add_filters(param_dict, search_type)
 
     return data_dict
