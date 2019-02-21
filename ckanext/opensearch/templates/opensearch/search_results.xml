@@ -11,7 +11,6 @@
   <opensearch:totalResults>{{ count }}</opensearch:totalResults>
   <opensearch:startIndex>{{ start_index }}</opensearch:startIndex>
   <opensearch:itemsPerPage>{{ items_per_page }}</opensearch:itemsPerPage>
-  <opensearch:Query {{ query_attrs|xmlattr(False)|escape }}/>
   {% if feed_box -%}
   <georss:box>{{ feed_box }}</georss:box>
   {% endif -%}

@@ -29,7 +29,6 @@
     {# We may have more than one example and each example may have more than one parameter #}
     {% if examples %}
         {% for example in examples %}
-            <opensearch:Query role="example" {{ query|xmlattr(False)|escape }}
         {% endfor %}
     {% endif %}
 </opensearch:OpenSearchDescription>
