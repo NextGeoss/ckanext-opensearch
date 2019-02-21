@@ -47,7 +47,7 @@ def make_entry_polygon(entry):
     #spatial = get_pkg_dict_extra(entry, "noa_expiration_date", "")
     spatial = entry['spatial']
 
-    if spatial:
+    if spatial != '':
         spatial = json.loads(spatial)
         coordinates = spatial["coordinates"][0]
         coord_list = []
