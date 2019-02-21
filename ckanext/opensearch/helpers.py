@@ -45,7 +45,7 @@ def string_extras_to_extras_list(pkg_dict):
 def make_entry_polygon(entry):
     """Define a GEORSS polygon element based on an entry's spatial value."""
     #spatial = get_pkg_dict_extra(entry, "noa_expiration_date", "")
-    if entry['spatial']:
+    if 'spatial' in entry.keys():
         spatial = entry['spatial']
 
         if spatial:
