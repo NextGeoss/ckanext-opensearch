@@ -283,3 +283,8 @@ description = "The Remote Sensing Phenology (RSP) collection is a set of nine an
 [EMODIS_PHENOLOGY_250M_ANNUAL_USA]
 name = "eMODIS Remote Sensing Phenology"
 description = "The Remote Sensing Phenology (RSP) collection is a set of nine annual phenological metrics for the conterminous United States. Researchers at the U.S. Geological Survey (USGS) Earth Resources Observation and Science (EROS) Center utilize data gathered by satellite sensors to track seasonal changes in vegetation. These datasets are provided by the sensor Moderate Resolution Imaging Spectroradiometer (MODIS) carried aboard National Aeronautics and Space Administration (NASA) Terra and Aqua satellites."
+
+
+[EBV]
+name = "EBV"
+description = "Biodiversity auxiliary datasets"

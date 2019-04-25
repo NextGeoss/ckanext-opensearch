@@ -188,21 +188,18 @@ def translate_os_query(param_dict, search_type):
     #data_dict["start"] = set_start(data_dict["rows"], param_dict.get("page"))
     data_dict["ext_bbox"] = param_dict.get("bbox")
 
-    if param_dict.get('geom'):
-        param_dict['geom'] = param_dict['spatail_geom']
-        del param_dict['geom']
+    # if param_dict.get('geom'):
+    #     param_dict['geom'] = param_dict['spatail_geom']
+    #     del param_dict['geom']
 
-    if param_dict.get('swath'):
-        param_dict['Swath'] = param_dict['swath']
-        del param_dict['swath']
 
-    if param_dict.get('orbit_direction'):
-        param_dict['orbitDirection'] = param_dict['orbit_direction']
-        del param_dict['orbit_direction']
+    # if param_dict.get('orbit_direction'):
+    #     param_dict['orbitDirection'] = param_dict['orbit_direction']
+    #     del param_dict['orbit_direction']
 
-    if param_dict.get('polarisation'):
-        param_dict['TransmitterReceiverPolarisation'] = param_dict['polarisation']
-        del param_dict['polarisation']
+    # if param_dict.get('polarisation'):
+    #     param_dict['TransmitterReceiverPolarisation'] = param_dict['polarisation']
+    #     del param_dict['polarisation']
 
     data_dict["fq"] = add_filters(param_dict, search_type)
 
