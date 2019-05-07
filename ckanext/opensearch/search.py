@@ -149,6 +149,7 @@ def process_query(search_type, param_dict, request_url, context):
     results_dict["site_url"] = SITE_URL
     results_dict["search_url"] = "{}/opensearch/description.xml".format(SITE_URL)
     results_dict["self_url"] = request_url
+    results_dict["base_url"] = make_base_url(request_url)
     results_dict["first_url"] = make_nav_url(request_url, 1)
     results_dict["next_url"] = make_nav_url(request_url, next_page)
     results_dict["prev_url"] = make_nav_url(request_url, prev_page)
@@ -239,7 +240,6 @@ def add_filters(param_dict, search_type):
     filters = ""
 
     for (param, value) in param_dict.items():
-        print param
         # TODO: the params to skip should be defined elsewhere.
         skip = {"q", "rows", "page", "ext_bbox", "start_index"}
         extra_params = {"swath", "orbit_direction", "polarisation", "product_type",
@@ -258,8 +258,6 @@ def add_filters(param_dict, search_type):
         #     os_name = PARAMETERS[search_type][param]["os_name"]
         #     filters += " %s:%s" % (os_name, value)
 
-        print filters
-
     return filters + " +dataset_type:dataset"
 
 
@@ -267,8 +265,6 @@ def search(data_dict, search_type, context):
     # Query the DB.
     if search_type == "collection":
         data_dict["facet.field"] = ["collection_id"]
-
-    print data_dict
 
     results_dict = logic.get_action("package_search")(context, data_dict)
 
@@ -378,3 +374,11 @@ def make_atom_feed(results_dict, search_type):
         template = "search_results"
 
     return render("opensearch/{}.xml".format(template), extra_vars=results_dict)
+
+
+def make_base_url(query_url):
+    import re
+    if 'start_index' in query_url:
+        query_url = re.sub("&start_index=.*", "", query_url)
+
+    return query_url

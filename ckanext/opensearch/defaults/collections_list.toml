@@ -288,3 +288,18 @@ description = "The Remote Sensing Phenology (RSP) collection is a set of nine an
 [EBV]
 name = "EBV"
 description = "Biodiversity auxiliary datasets"
+
+
+[DE2_PM4_L1B]
+name = "DEIMOS-2 Bundle (Panchromatic Multispectral bands) Level-1B"
+description = "DEIMOS-2 PM4-L1B is a five-band image containing the panchromatic and multispectral products packaged together, with band co-registration. The products are calibrated and radiometrically corrected, but not resampled. The geometric information is contained in a rational polynomial."
+
+
+[DE2_PSH_L1B]
+name = "DEIMOS-2 Pan-sharpened Level-1B"
+description = "DEIMOS-2 PSH-L1B is a four-band image, resulting from adding the information of each multispectral band to the panchromatic band. The products are calibrated and radiometrically corrected, but not resampled. The geometric information is contained in a rational polynomial."
+
+
+[DE2_PSH_L1C]
+name = "DEIMOS-2 Pan-sharpened Level-1C"
+description = "DEIMOS-2 PSH-L1C is a four-band image, resulting from adding the information of each multispectral band to the panchromatic band. The products are calibrated and radiometrically corrected, manually orthorectified and resampled to a map grid."
