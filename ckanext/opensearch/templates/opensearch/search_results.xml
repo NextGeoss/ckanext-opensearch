@@ -48,10 +48,9 @@
     <atom:link href="{{ h.url_for(controller='package', action='read', id=entry.id, qualified=True)}}" type="text/html" rel="alternate"/>
     {% if 'SENTINEL'in entry.collection_id-%}
     {# Define an Atom link with rel="up" for a product's collection. -#}
-    <atom:swath>{{ entry.Swath }}</atom:swath>
-    <eo:orbit_direction>{{ entry.OrbitDirection }}</eo:orbit_direction>
-    <atom:polarisation>{{ entry.TransmitterReceiverPolarisation }}</atom:polarisation>
-    <atom:product_type>{{ entry.ProductType }}</atom:product_type>
+    <eo:swathIdentifier>{{ entry.Swath }}</eo:swathIdentifier>
+    <eo:orbitDirection>{{ entry.OrbitDirection }}</eo:orbitDirection>
+    <eo:polarisationChannels>{{ entry.TransmitterReceiverPolarisation }}</eo:polarisationChannels>
     {% endif -%}
     {% for tag in entry.tags -%}
     <atom:category term="{{ tag.name }}"/>
