@@ -41,7 +41,7 @@ def abort_if_collection_id_invalid(params):
     in a collection that doesn't exist, we have no way of looking up the
     valid parameters.
     """
-    collection_id = params.get("collection_id")
+    collection_id = params.get("productType")
 
     if collection_id:
         try:
@@ -188,6 +188,9 @@ def translate_os_query(param_dict, search_type):
     data_dict["start"] = set_start(data_dict["rows"], data_dict["start_index"], param_dict.get("page"))
     #data_dict["start"] = set_start(data_dict["rows"], param_dict.get("page"))
     data_dict["ext_bbox"] = param_dict.get("bbox")
+    # data_dict["collection_id"] = param_dict.get("productType")
+
+    # del param_dict["productType"]
 
     # if param_dict.get('geom'):
     #     param_dict['geom'] = param_dict['spatail_geom']
@@ -251,6 +254,8 @@ def add_filters(param_dict, search_type):
             names = helpers.get_extra_names()
             if param in names:
                 param = names[param]
+            if param == 'productType':
+                param = 'collection_id'
 
             filters += " %s:%s" % (param, value)
 
@@ -265,6 +270,8 @@ def search(data_dict, search_type, context):
     # Query the DB.
     if search_type == "collection":
         data_dict["facet.field"] = ["collection_id"]
+
+    print data_dict
 
     results_dict = logic.get_action("package_search")(context, data_dict)
 

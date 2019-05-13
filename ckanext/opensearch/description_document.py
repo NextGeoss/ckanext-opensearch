@@ -83,8 +83,8 @@ def make_search_template(document_type):
     skip = []
 
     if document_type != "collection":
-        terms.append("collection_id={}".format(document_type))
-        skip.append('collection_id')
+        terms.append("productType={}".format(document_type))
+        skip.append('productType')
 
     for param, details in PARAMETERS[document_type].items():
         if param not in skip:
