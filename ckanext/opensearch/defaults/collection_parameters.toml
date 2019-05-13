@@ -69,166 +69,166 @@ namespace = "geo"
 minimum = 0
 maximum = 1
 
-[collection_id]
+[productType]
 title = "A string identifying the entry type (e.g. SENTINEL2_L2A, PROBAV_S5-TOA_100M_V001). "
 os_name = "productType"
 namespace = "eo"
 minimum = 0
 maximum = 1
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL1_L1_SLC"
   label = "Sentinel-1 Level-1 (SLC)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL1_L1_GRD"
   label = "Sentinel-1 Level-1 (GRD)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL1_L2_OCN"
   label = "Sentinel-1 Level-2 (OCN)"
 
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL2_L1C"
   label = "Sentinel-2 Level-1C"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL2_L2A"
   label = "Sentinel-2 Level-2A"
 
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_SRAL_L1_CAL"
   label = "Sentinel-3 SRAL Level-1 Calibration"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_SRAL_L1_SRA"
   label = "Sentinel-3 SRAL Level-1 SRA"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_SRAL_L2_LAN"
   label = "Sentinel-3 SRAL Level-2 Land"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_SRAL_L2_WAT"
   label = "Sentinel-3 SRAL Level-2 Water"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_OLCI_L1_EFR"
   label = "Sentinel-3 OLCI Level-1 Full Resolution"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_OLCI_L1_ERR"
   label = "Sentinel-3 OLCI Level-1 Reduced Resolution"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_OLCI_L2_LFR"
   label = "Sentinel-3 OLCI Level-2 Land Full Resolution"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_OLCI_L2_LRR"
   label = "Sentinel-3 OLCI Level-2 Land Reduced Resolution"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_SLSTR_L1_RBT"
   label = "Sentinel-3 SLSTR Level-1 Radiances and Brightness Temperatures"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SENTINEL3_SLSTR_L2_LST"
   label = "Sentinel-3 SLSTR Level-2 Land Surface Temperature Collection"
 
-  [[collection_id.options]]
+  [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2"
   label = "Global Observed Sea Surface Temperature"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "ARCTIC_ANALYSIS_FORECAST_PHYS_002_001_A"
   label = "Arctic Ocean Physics Analysis and Forecast"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "SEALEVEL_GLO_PHY_L4_NRT_OBSERVATIONS_008_046"
   label = "Global Ocean Gridded L4 Sea Surface Heights and Derived Variables NRT"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "GLOBAL_ANALYSIS_FORECAST_PHY_001_024"
   label = "Global Ocean Physics Analysis and Forecast (Hourly)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "MULTIOBS_GLO_PHY_NRT_015_003"
   label = "Global Total Surface and 15m Current (Hourly)"
 
-  [[collection_id.options]]
+  [[productType.options]]
   value = "METOP_A_GOME2_O3"
   label = "MetOP-A GOME-2 Ozone (O3)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "METOP_A_GOME2_NO2"
   label = "MetOP-A GOME-2 Nitrogen Dioxide (NO2)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "METOP_A_GOME2_TropNO2"
   lavel = "MetOP-A GOME-2 Tropospheric Nitrogen Dioxide (NO2)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "METOP_A_GOME2_SO2"
   label = "MetOP-A GOME-2 Sulphur Dioxide (SO2)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "METOP_A_GOME2_SO2mass"
   label = "MetOP-A GOME-2 Sulphur Dioxide (SO2) mass"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_L2A_333M_V001"
   label = "Proba-V Level-2A (333M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S1-TOC_1KM_V001"
   label = "Proba-V S1-TOC (1KM)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S1-TOA_1KM_V001"
   label = "Proba-V S1-TOA (1KM)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S10-TOC_1KM_V001"
   label = "Proba-V S10-TOC (1KM)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S10-TOC-NDVI_1KM_V001"
   label = "Proba-V S10-TOC NDVI (1KM)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_L2A_1KM_V001"
   label = "Proba-V Level-2A (1KM)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_P_V001"
   label = "Proba-V Level-1C"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S1-TOC_333M_V001"
   label = "Proba-V S1-TOC (333M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S1-TOA_333M_V001"
   label = "Proba-V S1-TOA (333M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S10-TOC_333M_V001"
   label = "PROBAV_S10-TOC_333M_V001"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S10-TOC-NDVI_333M_V001"
   label = "Proba-V S10-TOC NDVI (333M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "ROBAV_S1-TOC_100M_V001"
   label = "Proba-V S1-TOC (100M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S1-TOA_100M_V001"
   label = "Proba-V S1-TOA (100M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S1-TOC-NDVI_100M_V001"
   label = "Proba-V S1-TOC NDVI (100M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S5-TOC_100M_V001"
   label = "Proba-V S5-TOC (100M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S5-TOA_100M_V001"
   label = "Proba-V S5-TOA (100M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_S5-TOC-NDVI_100M_V001"
   label = "Proba-V S5-TOC NDVI (100M)"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "PROBAV_L2A_100M_V001"
   label = "Proba-V Level-2A (100M)"
 
-  [[collection_id.options]]
+  [[productType.options]]
   value = "OPEN_LAND_USE_MAP"
   label = "Open Land Use Map"
 
-  [[collection_id.options]]
+  [[productType.options]]
   value = "TREE_SPECIES_DISTRIBUTION_HABITAT_SUITABILITY"
   label = "Tree Species Distribution Habitat Suitability"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "FLOOD_HAZARD_EU_GL]"
   label = "Flood Hazard Europe/Global"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "RSP_AVHRR_1KM_ANNUAL_USA]"
   label = "AVHRR Remote Sensing Phenology"
-  [[collection_id.options]]
+  [[productType.options]]
   value = "EMODIS_PHENOLOGY_250M_ANNUAL_USA"
   label = "eMODIS Remote Sensing Phenology"
 

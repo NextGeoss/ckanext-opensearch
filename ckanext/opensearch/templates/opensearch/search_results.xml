@@ -37,7 +37,7 @@
     <atom:link {{ {"href": "{}&identifier={}".format(base_url, entry.identifier), "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
     {% if entry.collection_id -%}
     {# Define an Atom link with rel="up" for a product's collection. -#}
-    <atom:link {{ {"href": "{}/opensearch/search.atom?collection_id={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "up", "title": "Link to collection"}|xmlattr(False)|escape }}/>
+    <atom:link {{ {"href": "{}/opensearch/search.atom?productType={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "up", "title": "Link to collection"}|xmlattr(False)|escape }}/>
     {% endif -%}
     <dc:publisher>{{ entry.organization.title|default("No publisher information provided.") }}</dc:publisher>
     <atom:published>{{ entry.metadata_created }}</atom:published>

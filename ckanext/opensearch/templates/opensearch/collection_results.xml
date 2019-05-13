@@ -29,7 +29,7 @@
   {%- for entry in results -%}
   <atom:entry>
     <atom:title>{{ entry.name }}</atom:title>
-    <atom:id>{{ site_url }}/opensearch/search.atom?collection_id={{ entry.id }}</atom:id>
+    <atom:id>{{ site_url }}/opensearch/search.atom?productType={{ entry.id }}</atom:id>
     <dc:identifier>{{ entry.id }}</dc:identifier>
     <atom:published>{{ entry.published }}</atom:published>
     <atom:updated>{{ entry.updated }}</atom:updated>
