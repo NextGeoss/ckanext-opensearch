@@ -4,7 +4,7 @@
     <opensearch:Description>{{ description }}</opensearch:Description>
     <opensearch:Tags>{{ tags }}</opensearch:Tags>
     <opensearch:SyndicationRight>{{ syndication }}</opensearch:SyndicationRight>
-    <opensearch:Query role="example" geo:box="138,35,143,41" searchTerms="ASAR Wide Swath"></opensearch:Query>
+     <opensearch:Query role="example" searchTerms="cat" />
     <opensearch:Url type="application/opensearchdescription+xml" template="{{ self_url }}" rel="self"/>
     <opensearch:Url pageOffset="1" type="application/atom+xml" rel="{{ search_rel }}" indexOffset="1" template="{{ search_url }}">
         {# We may have more than one parameter and each parameter may have attributes not shown here (name="name" value="value" minimum="" maximum="") #}
