@@ -286,7 +286,7 @@ description = "The Remote Sensing Phenology (RSP) collection is a set of nine an
 
 
 [EBV]
-name = "EBV"
+name = "Essential Biodiversity Variables (EBVs)"
 description = "Biodiversity auxiliary datasets"
 
 
