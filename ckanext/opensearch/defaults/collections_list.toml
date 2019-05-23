@@ -363,3 +363,13 @@ description = "MOD14A2 data are 8-day fire-mask composites at 1-kilometer resolu
 [MODIS_AQUA_MYD14A2]
 name = "MODIS/Aqua Thermal Anomalies/Fire 8-Day L3 Global 1km SIN Grid"
 description = "MYD14A2 data are 8-day fire-mask composites at 1-kilometer resolution provided as a gridded level-3 product in the Sinusoidal projection. Science Data Sets include the fire-mask and algorithm quality assurance."
+
+
+[AVERAGE_FLOOD_SIGNAL]
+name = "Average Flood Signal"
+description = "Global merged daily and 4-day average flood signal datasets between 1997 and current.Highest sampling rate, global coverage. May have artifacts due to multi-sensor integration."
+
+
+[AVERAGE_FLOOD_MAGNITUDE]
+name = "Average Flood Magnitude"
+description = "Global merged daily and 4-day average flood magnitude datasets between 1997 and current.Highest sampling rate, global coverage. May have artifacts due to multi-sensor integration."
