@@ -350,7 +350,7 @@ name = "MODIS/Aqua Leaf Area Index/FPAR 8-Day L4 Global 500m SIN Grid"
 description = "The Level-4 MODIS global Leaf Area Index (LAI) and Fraction of Photosynthetically Active Radiation (FPAR) product is a 8-day 500-meter resolution product on a Sinusoidal grid. Science Data Sets provided in the MYD15A2H include LAI, FPAR, a quality rating, and standard deviation for each variable."
 
 
-'MODIS_TERRA_MOD15A2H'
+[MODIS_TERRA_MOD15A2H]
 name = "MODIS/Terra Leaf Area Index/FPAR 8-Day L4 Global 500m SIN Grid"
 description = "The Level-4 MODIS global Leaf Area Index (LAI) and Fraction of Photosynthetically Active Radiation (FPAR) product is a 8-day 500-meter resolution product on a Sinusoidal grid. Science Data Sets provided in the MOD15A2H include LAI, FPAR, a quality rating, and standard deviation for each variable."
 
