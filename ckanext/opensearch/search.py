@@ -384,8 +384,10 @@ def make_atom_feed(results_dict, search_type):
 
 
 def make_base_url(query_url):
-    import re
     if 'start_index' in query_url:
         query_url = re.sub("&start_index=.*", "", query_url)
+
+    if 'rows' in query_url:
+        query_url = re.sub("&rows=.*", "", query_url)
 
     return query_url
