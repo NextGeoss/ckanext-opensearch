@@ -323,3 +323,33 @@ description = "LAI was defined by CEOS as half the developed area of the convex 
 [NEXTGEOSS_SENTINEL2_NDVI]
 name = "NextGEOSS Sentinel-2 NDVI"
 description = "The SENTINEL-2 Normalized Difference Vegetation Index (NDVI) is a proxy to quantify the vegetation amount. It is defined as NDVI=(NIR-Red)/(NIR+Red) where NIR corresponds to the reflectance in the near infrared band , and Red to the reflectance in the red band. It is closely related to FAPAR and is little scale dependent."
+
+
+[UNWRAPPED_INTERFEROGRAM]
+name = "Unwrapped Interferogram"
+description = "Unwrapped Differential SAR Interferogram (Phase and Amplitude)."
+
+
+[WRAPPED_INTERFEROGRAM]
+name = "Wrapped Interferogram"
+description = "Differential SAR Interferogram (Phase and Amplitude) in the wrapped domain."
+
+
+[SPATIAL_COHERENCE]
+name = "Spatial Coherence"
+description = "Interferometric SAR Spatial coherence."
+
+
+[LOS_DISPLACEMENT_TIMESERIES]
+name = "LoS Displacement Timeseries"
+description = "Displacement Time Series along the sensor Line of Sight."
+
+
+[INTERFEROGRAM_APS_GLOBAL_MODEL]
+name = "Interferogram APS Global Model"
+description = "Interferometric Atmospheric Phase Screen derived from Global Atmospheric Model."
+
+
+[MAP_OF_LOS_VECTOR]
+name = "Map of LoS Vector"
+description = "Map of the Line of Sight vector (North East Up coefficients)."
