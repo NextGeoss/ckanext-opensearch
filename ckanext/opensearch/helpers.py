@@ -57,7 +57,7 @@ def make_entry_polygon(entry):
                 coord_list.append(str(i[1]))
             coord_str = " ".join(coord_list)
         else:
-            coord_str = ""
+            coord_str = "-180 -90 -180 90 180 90 180 -90 -180 90"
 
         return coord_str
 

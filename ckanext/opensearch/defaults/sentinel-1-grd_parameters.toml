@@ -3,7 +3,7 @@
 [swath]
 title = "Swath identifier (e.g. Envisat ASAR has 7 distinct swaths (I1,I2,I3...I7) that correspond to precise incidence angles for the sensor). Value list can be retrieved with codeSpace"
 os_name = "swathIdentifier"
-namespace = "eo"
+namespace = "eop"
 minimum = 0
 maximum = 1
   [[swath.options]]
@@ -40,7 +40,7 @@ maximum = 1
 [orbit_direction]
 title = "A string identifying the acquisition orbit direction. Possible values are: ASCENDING, DESCENDING"
 os_name = "orbitDirection"
-namespace = "eo"
+namespace = "eop"
 minimum = 0
 maximum = 1
   [[orbit_direction.options]]
@@ -53,7 +53,7 @@ maximum = 1
 [polarisation]
 title = "A string identifying polarisation. A Polarisation channel transmit/receive configuration: horizontal, vertical."
 os_name = "polarisationChannels"
-namespace = "eo"
+namespace = "sar"
 minimum = 0
 maximum = 1
 
