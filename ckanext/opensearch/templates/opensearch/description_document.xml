@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<opensearch:OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" {{ namespaces|xmlattr(False)|escape }}>
+<opensearch:OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:om="http://www.opengis.net/om/2.0" xmlns:time="http://a9.com/-/opensearch/extensions/time/1.0/" xmlns:esipdiscovery="http://commons.esipfed.org/ns/discovery/1.2/" xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://a9.com/-/opensearch/extensions/geo/1.0/" xmlns:eo="http://a9.com/-/opensearch/extensions/eo/1.0/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:eop="http://www.opengis.net/eop/2.1" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:param="http://a9.com/-/opensearch/extensions/param/1.0/" xmlns:sar="http://www.opengis.net/sar/2.1" xmlns:custom="http://example.com/opensearchextensions/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <opensearch:ShortName>{{ short_name }}</opensearch:ShortName>
     <opensearch:Description>{{ description }}</opensearch:Description>
     <opensearch:Tags>{{ tags }}</opensearch:Tags>
     <opensearch:SyndicationRight>{{ syndication }}</opensearch:SyndicationRight>
-    <opensearch:Url type="application/opensearchdescription+xml" template="{{ self_url }}" rel="self"/>
-    <opensearch:Url pageOffset="1" type="application/atom+xml" rel="{{ search_rel }}" indexOffset="1" template="{{ search_url }}">
+    <opensearch:Url template="{{ self_url }}" type="application/opensearchdescription+xml" rel="self"/>
+    <opensearch:Url template="{{ search_url }}" pageOffset="1" type="application/atom+xml" rel="{{ search_rel }}" indexOffset="1">
         {# We may have more than one parameter and each parameter may have attributes not shown here (name="name" value="value" minimum="" maximum="") #}
         {% for param in parameters %}
             {% if param.options or param.attrs.name == 'q' %}
