@@ -127,3 +127,61 @@ maximum = 1
   [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
+
+
+[swath]
+title = "Swath identifier (e.g. Envisat ASAR has 7 distinct swaths (I1,I2,I3...I7) that correspond to precise incidence angles for the sensor). Value list can be retrieved with codeSpace"
+os_name = "swathIdentifier"
+namespace = "eop"
+minimum = 0
+maximum = 1
+  [[swath.options]]
+  value = "IW"
+  label = "IW"
+  [[swath.options]]
+  value = "IW1 IW2 IW3"
+  label = "IW1 IW2 IW3"
+  [[swath.options]]
+  value = "EW"
+  label = "EW"
+  [[swath.options]]
+  value = "WV1 WV2"
+  label = "WV1 WV2"
+  [[swath.options]]
+  value = "WV1WV2"
+  label = "WV1WV2"
+  [[swath.options]]
+  value = "IW1IW2IW3"
+  label = "IW1IW2IW3"
+  [[swath.options]]
+  value = "S3"
+  label = "S3"
+  [[swath.options]]
+  value = "S6"
+  label = "S6"
+  [[swath.options]]
+  value = "EW1 EW2 EW3 EW4 EW5"
+  label = "EW1 EW2 EW3 EW4 EW5"
+  [[swath.options]]
+  value = "S1"
+  label = "S1"
+
+[orbit_direction]
+title = "A string identifying the acquisition orbit direction. Possible values are: ASCENDING, DESCENDING"
+os_name = "orbitDirection"
+namespace = "eop"
+minimum = 0
+maximum = 1
+  [[orbit_direction.options]]
+  value = "ASCENDING"
+  label = "ASCENDING acquisition orbit direction"
+  [[orbit_direction.options]]
+  value = "DESCENDING"
+  label = "DESCENDING acquisition orbit direction"
+
+[polarisation]
+title = "A string identifying polarisation. A Polarisation channel transmit/receive configuration: horizontal, vertical."
+os_name = "polarisationChannels"
+namespace = "sar"
+minimum = 0
+maximum = 1
