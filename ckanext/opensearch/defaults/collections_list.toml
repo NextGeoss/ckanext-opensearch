@@ -353,3 +353,83 @@ description = "Interferometric Atmospheric Phase Screen derived from Global Atmo
 [MAP_OF_LOS_VECTOR]
 name = "Map of LoS Vector"
 description = "Map of the Line of Sight vector (North East Up coefficients)."
+
+
+[SIMOCEAN_SURFACE_WIND_FORECAST_FROM_AROME]
+name = "Surface Wind Forecast From AROME"
+description = "Surface wind forecast, for Portugal mainland, generated from AROME for the next 48hours. covering 36S-43N and 11.48W-5.5W"
+
+
+[SIMOCEAN_CLOUDINESS_FORECAST_FROM_AROME]
+name = "Cloudiness Forecast From AROME"
+description = "Cloudiness forecast, for Portugal mainland, generated from AROME for the next 48hours. covering 36S-43N and 11.48W-5.5W"
+
+
+[SIMOCEAN_SURFACE_CURRENTS_FROM_HF_RADAR]
+name = "Surface Currents From HF Radar"
+description = "Surface currents data from HF Radar system: Cascais-Cape Espichel. A daily file is produced by IH with hourly data for the last 24 hours, interpolated to a regular grid with a 1.5 km resolution"
+
+
+[SIMOCEAN_NEARSHORE_SEA_STATE_FORECAST_FROM_SWAN]
+name = "Nearshore Sea State Forecast From SWAN"
+description = "Wave parameters forecast from SWAN with 2'' to 6'' horizontal resolution (14 areas in Portugal Mainland). A daily file is produced with 6-day forecast with a 6-hourly timestep"
+
+
+[SIMOCEAN_PORT_SEA_STATE_FORECAST_FROM_SMARTWAVE]
+name = "Port Sea State Forecast From SMARTWAVE"
+description = "Significant Wave Height forecast from SMARTWAVE with 0.5'' horizontal resolution (Port areas: Viana do Castelo; Povoa do Varzim; Aveiro; Figueira da Foz"
+
+
+[SIMOCEAN_DATA_FROM_MULTIPARAMETRIC_BUOYS]
+name = "Data From Multiparametric Buoys"
+description = "Temperature, Wave and Meteo parameters from multiparametric buoys: Leixoes; Nazare and Faro. A file is produced daily for each buoy with the last 48 hours with hourly timestep"
+
+
+[SIMOCEAN_TIDAL_DATA]
+name = "Tidal Data"
+description = "Sea level from tide gauges: Viana do Castelo; Leixões; Nazaré; Peniche and Sines. A file is produced daily for each tide gauge with the last 24 hours with minutely timestep"
+
+
+[SIMOCEAN_SURFACE_FORECAST_FROM_HYCOM]
+name = "Surface Forecast From HYCOM"
+description = "Surface currents forecast from HYCOM with 1' horizontal resolution (Iberia-Biscay Region). Daily files with hourly timesteps"
+
+
+[SIMOCEAN_SEA_SURFACE_WIND_FORECAST]
+name = "Sea Surface Wind Forecast"
+description = "Sea Surface wind forecast for Portugal mainland and islands regions, generated from data of the European Centre for Medium-Range Weather Forecasts (ECMWF), for the next 48hours. This service is generated from the vector component u and v (m/s) of the European Centre data"
+
+
+[SIMOCEAN_MEAN_SEA_LEVEL_PRESSURE_FORECAST]
+name = "Mean Sea Level Pressure Forecast"
+description = "Mean sea level pressure forecast for Portugal mainland and islands regions, generated from data of the European Centre for Medium-Range Weather Forecasts (ECMWF), for the next 48hours"
+
+
+[SIMOCEAN_SEA_SURFACE_TEMPERATURE_FORECAST]
+name = "Sea Surface Temperature Forecast"
+description = "Sea Surface Temperature forecast, for Portugal mainland and islands, generated from the European Centre data - European Centre for Medium-Range Weather Forecasts (ECMWF), for the next 48hours"
+
+
+[SIMOCEAN_AIR_SURFACE_TEMPERATURE_FORECAST]
+name = "Air Surface Temperature Forecast"
+description = "Surface Temperature forecast, for Portugal mainland, generated from AROME for the next 48hours. covering 36S-43N and 11.48W-5.5W"
+
+
+[SIMOCEAN_SEA_WAVE_DIRECTION_FORECAST]
+name = "Sea Wave Direction Forecast"
+description = "Hourly Forecast of the wave direction for mainland Portugal, updated to the next 42 hours"
+
+
+[SIMOCEAN_SEA_WAVE_PERIOD_FORECAST]
+name = "Sea Wave Period Forecast"
+description = "Hourly Forecast of the wave period for mainland Portugal, updated to the next 42 hours"
+
+
+[SIMOCEAN_PRECIPITATION_FORECAST_FROM_AROME]
+name = "Precipitation Forecast From AROME"
+description = "Precipitation forecast, for Portugal mainland, generated from AROME for the next 48hours. covering 36S-43N and 11.48W-5.5W"
+
+
+[SIMOCEAN_SIGNIFICANT_WAVE_HEIGHT_FORECAST]
+name = "Significant Wave Height Forecast"
+description = "Hourly Forecast of the significant wave height for mainland Portugal, updated to the next 42 hours"
