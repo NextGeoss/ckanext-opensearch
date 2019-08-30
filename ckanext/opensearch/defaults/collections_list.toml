@@ -108,6 +108,22 @@ name = "Sentinel-3 SLSTR Level-2 Land Surface Temperature"
 description = "SENTINEL-3 SLSTR Level-2 LST product provides land surface parameters generated on the wide 1 km measurement grid."
 additional_parameters = ["sentinel_base_parameters"]
 
+[SENTINEL5P_OFFL_L1B]
+name = "Sentinel-5P OFFL Level-1B"
+description = "The Sentinel-5 Precursor mission is dedicated to monitoring our atmosphere, using the TROPOspheric Monitoring Instrument (TROPOMI). The Level-1B products are geo-located and radiometrically corrected top of the atmosphere Earth radiances in all spectral bands, as well as solar irradiances. For offline processing (OFFL), the data availability depends on the product."
+
+[SENTINEL5P_OFFL_L2]
+name = "Sentinel-5P OFFL Level-2"
+description = "The Sentinel-5 Precursor mission is dedicated to monitoring our atmosphere, using the TROPOspheric Monitoring Instrument (TROPOMI). The The Level-2 products are geolocated total columns of ozone, sulfur dioxide, nitrogen dioxide, carbon monoxide, formaldehyde and methane, geolocated tropospheric columns of ozone, geolocated vertical profiles of ozone, geolocated cloud and aerosol information (e.g. absorbing aerosol index and aerosol layer height). For offline processing (OFFL), the data availability depends on the product."
+
+[SENTINEL5P_NRTI_L2]
+name = "Sentinel-5P NRTI Level-2"
+description = "The Sentinel-5 Precursor mission is dedicated to monitoring our atmosphere, using the TROPOspheric Monitoring Instrument (TROPOMI). The The Level-2 products are geolocated total columns of ozone, sulfur dioxide, nitrogen dioxide, carbon monoxide, formaldehyde and methane, geolocated tropospheric columns of ozone, geolocated vertical profiles of ozone, geolocated cloud and aerosol information (e.g. absorbing aerosol index and aerosol layer height). For near real time processing (NRT) the availability of products must be within 3 hours after sensing."
+
+[SENTINEL5P_RPRO_L2]
+name = "Sentinel-5P RPRO Level-2"
+description = "The Sentinel-5 Precursor mission is dedicated to monitoring our atmosphere, using the TROPOspheric Monitoring Instrument (TROPOMI). The The Level-2 products are geolocated total columns of ozone, sulfur dioxide, nitrogen dioxide, carbon monoxide, formaldehyde and methane, geolocated tropospheric columns of ozone, geolocated vertical profiles of ozone, geolocated cloud and aerosol information (e.g. absorbing aerosol index and aerosol layer height). For reprocessing activities (RPRO) there are no time constraints. Reprocessing of Sentinel-5 Precursor products will be performed when major product upgrades are considered necessary."
+
 [METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2]
 name = "Global Observed Sea Surface Temperature"
 description = "Daily analysis of sea surface temperature (SST), based on measurements from several satellite and in situ SST datasets, for the global ocean and some lakes."
