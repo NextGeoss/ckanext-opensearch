@@ -124,6 +124,19 @@ maximum = 1
   label = "Sentinel-3 SLSTR Level-2 Land Surface Temperature Collection"
 
   [[productType.options]]
+  value = "SENTINEL5P_OFFL_L1B"
+  label = "Sentinel-5P OFFL Level-1B"
+  [[productType.options]]
+  value = "SENTINEL5P_OFFL_L2"
+  label = "Sentinel-5P OFFL Level-2"
+  [[productType.options]]
+  value = "SENTINEL5P_NRTI_L2"
+  label = "Sentinel-5P NRTI Level-2"
+  [[productType.options]]
+  value = "SENTINEL5P_RPRO_L2"
+  label = "Sentinel-5P RPRO Level-2"
+
+  [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
   [[productType.options]]
