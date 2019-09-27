@@ -124,6 +124,19 @@ maximum = 1
   label = "Sentinel-3 SLSTR Level-2 Land Surface Temperature Collection"
 
   [[productType.options]]
+  value = "SENTINEL5P_OFFL_L1B"
+  label = "Sentinel-5P OFFL Level-1B"
+  [[productType.options]]
+  value = "SENTINEL5P_OFFL_L2"
+  label = "Sentinel-5P OFFL Level-2"
+  [[productType.options]]
+  value = "SENTINEL5P_NRTI_L2"
+  label = "Sentinel-5P NRTI Level-2"
+  [[productType.options]]
+  value = "SENTINEL5P_RPRO_L2"
+  label = "Sentinel-5P RPRO Level-2"
+
+  [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
   [[productType.options]]
@@ -194,7 +207,7 @@ maximum = 1
   value = "PROBAV_S10-TOC-NDVI_333M_V001"
   label = "Proba-V S10-TOC NDVI (333M)"
   [[productType.options]]
-  value = "ROBAV_S1-TOC_100M_V001"
+  value = "PROBAV_S1-TOC_100M_V001"
   label = "Proba-V S1-TOC (100M)"
   [[productType.options]]
   value = "PROBAV_S1-TOA_100M_V001"
@@ -231,6 +244,101 @@ maximum = 1
   [[productType.options]]
   value = "EMODIS_PHENOLOGY_250M_ANNUAL_USA"
   label = "eMODIS Remote Sensing Phenology"
+
+  [[productType.options]]
+  value = "EBV"
+  label = "Essential Biodiversity Variables (EBVs)"
+
+  [[productType.options]]
+  value = "DE2_PM4_L1B"
+  label = "DEIMOS-2 Bundle (Panchromatic Multispectral bands) Level-1B"
+  [[productType.options]]
+  value = "DE2_PSH_L1B"
+  label = "DEIMOS-2 Pan-sharpened Level-1B"
+  [[productType.options]]
+  value = "DE2_PSH_L1C"
+  label = "DEIMOS-2 Pan-sharpened Level-1C"
+
+  [[productType.options]]
+  value = "NEXTGEOSS_SENTINEL2_FAPAR"
+  label = "NextGEOSS Sentinel-2 FAPAR"
+  [[productType.options]]
+  value = "NEXTGEOSS_SENTINEL2_FCOVER"
+  label = "NextGEOSS Sentinel-2 FCOVER"
+  [[productType.options]]
+  value = "NEXTGEOSS_SENTINEL2_LAI"
+  label = "NextGEOSS Sentinel-2 LAI"
+  [[productType.options]]
+  value = "NEXTGEOSS_SENTINEL2_NDVI"
+  label = "NextGEOSS Sentinel-2 NDVI"
+
+  [[productType.options]]
+  value = "UNWRAPPED_INTERFEROGRAM"
+  label = "Unwrapped Interferogram"
+  [[productType.options]]
+  value = "WRAPPED_INTERFEROGRAM"
+  label = "Wrapped Interferogram"
+  [[productType.options]]
+  value = "SPATIAL_COHERENCE"
+  label = "Spatial Coherence"
+  [[productType.options]]
+  value = "LOS_DISPLACEMENT_TIMESERIES"
+  label = "LoS Displacement Timeseries"
+  [[productType.options]]
+  value = "INTERFEROGRAM_APS_GLOBAL_MODEL"
+  label = "Interferogram APS Global Model"
+  [[productType.options]]
+  value = "MAP_OF_LOS_VECTOR"
+  label = "Map of LoS Vector"
+
+  [[productType.options]]
+  value = "SIMOCEAN_SURFACE_WIND_FORECAST_FROM_AROME"
+  label = "Surface Wind Forecast From AROME"
+  [[productType.options]]
+  value = "SIMOCEAN_CLOUDINESS_FORECAST_FROM_AROME"
+  label = "Cloudiness Forecast From AROME"
+  [[productType.options]]
+  value = "SIMOCEAN_SURFACE_CURRENTS_FROM_HF_RADAR"
+  label = "Surface Currents From HF Radar"
+  [[productType.options]]
+  value = "SIMOCEAN_NEARSHORE_SEA_STATE_FORECAST_FROM_SWAN"
+  label = "Nearshore Sea State Forecast From SWAN"
+  [[productType.options]]
+  value = "SIMOCEAN_PORT_SEA_STATE_FORECAST_FROM_SMARTWAVE"
+  label = "Port Sea State Forecast From SMARTWAVE"
+  [[productType.options]]
+  value = "SIMOCEAN_DATA_FROM_MULTIPARAMETRIC_BUOYS"
+  label = "Data From Multiparametric Buoys"
+  [[productType.options]]
+  value = "SIMOCEAN_TIDAL_DATA"
+  label = "Tidal Data"
+  [[productType.options]]
+  value = "SIMOCEAN_SURFACE_FORECAST_FROM_HYCOM"
+  label = "Surface Forecast From HYCOM"
+  [[productType.options]]
+  value = "SIMOCEAN_SEA_SURFACE_WIND_FORECAST"
+  label = "Sea Surface Wind Forecast"
+  [[productType.options]]
+  value = "SIMOCEAN_MEAN_SEA_LEVEL_PRESSURE_FORECAST"
+  label = "Mean Sea Level Pressure Forecast"
+  [[productType.options]]
+  value = "SIMOCEAN_SEA_SURFACE_TEMPERATURE_FORECAST"
+  label = "Sea Surface Temperature Forecast"
+  [[productType.options]]
+  value = "SIMOCEAN_AIR_SURFACE_TEMPERATURE_FORECAST"
+  label = "Air Surface Temperature Forecast"
+  [[productType.options]]
+  value = "SIMOCEAN_SEA_WAVE_DIRECTION_FORECAST"
+  label = "Sea Wave Direction Forecast"
+  [[productType.options]]
+  value = "SIMOCEAN_SEA_WAVE_PERIOD_FORECAST"
+  label = "Sea Wave Period Forecast"
+  [[productType.options]]
+  value = "SIMOCEAN_PRECIPITATION_FORECAST_FROM_AROME"
+  label = "Precipitation Forecast From AROME"
+  [[productType.options]]
+  value = "SIMOCEAN_SIGNIFICANT_WAVE_HEIGHT_FORECAST"
+  label = "Significant Wave Height Forecast"
 
 [timerange_start]
 title = "Beginning of time range that results should cover"
