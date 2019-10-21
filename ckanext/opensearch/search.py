@@ -107,6 +107,7 @@ def process_query(search_type, param_dict, request_url, context):
     data_dict = translate_os_query(param_dict, search_type)
     start = data_dict['start_index']
     del data_dict['start_index']
+    print data_dict
 
     results_dict = search(data_dict, search_type, context)
 
@@ -244,7 +245,7 @@ def add_filters(param_dict, search_type):
 
     for (param, value) in param_dict.items():
         # TODO: the params to skip should be defined elsewhere.
-        skip = {"q", "rows", "page", "ext_bbox", "start_index"}
+        skip = {"q", "rows", "page", "ext_bbox", "start_index", "bbox"}
         extra_params = {"swath", "orbit_direction", "polarisation", "product_type",
                 "cloud_coverage", "family_name"}
 
