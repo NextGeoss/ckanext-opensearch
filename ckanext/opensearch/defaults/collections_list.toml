@@ -463,4 +463,4 @@ description = "Global merged daily and 4-day average flood signal datasets betwe
 
 [AVERAGE_FLOOD_MAGNITUDE]
 name = "Average Flood Magnitude"
-description = Global merged daily and 4-day average flood magnitude datasets between 1997 and current. Highest sampling rate, global coverage. May have artifacts due to multi-sensor integration"
+description = "Global merged daily and 4-day average flood magnitude datasets between 1997 and current. Highest sampling rate, global coverage. May have artifacts due to multi-sensor integration"
