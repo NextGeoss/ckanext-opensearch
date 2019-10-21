@@ -340,6 +340,17 @@ maximum = 1
   value = "SIMOCEAN_SIGNIFICANT_WAVE_HEIGHT_FORECAST"
   label = "Significant Wave Height Forecast"
 
+  [[productType.options]]
+  value = "EBAS_NILU_DATA_ARCHIVE"
+  label = "EBAS NILU Data Archive"
+
+  [[productType.options]]
+  value = "AVERAGE_FLOOD_SIGNAL"
+  label = "Average Flood Signal"
+  [[productType.options]]
+  value = "AVERAGE_FLOOD_MAGNITUDE"
+  label = "Average Flood Magnitude"
+
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"

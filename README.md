@@ -85,18 +85,18 @@ If collections are enabled, the portal will have a description document for each
     <opensearch:Tags>open data CKAN opendata</opensearch:Tags>
     <opensearch:SyndicationRight>open</opensearch:SyndicationRight>
     <opensearch:Url type="application/opensearchdescription+xml" template="http://localhost:5000/opensearch/description.xml?osdd=SENTINEL3_OLCI_L1_EFR" rel="self"/>
-    <opensearch:Url pageOffset="1" type="application/atom+xml" rel="results" indexOffset="1" template="http://localhost:5000/opensearch/search.atom?collection_id=SENTINEL3_OLCI_L1_EFR&amp;rows={opensearch:maxResults?}&amp;timerange_end={time:end?}&amp;metadata_modified={eo:modificationDate?}&amp;FamilyName={custom:familyname?}&amp;ext_bbox={geo:box?}&amp;q={opensearch:searchTerms?}&amp;identifier={geo:uid?}&amp;collection_id={custom:collection_id?}&amp;spatial_geom={geo:geometry?}&amp;timerange_start={time:start?}&amp;page={opensearch:startPage?}">
-        <param:Parameter name="rows" value="{opensearch:maxResults}" title="Max. results per page" minimum="0" maximum="1" minInclusive="1" maxExclusive="1001"/>            
+    <opensearch:Url pageOffset="1" type="application/atom+xml" rel="results" indexOffset="1" template="http://localhost:5000/opensearch/search.atom?collection_id=SENTINEL3_OLCI_L1_EFR&amp;rows={opensearch:maxResults?}&amp;timerange_end={time:end?}&amp;metadata_modified={eo:modificationDate?}&amp;FamilyName={custom:familyname?}&amp;bbox={geo:box?}&amp;q={opensearch:searchTerms?}&amp;identifier={geo:uid?}&amp;collection_id={custom:collection_id?}&amp;spatial_geom={geo:geometry?}&amp;timerange_start={time:start?}&amp;page={opensearch:startPage?}">
+        <param:Parameter name="rows" value="{opensearch:maxResults}" title="Max. results per page" minimum="0" maximum="1" minInclusive="1" maxExclusive="1001"/>
         <param:Parameter name="timerange_end" value="{time:end}" title="End of time range that results should cover" minimum="0" maximum="1">
             <param:Option value="2017-12-21T:00:00:00" label="Example end time"/>
         </param:Parameter>
         <param:Parameter name="metadata_modified" value="{eo:modificationDate}" title="Date range within which metadata was modified" minimum="0" maximum="1">
             <param:Option value="[2017-11-05T00:00:00,2017-11-05T12:00:00]" label="Example modification date range"/>
         </param:Parameter>
-        <param:Parameter name="FamilyName" value="{custom:familyname}" title="The name of the family to which the products belong" minimum="0" maximum="1">        
+        <param:Parameter name="FamilyName" value="{custom:familyname}" title="The name of the family to which the products belong" minimum="0" maximum="1">
             <param:Option value="Sentinel-3" label="Products in the Sentinel-3 family"/>
         </param:Parameter>
-        <param:Parameter name="ext_bbox" value="{geo:box}" title="Bounding box that intersects with results" minimum="0" maximum="1">
+        <param:Parameter name="bbox" value="{geo:box}" title="Bounding box that intersects with results" minimum="0" maximum="1">
             <param:Option value="-0.489,51.28,0.236,51.686" label="Bounding Box of Greater London"/>
         </param:Parameter>
         <param:Parameter name="q" value="{opensearch:searchTerms}" title="Search terms in CKAN/Solr syntax" minimum="0" maximum="1">

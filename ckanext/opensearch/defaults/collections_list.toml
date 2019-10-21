@@ -450,7 +450,17 @@ description = "Precipitation forecast, for Portugal mainland, generated from ARO
 name = "Significant Wave Height Forecast"
 description = "Hourly Forecast of the significant wave height for mainland Portugal, updated to the next 42 hours"
 
-
+# ebas
 [EBAS_NILU_DATA_ARCHIVE]
 name = "EBAS NILU Data Archive"
 description = "Atmospheric composition data obtained at surface in situ stations associated to various international and national frameworks for long-term monitoring. Archived in EBAS database operated by NILU."
+
+
+# gdacs
+[AVERAGE_FLOOD_SIGNAL]
+name = "Average Flood Signal"
+description = "Global merged daily and 4-day average flood signal datasets between 1997 and current. Highest sampling rate, global coverage. May have artifacts due to multi-sensor integration."
+
+[AVERAGE_FLOOD_MAGNITUDE]
+name = "Average Flood Magnitude"
+description = "Global merged daily and 4-day average flood magnitude datasets between 1997 and current. Highest sampling rate, global coverage. May have artifacts due to multi-sensor integration"
