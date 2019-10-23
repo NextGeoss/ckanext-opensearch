@@ -137,6 +137,25 @@ maximum = 1
   label = "Sentinel-5P RPRO Level-2"
 
   [[productType.options]]
+  value =  "SENTINEL3_SY_1_MISR"
+  label =  "Sentinel-3 Synergy Level-1B"
+  [[productType.options]]
+  value =  "SENTINEL3_SY_2_SYN"
+  label =  "Sentinel-3 Synergy Level-2 SYN"
+  [[productType.options]]
+  value =  "SENTINEL3_SY_2_VGP"
+  label =  "Sentinel-3 Synergy Level-2 VGP"
+  [[productType.options]]
+  value =  "SENTINEL3_SY_2_VGK"
+  label =  "Sentinel-3 Synergy Level-2 VGK"
+  [[productType.options]]
+  value =  "SENTINEL3_SY_2_VG1"
+  label =  "Sentinel-3 Synergy Level-2 VG1"
+  [[productType.options]]
+  value =  "SENTINEL3_SY_2_V10"
+  label =  "Sentinel-3 Synergy Level-2 V10"
+
+  [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
   [[productType.options]]
