@@ -252,10 +252,10 @@ maximum = 1
   value = "TREE_SPECIES_DISTRIBUTION_HABITAT_SUITABILITY"
   label = "Tree Species Distribution Habitat Suitability"
   [[productType.options]]
-  value = "FLOOD_HAZARD_EU_GL]"
+  value = "FLOOD_HAZARD_EU_GL"
   label = "Flood Hazard Europe/Global"
   [[productType.options]]
-  value = "RSP_AVHRR_1KM_ANNUAL_USA]"
+  value = "RSP_AVHRR_1KM_ANNUAL_USA"
   label = "AVHRR Remote Sensing Phenology"
   [[productType.options]]
   value = "EMODIS_PHENOLOGY_250M_ANNUAL_USA"
