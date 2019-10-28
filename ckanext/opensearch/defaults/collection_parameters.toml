@@ -156,9 +156,6 @@ maximum = 1
   label =  "Sentinel-3 Synergy Level-2 V10"
 
   [[productType.options]]
-  value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
-  label = "Antarctic Ocean Observed Sea Ice Concentration"
-  [[productType.options]]
   value = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2"
   label = "Global Observed Sea Surface Temperature"
   [[productType.options]]
