@@ -182,7 +182,7 @@ maximum = 1
   label = "MetOP-A GOME-2 Nitrogen Dioxide (NO2)"
   [[productType.options]]
   value = "METOP_A_GOME2_TropNO2"
-  lavel = "MetOP-A GOME-2 Tropospheric Nitrogen Dioxide (NO2)"
+  level = "MetOP-A GOME-2 Tropospheric Nitrogen Dioxide (NO2)"
   [[productType.options]]
   value = "METOP_A_GOME2_SO2"
   label = "MetOP-A GOME-2 Sulphur Dioxide (SO2)"
