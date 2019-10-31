@@ -124,6 +124,30 @@ description = "The Sentinel-5 Precursor mission is dedicated to monitoring our a
 name = "Sentinel-5P RPRO Level-2"
 description = "The Sentinel-5 Precursor mission is dedicated to monitoring our atmosphere, using the TROPOspheric Monitoring Instrument (TROPOMI). The The Level-2 products are geolocated total columns of ozone, sulfur dioxide, nitrogen dioxide, carbon monoxide, formaldehyde and methane, geolocated tropospheric columns of ozone, geolocated vertical profiles of ozone, geolocated cloud and aerosol information (e.g. absorbing aerosol index and aerosol layer height). For reprocessing activities (RPRO) there are no time constraints. Reprocessing of Sentinel-5 Precursor products will be performed when major product upgrades are considered necessary."
 
+[SENTINEL3_SY_1_MISR]
+name = "Sentinel-3 Synergy Level-1B"
+description = "Correspondence and collocation grids between OLCI/SLSTR L1b product and SYN Level 2 grid."
+
+[SENTINEL3_SY_2_SYN]
+name = "Sentinel-3 Synergy Level-2 SYN"
+description = "Surface Reflectance and Aerosol parameters over Land."
+
+[SENTINEL3_SY_2_VGP]
+name = "Sentinel-3 Synergy Level-2 VGP"
+description = "1 km VEGETATION-Like product (~VGT-P) - TOA Reflectance."
+
+[SENTINEL3_SY_2_VGK]
+name = "Sentinel-3 Synergy Level-2 VGK"
+description = "Surface reflectance over Land– used as input for VG-S product."
+
+[SENTINEL3_SY_2_VG1]
+name = "Sentinel-3 Synergy Level-2 VG1"
+description = "1 km VEGETATION-Like product (~VGT-S1) 1 day synthesis surface reflectance and NDVI."
+
+[SENTINEL3_SY_2_V10]
+name = "Sentinel-3 Synergy Level-2 V10"
+description = "1 km VEGETATION-Like product (~VGT-S10) 10 day synthesis surface reflectance and NDVI."
+
 [METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2]
 name = "Global Observed Sea Surface Temperature"
 description = "Daily analysis of sea surface temperature (SST), based on measurements from several satellite and in situ SST datasets, for the global ocean and some lakes."
