@@ -18,6 +18,7 @@ def make_description_document(params, request_url):
     }
     osdd_dict["short_name"] = SHORT_NAME
     osdd_dict["description"] = make_osdd_description(document_type)
+    osdd_dict["collection_name"] = document_type
     osdd_dict["tags"] = make_osdd_tags()
     osdd_dict["syndication"] = make_syndication()
     osdd_dict["self_url"] = request_url
