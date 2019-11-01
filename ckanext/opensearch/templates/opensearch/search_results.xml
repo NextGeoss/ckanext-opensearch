@@ -33,13 +33,17 @@
     <dc:identifier>{{ entry.identifier }}</dc:identifier>
     {# atom:link implementation at request of Terradue. -#}
     <atom:link {{ {"href": "{}&identifier={}".format(base_url, entry.identifier), "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
-
+    {% if entry.collection_id -%}
+    {# Define an Atom link with rel="up" for a product's collection. -#}
+    <atom:link {{ {"href": "{}/opensearch/search.atom?productType={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "search", "title": "Link to collection"}|xmlattr(False)|escape }}/>
+    {% endif -%}
     <dc:publisher>{{ entry.organization.title|default("No publisher information provided.") }}</dc:publisher>
     <atom:published>{{ entry.metadata_created }}</atom:published>
     <atom:updated>{{ entry.metadata_modified }}</atom:updated>
     <atom:summary>{{ entry.notes|default("No summary available.")|safe }}</atom:summary>
     <dc:date>{{ entry.StartTime or entry.timerange_start }}/{{ entry.StopTime or entry.timerange_end }}</dc:date>
     <georss:polygon>{{ h.os_make_entry_polygon(entry) }}</georss:polygon>
+    <atom:link href="{{ h.url_for(controller='package', action='read', id=entry.id, qualified=True)}}" type="text/html" rel="alternate"/>
     {% if 'SENTINEL'in entry.collection_id-%}
     {# Define an Atom link with rel="up" for a product's collection. -#}
     <eo:swathIdentifier>{{ entry.Swath }}</eo:swathIdentifier>
