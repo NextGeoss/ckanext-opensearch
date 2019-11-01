@@ -18,6 +18,7 @@
             'href': "{}/opensearch/description.xml?osdd={}".format(site_url, osdd)}|xmlattr(False)|escape }}/>
   <atom:link href="{{ self_url }}" type="application/atom+xml" rel="self" title="self"/>
   <atom:link href="{{ first_url }}" type="application/atom+xml" rel="first" title="first"/>
+  <atom:link {{ {"href": "{}/opensearch/search.atom?productType={}".format(site_url, osdd), "type": "application/atom+xml", "rel": "up", "title": "Link to collection"}|xmlattr(False)|escape }}/>
   {% if next_url -%}
   <atom:link href="{{ next_url }}" type="application/atom+xml" rel="next" title="next"/>
   {% endif -%}
@@ -35,7 +36,7 @@
     <atom:link {{ {"href": "{}&identifier={}".format(base_url, entry.identifier), "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
     {% if entry.collection_id -%}
     {# Define an Atom link with rel="up" for a product's collection. -#}
-    <atom:link {{ {"href": "{}/opensearch/search.atom?productType={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "up", "title": "Link to collection"}|xmlattr(False)|escape }}/>
+    <atom:link {{ {"href": "{}/opensearch/search.atom?productType={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "search", "title": "Link to collection"}|xmlattr(False)|escape }}/>
     {% endif -%}
     <dc:publisher>{{ entry.organization.title|default("No publisher information provided.") }}</dc:publisher>
     <atom:published>{{ entry.metadata_created }}</atom:published>

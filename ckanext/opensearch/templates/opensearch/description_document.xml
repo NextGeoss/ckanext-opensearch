@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<os:OpenSearchDescription {{ namespaces|xmlattr(False)|escape }}>
+<os:OpenSearchDescription {{ namespaces|xmlattr(False)|escape }} esipdiscovery:version="1.2">
     <os:ShortName>{{ short_name }}</os:ShortName>
     <os:Description>{{ description }}</os:Description>
     <os:Tags>{{ tags }}</os:Tags>
