@@ -1,6 +1,6 @@
 # A list of XML namespaces in the format alias = "uri"
 
-os = "http://a9.com/-/spec/opensearch/1.1/"
+opensearch = "http://a9.com/-/spec/opensearch/1.1/"
 atom = "http://www.w3.org/2005/Atom"
 param = "http://a9.com/-/opensearch/extensions/param/1.0/"
 custom = "http://example.com/opensearchextensions/1.0/"

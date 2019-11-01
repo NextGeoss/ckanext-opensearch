@@ -8,9 +8,10 @@
     <atom:name>No author information available</atom:name>
   </atom:author>
   <atom:updated>{{ feed_updated }}</atom:updated>
-  <os:totalResults>{{ count }}</os:totalResults>
-  <os:startIndex>{{ start_index }}</os:startIndex>
-  <os:itemsPerPage>{{ items_per_page }}</os:itemsPerPage>
+  <opensearch:totalResults>{{ count }}</opensearch:totalResults>
+  <opensearch:startIndex>{{ start_index }}</opensearch:startIndex>
+  <opensearch:itemsPerPage>{{ items_per_page }}</opensearch:itemsPerPage>
+
   {%- if feed_box %}
   <georss:box>{{ feed_box }}</georss:box>
   {%- endif %}
