@@ -4,7 +4,7 @@
     <os:Description>{{ description }}</os:Description>
     <os:Tags>{{ tags }}</os:Tags>
     <os:SyndicationRight>{{ syndication }}</os:SyndicationRight>
-    <os:Query role="example" os:searchTerms="cat" />
+    <os:Query role="example" os:totalResults="20" eo:productType="SENTINEL1_L1_SLC"/>
     <os:Url type="application/opensearchdescription+xml" template="{{ self_url }}" rel="self"/>
     <os:Url pageOffset="1" type="application/atom+xml" rel="{{ search_rel }}" indexOffset="1" template="{{ search_url }}">
         {# We may have more than one parameter and each parameter may have attributes not shown here (name="name" value="value" minimum="" maximum="") #}
@@ -14,6 +14,9 @@
                 {# The free text query parameter ('q' by default) needs a search profile #}
                 {% if param.attrs.name == 'q' %}
                     <atom:link title="This parameter follows CKAN's free text search syntax, which is based on Solr's query syntax." rel="profile" href="https://docs.ckan.org/en/latest/api/index.html#ckan.logic.action.get.package_search"/>
+                {% endif %}
+                {% if param.attrs.name == 'geom' %}
+                    <atom:link href="http://www.opengis.net/wkt/POLYGON" rel="profile" title="This service accepts WKT Polygons"/>
                 {% endif %}
                 {# A parameter may have zero or more Options #}
                 {% if param.options %}
