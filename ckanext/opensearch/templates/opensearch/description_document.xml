@@ -12,6 +12,9 @@
             {% if param.options or param.attrs.name == 'q' %}
                 <param:Parameter {{ param.attrs|xmlattr(False)|escape }}>
                 {# The free text query parameter ('q' by default) needs a search profile #}
+                {% if param.attrs.name == 'q' %}
+                    <atom:link title="This parameter follows CKAN's free text search syntax, which is based on Solr's query syntax." rel="profile" href="https://docs.ckan.org/en/latest/api/index.html#ckan.logic.action.get.package_search"/>
+                {% endif %}
                 {# A parameter may have zero or more Options #}
                 {% if param.options %}
                     {% for option in param.options %}
