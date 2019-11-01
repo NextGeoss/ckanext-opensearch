@@ -18,7 +18,7 @@
 [q]
 title = "Search terms in CKAN/Solr syntax"
 os_name = "searchTerms"
-namespace = "opensearch"
+namespace = "os"
 minimum = 0
 maximum = 1
 
@@ -26,7 +26,7 @@ maximum = 1
 [rows]
 title = "Number of search results per page desired by the search client"
 os_name = "count"
-namespace = "opensearch"
+namespace = "os"
 minimum = 0
 maximum = 1
 min_inclusive = 1
@@ -36,7 +36,7 @@ max_exclusive = 1001
 [start_index]
 title = "Replaced with the index of the first search result desired by the search client."
 os_name = "startIndex"
-namespace = "opensearch"
+namespace = "os"
 minimum = 0
 maximum = 1
 min_inclusive = 1
@@ -45,7 +45,7 @@ max_exclusive = 1001
 [page]
 title = "Page number of the set of search results desired by the search client"
 os_name = "startPage"
-namespace = "opensearch"
+namespace = "os"
 minimum = 0
 maximum = 1
 min_inclusive = 1
