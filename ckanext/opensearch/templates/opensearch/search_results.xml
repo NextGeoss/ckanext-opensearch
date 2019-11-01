@@ -11,7 +11,7 @@
   <os:totalResults>{{ count }}</os:totalResults>
   <os:startIndex>{{ start_index }}</os:startIndex>
   <os:itemsPerPage>{{ items_per_page }}</os:itemsPerPage>
-  <os:Query role="request" os:totalResults="20" eo:productType="{{osdd}}"/>
+  <os:Query role="request" os:totalResults="20" time:start="2019-01-01"/>
   {% set osdd = query_attrs.get("custom:collection_id", "dataset") -%}
   <atom:link {{ {'title': "{} description document".format(osdd.title()), 'rel': 'search',
             'type': 'application/opensearchdescription+xml',
