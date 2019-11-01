@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<opensearch:OpenSearchDescription {{ namespaces|xmlattr(False)|escape }}>
-    <opensearch:ShortName>{{ short_name }}</opensearch:ShortName>
-    <opensearch:Description>{{ description }}</opensearch:Description>
-    <opensearch:Tags>{{ tags }}</opensearch:Tags>
-    <opensearch:SyndicationRight>{{ syndication }}</opensearch:SyndicationRight>
-    <opensearch:Query role="example" searchTerms="cat" />
-    <opensearch:Url type="application/opensearchdescription+xml" template="{{ self_url }}" rel="self"/>
-    <opensearch:Url pageOffset="1" type="application/atom+xml" rel="{{ search_rel }}" indexOffset="1" template="{{ search_url }}">
+<os:OpenSearchDescription {{ namespaces|xmlattr(False)|escape }}>
+    <os:ShortName>{{ short_name }}</os:ShortName>
+    <os:Description>{{ description }}</os:Description>
+    <os:Tags>{{ tags }}</os:Tags>
+    <os:SyndicationRight>{{ syndication }}</os:SyndicationRight>
+    <os:Query role="example" searchTerms="cat" />
+    <os:Url type="application/opensearchdescription+xml" template="{{ self_url }}" rel="self"/>
+    <os:Url pageOffset="1" type="application/atom+xml" rel="{{ search_rel }}" indexOffset="1" template="{{ search_url }}">
         {# We may have more than one parameter and each parameter may have attributes not shown here (name="name" value="value" minimum="" maximum="") #}
         {% for param in parameters %}
             {% if param.options or param.attrs.name == 'q' %}
@@ -26,10 +26,10 @@
             <param:Parameter {{ param.attrs|xmlattr(False)|escape }}/>
             {% endif %}
         {% endfor %}
-    </opensearch:Url>
+    </os:Url>
     {# We may have more than one example and each example may have more than one parameter #}
     {% if examples %}
         {% for example in examples %}
         {% endfor %}
     {% endif %}
-</opensearch:OpenSearchDescription>
+</os:OpenSearchDescription>
