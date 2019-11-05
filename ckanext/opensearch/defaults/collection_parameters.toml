@@ -404,6 +404,16 @@ maximum = 1
   value = "MODIS_AQUA_MYD14A2"
   label = "MODIS/Aqua Thermal Anomalies/Fire 8-Day L3 Global 1km SIN Grid"
 
+  [[productType.options]]
+  value = "CGS_S1_SLC_L1"
+  label = "CGS S1 SLC L1"
+  [[productType.options]]
+  value = "CGS_S1_GRD_SIGMA0_L1"
+  label = "CGS S1 GRD SIGMA0 L1"
+  [[productType.options]]
+  value = "CGS_S1_GRD_L1"
+  label = "CGS S1 GRD L1"
+
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"

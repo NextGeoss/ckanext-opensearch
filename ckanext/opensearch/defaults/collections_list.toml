@@ -537,3 +537,16 @@ description = "MOD14A2 data are 8-day fire-mask composites at 1-kilometer resolu
 [MODIS_AQUA_MYD14A2]
 name = "MODIS/Aqua Thermal Anomalies/Fire 8-Day L3 Global 1km SIN Grid"
 description = "MYD14A2 data are 8-day fire-mask composites at 1-kilometer resolution provided as a gridded level-3 product in the Sinusoidal projection. Science Data Sets include the fire-mask and algorithm quality assurance."
+
+# cgss1
+[CGS_S1_SLC_L1]
+name = "CGS S1 SLC L1"
+description = "S1 datasets processed on VITO premises. Level-1 Single Look Complex (SLC) products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry. Slant range is the natural radar range observation coordinate, defined as the line-of-sight from the radar to each reflecting object. The products are in zero-Doppler orientation where each row of pixels represents points along a line perpendicular to the sub-satellite track."
+
+[CGS_S1_GRD_SIGMA0_L1]
+name = "CGS S1 GRD SIGMA0 L1"
+description = "TBD"
+
+[CGS_S1_GRD_L1]
+name = "CGS S1 GRD L1"
+description = "Level-1 Ground Range Detected (GRD) products consist of focused SAR data that has been detected, multi-looked and projected to ground range using the Earth ellipsoid model WGS84. The ellipsoid projection of the GRD products is corrected using the terrain height specified in the product general annotation. The terrain height used varies in azimuth but is constant in range (but can be different for each IW/EW sub-swath)."
