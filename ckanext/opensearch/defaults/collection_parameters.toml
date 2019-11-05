@@ -159,6 +159,9 @@ maximum = 1
   value = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2"
   label = "Global Observed Sea Surface Temperature"
   [[productType.options]]
+  value = "METNO-GLO-SEAICE_CONC-NORTH-L4-NRT-OBS"
+  label = "Arctic Ocean Observed Sea Ice Concentration"
+  [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
   [[productType.options]]
