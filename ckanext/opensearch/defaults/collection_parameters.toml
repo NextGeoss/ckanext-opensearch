@@ -159,6 +159,9 @@ maximum = 1
   value = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2"
   label = "Global Observed Sea Surface Temperature"
   [[productType.options]]
+  value = "METNO-GLO-SEAICE_CONC-NORTH-L4-NRT-OBS"
+  label = "Arctic Ocean Observed Sea Ice Concentration"
+  [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
   [[productType.options]]
@@ -366,6 +369,53 @@ maximum = 1
   [[productType.options]]
   value = "AVERAGE_FLOOD_MAGNITUDE"
   label = "Average Flood Magnitude"
+
+  [[productType.options]]
+  value = "MODIS_AQUA_MYD13Q1"
+  label = "MODIS/Aqua Vegetation Indices 16-Day L3 Global 250m SIN Grid"
+  [[productType.options]]
+  value = "MODIS_AQUA_MYD13A1"
+  label = "MODIS/Aqua Vegetation Indices 16-Day L3 Global 500m SIN Grid"
+  [[productType.options]]
+  value = "MODIS_AQUA_MYD13A2"
+  label = "MODIS/Aqua Vegetation Indices 16-Day L3 Global 1km SIN Grid"
+  [[productType.options]]
+  value = "MODIS_TERRA_MOD13Q1"
+  label = "MODIS/Terra Vegetation Indices 16-Day L3 Global 250m SIN Grid"
+  [[productType.options]]
+  value = "MODIS_TERRA_MOD13A1"
+  label = "MODIS/Terra Vegetation Indices 16-Day L3 Global 500m SIN Grid"
+  [[productType.options]]
+  value = "MODIS_TERRA_MOD13A2"
+  label = "MODIS/Terra Vegetation Indices 16-Day L3 Global 1km SIN Grid"
+  [[productType.options]]
+  value = "MOD17A3H"
+  label = "MODIS/Terra Net Primary Production Yearly L4 Global 500m SIN Grid"
+  [[productType.options]]
+  value = "MOD17A2H"
+  label = "MODIS/Terra Gross Primary Productivity 8-Day L4 Global 500m SIN Grid"
+  [[productType.options]]
+  value = "MODIS_AQUA_MYD15A2H"
+  label = "MODIS/Aqua Leaf Area Index/FPAR 8-Day L4 Global 500m SIN Grid"
+  [[productType.options]]
+  value = "MODIS_TERRA_MOD15A2H"
+  label = "MODIS/Terra Leaf Area Index/FPAR 8-Day L4 Global 500m SIN Grid"
+  [[productType.options]]
+  value = "MODIS_TERRA_MOD14A2"
+  label = "MODIS/Terra Thermal Anomalies/Fire 8-Day L3 Global 1km SIN Grid"
+  [[productType.options]]
+  value = "MODIS_AQUA_MYD14A2"
+  label = "MODIS/Aqua Thermal Anomalies/Fire 8-Day L3 Global 1km SIN Grid"
+
+  [[productType.options]]
+  value = "CGS_S1_SLC_L1"
+  label = "CGS S1 SLC L1"
+  [[productType.options]]
+  value = "CGS_S1_GRD_SIGMA0_L1"
+  label = "CGS S1 GRD SIGMA0 L1"
+  [[productType.options]]
+  value = "CGS_S1_GRD_L1"
+  label = "CGS S1 GRD L1"
 
 [timerange_start]
 title = "Beginning of time range that results should cover"

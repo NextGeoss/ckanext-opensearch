@@ -488,3 +488,65 @@ description = "Global merged daily and 4-day average flood signal datasets betwe
 [AVERAGE_FLOOD_MAGNITUDE]
 name = "Average Flood Magnitude"
 description = "Global merged daily and 4-day average flood magnitude datasets between 1997 and current. Highest sampling rate, global coverage. May have artifacts due to multi-sensor integration"
+
+# modis
+[MODIS_AQUA_MYD13Q1]
+name = "MODIS/Aqua Vegetation Indices 16-Day L3 Global 250m SIN Grid"
+description = "Global MYD13Q1 data are provided every 16 days at 250-meter spatial resolution as a gridded level-3 product in the Sinusoidal projection. Cloud-free global coverage is achieved by replacing clouds with the historical MODIS time series climatology record. Vegetation indices are used for global monitoring of vegetation conditions and are used in products displaying land cover and land cover changes."
+
+[MODIS_AQUA_MYD13A1]
+name = "MODIS/Aqua Vegetation Indices 16-Day L3 Global 500m SIN Grid"
+description = "Global MYD13A1 data are provided every 16 days at 500-meter spatial resolution as a gridded level-3 product in the Sinusoidal projection. Cloud-free global coverage is achieved by replacing clouds with the historical MODIS time series climatology record. Vegetation indices are used for global monitoring of vegetation conditions and are used in products displaying land cover and land cover changes."
+
+[MODIS_AQUA_MYD13A2]
+name = "MODIS/Aqua Vegetation Indices 16-Day L3 Global 1km SIN Grid"
+description = "Global MYD13A2 data are provided every 16 days at 1-kilometer spatial resolution as a gridded level-3 product in the Sinusoidal projection. Vegetation indices are used for global monitoring of vegetation conditions and are used in products displaying land cover and land cover changes."
+
+[MODIS_TERRA_MOD13Q1]
+name = "MODIS/Terra Vegetation Indices 16-Day L3 Global 250m SIN Grid"
+description = "Global MOD13Q1 data are provided every 16 days at 250-meter spatial resolution as a gridded level-3 product in the Sinusoidal projection. Cloud-free global coverage is achieved by replacing clouds with the historical MODIS time series climatology record. Vegetation indices are used for global monitoring of vegetation conditions and are used in products displaying land cover and land cover changes."
+
+[MODIS_TERRA_MOD13A1]
+name = "MODIS/Terra Vegetation Indices 16-Day L3 Global 500m SIN Grid"
+description = "Global MOD13A1 data are provided every 16 days at 500-meter spatial resolution as a gridded level-3 product in the Sinusoidal projection. Cloud-free global coverage is achieved by replacing clouds with the historical MODIS time series climatology record. Vegetation indices are used for global monitoring of vegetation conditions and are used in products displaying land cover and land cover changes."
+
+[MODIS_TERRA_MOD13A2]
+name = "MODIS/Terra Vegetation Indices 16-Day L3 Global 1km SIN Grid"
+description = "Global MOD13A2 data are provided every 16 days at 1-kilometer spatial resolution as a gridded level-3 product in the Sinusoidal projection. Vegetation indices are used for global monitoring of vegetation conditions and are used in products displaying land cover and land cover changes."
+
+[MOD17A3H]
+name = "MODIS/Terra Net Primary Production Yearly L4 Global 500m SIN Grid"
+description = "The Terra/MODIS Gross Primary Productivity (GPP) product MOD17A3H is a cumulative composite of GPP values based on the radiation-use efficiency concept that is potentially used as inputs to data models to calculate terrestrial energy, carbon, water cycle processes, and biogeochemistry of vegetation. MOD17A3H is an annual composite at 500m spatial resolution delivered as a gridded Level-4 product in Sinusoidal projection."
+
+[MOD17A2H]
+name = "MODIS/Terra Gross Primary Productivity 8-Day L4 Global 500m SIN Grid"
+description = "The Terra/MODIS Gross Primary Productivity (GPP) product MOD17A2H is a cumulative composite of GPP values based on the radiation-use efficiency concept that is potentially used as inputs to data models to calculate terrestrial energy, carbon, water cycle processes, and biogeochemistry of vegetation. MOD17A2H is an 8-day composite at 1-km spatial resolution delivered as a gridded Level-4 product in Sinusoidal projection."
+
+[MODIS_AQUA_MYD15A2H]
+name = "MODIS/Aqua Leaf Area Index/FPAR 8-Day L4 Global 500m SIN Grid"
+description = "The Level-4 MODIS global Leaf Area Index (LAI) and Fraction of Photosynthetically Active Radiation (FPAR) product is a 8-day 500-meter resolution product on a Sinusoidal grid. Science Data Sets provided in the MYD15A2H include LAI, FPAR, a quality rating, and standard deviation for each variable."
+
+[MODIS_TERRA_MOD15A2H]
+name = "MODIS/Terra Leaf Area Index/FPAR 8-Day L4 Global 500m SIN Grid"
+description = "The Level-4 MODIS global Leaf Area Index (LAI) and Fraction of Photosynthetically Active Radiation (FPAR) product is a 8-day 500-meter resolution product on a Sinusoidal grid. Science Data Sets provided in the MOD15A2H include LAI, FPAR, a quality rating, and standard deviation for each variable."
+
+[MODIS_TERRA_MOD14A2]
+name = "MODIS/Terra Thermal Anomalies/Fire 8-Day L3 Global 1km SIN Grid"
+description = "MOD14A2 data are 8-day fire-mask composites at 1-kilometer resolution provided as a gridded level-3 product in the Sinusoidal projection. Science Data Sets include the fire-mask and algorithm quality assurance."
+
+[MODIS_AQUA_MYD14A2]
+name = "MODIS/Aqua Thermal Anomalies/Fire 8-Day L3 Global 1km SIN Grid"
+description = "MYD14A2 data are 8-day fire-mask composites at 1-kilometer resolution provided as a gridded level-3 product in the Sinusoidal projection. Science Data Sets include the fire-mask and algorithm quality assurance."
+
+# cgss1
+[CGS_S1_SLC_L1]
+name = "CGS S1 SLC L1"
+description = "S1 datasets processed on VITO premises. Level-1 Single Look Complex (SLC) products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry. Slant range is the natural radar range observation coordinate, defined as the line-of-sight from the radar to each reflecting object. The products are in zero-Doppler orientation where each row of pixels represents points along a line perpendicular to the sub-satellite track."
+
+[CGS_S1_GRD_SIGMA0_L1]
+name = "CGS S1 GRD SIGMA0 L1"
+description = "TBD"
+
+[CGS_S1_GRD_L1]
+name = "CGS S1 GRD L1"
+description = "Level-1 Ground Range Detected (GRD) products consist of focused SAR data that has been detected, multi-looked and projected to ground range using the Earth ellipsoid model WGS84. The ellipsoid projection of the GRD products is corrected using the terrain height specified in the product general annotation. The terrain height used varies in azimuth but is constant in range (but can be different for each IW/EW sub-swath)."
