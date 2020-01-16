@@ -8,6 +8,7 @@
     <atom:name>No author information available</atom:name>
   </atom:author>
   <atom:updated>{{ feed_updated }}</atom:updated>
+  <opensearch:Query role="example" searchTerms="cat" />
   <opensearch:totalResults>{{ count }}</opensearch:totalResults>
   <opensearch:startIndex>{{ start_index }}</opensearch:startIndex>
   <opensearch:itemsPerPage>{{ items_per_page }}</opensearch:itemsPerPage>
