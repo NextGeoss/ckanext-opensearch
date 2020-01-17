@@ -9,7 +9,7 @@
   </atom:author>
   <atom:updated>{{ feed_updated }}</atom:updated>
   <opensearch:totalResults>{{ count }}</opensearch:totalResults>
-  <opensearch:Query role="example" searchTerms="cat" />
+  <opensearch:Query role="request" searchTerms="cat" startPage="1" />
   <opensearch:startIndex>{{ start_index }}</opensearch:startIndex>
   <opensearch:itemsPerPage>{{ items_per_page }}</opensearch:itemsPerPage>
   {%- if feed_box %}
