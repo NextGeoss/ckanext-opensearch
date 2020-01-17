@@ -364,11 +364,11 @@ def make_nav_url(query_url, page):
         return None
     else:
         if "page=" not in query_url:
-            nav_url = "{0}&page={1}".format(query_url, page)
+            nav_url = "{0}?page={1}".format(query_url, page)
         else:
             halves = re.compile(r"page=\d*").split(query_url)
             if len(halves) == 1:
-                nav_url = "{0}&page={1}".format(halves[0], page)
+                nav_url = "{0}?page={1}".format(halves[0], page)
             else:
                 nav_url = "{0}page={1}{2}".format(halves[0], page, halves[1])
 
