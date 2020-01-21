@@ -30,6 +30,10 @@ additional_parameters = ["sentinel_base_parameters"]
 tags = ["Sentinel-1"]
 product_type = ["OCN"]
 
+[SENTINEL1_L0_RAW]
+name = "Sentinel-1 Level-0 (RAW)"
+description = "The Sentinel-1 Level-0 products consist of the sequence of Flexible Dynamic Block Adaptive Quantization (FDBAQ) compressed unfocused SAR raw data. For the data to be usable, it will need to be decompressed and processed using focusing software."
+tags = ["Sentinel-1"]
 
 [SENTINEL2_L1C]
 name = "Sentinel-2 Level-1C"
