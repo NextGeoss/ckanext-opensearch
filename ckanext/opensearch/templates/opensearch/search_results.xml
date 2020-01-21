@@ -37,8 +37,9 @@
     {# atom:link implementation at request of Terradue. -#}
     <atom:link {{ {"href": "{}&identifier={}".format(base_url, entry.identifier), "type": "application/atom+xml", "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
     {% if entry.collection_id -%}
-    {# Define an Atom link with rel="up" for a product's collection. -#}
-    <atom:link {{ {"href": "{}/opensearch/search.atom?productType={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "search", "title": "Search in collection"}|xmlattr(False)|escape }}/>
+    {# Define an Atom link with rel="search" for a product's collection. -#}
+    <atom:link {{ {'href': "{}/opensearch/description.xml?osdd={}".format(site_url, entry.collection_id), 'rel': 'search',
+            'type': 'application/opensearchdescription+xml'}|xmlattr(False)|escape }}/>
     {% endif -%}
     <dc:publisher>{{ entry.organization.title|default("No publisher information provided.") }}</dc:publisher>
     <atom:published>{{ entry.metadata_created }}</atom:published>
