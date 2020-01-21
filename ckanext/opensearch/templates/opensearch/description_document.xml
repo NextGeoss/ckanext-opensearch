@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<opensearch:OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" {{ namespaces|xmlattr(False)|escape }}>
+<opensearch:OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" esipdiscovery:version="1.2" {{ namespaces|xmlattr(False)|escape }}>
     <opensearch:ShortName>{{ short_name }}</opensearch:ShortName>
     <opensearch:Description>{{ description }}</opensearch:Description>
     <opensearch:Tags>{{ tags }}</opensearch:Tags>

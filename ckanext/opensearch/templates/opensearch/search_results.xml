@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<atom:feed {{ namespaces|xmlattr(False)|escape }}>
+<atom:feed esipdiscovery:version="1.2" {{ namespaces|xmlattr(False)|escape }}>
   <atom:title>{{ feed_title }}</atom:title>
   <atom:subtitle>{{ feed_subtitle }}</atom:subtitle>
   <atom:id>{{ feed_id }}</atom:id>
