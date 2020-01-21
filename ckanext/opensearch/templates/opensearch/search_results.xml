@@ -19,6 +19,7 @@
             'type': 'application/opensearchdescription+xml',
             'href': "{}/opensearch/description.xml?osdd={}".format(site_url, osdd)}|xmlattr(False)|escape }}/>
   <atom:link href="{{ self_url }}" type="application/atom+xml" rel="self" title="self"/>
+  <atom:link href="{{ site_url }}/opensearch/collection_search.atom?" type="application/atom+xml" rel="up" title="Collection search, first of the two-step search"/>
   <atom:link href="{{ first_url }}" type="application/atom+xml" rel="first" title="first"/>
   {% if next_url -%}
   <atom:link href="{{ next_url }}" type="application/atom+xml" rel="next" title="next"/>
