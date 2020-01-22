@@ -37,7 +37,7 @@
     {#- We don't have the data required for dc:date, which should reflect the timespan of the collection (i.e., the dates of the earliest and latest products in the collection) so we're faking it for now. #}
     <dc:date>1900-01-01T00:00:00.000Z/{{ entry.updated }}</dc:date>
     {#- We don't have the data required for georss:box, which should reflect bounding box of the collection itself, so we're faking it for now. #}
-    <georss:box>-180.0 -90.0 180.0 90.0</georss:box>
+    <georss:box>-90.0 -180.0 90.0 180.0</georss:box>
     {#- We don't have the data required for georss:polygon, which should reflect the polygon that encloses the collection itself, so we're faking it for now. #}
     <georss:polygon>-180 -90 -180 90 180 90 180 -90 -180 90</georss:polygon>
     <atom:summary>{{ entry.count }} matching products found in the {{ entry.name }} collection. }}|safe</atom:summary>
