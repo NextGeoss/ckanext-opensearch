@@ -47,7 +47,6 @@
     <atom:updated>{{ entry.metadata_modified }}</atom:updated>
     <atom:summary>{{ entry.notes|default("No summary available.")|safe }}</atom:summary>
     <dc:date>{{ entry.StartTime or entry.timerange_start }}/{{ entry.StopTime or timerange_end }}</dc:date>
-    <georss:box>-180.0 -90.0 180.0 90.0</georss:box>
     <georss:polygon>{{ h.os_make_entry_polygon(entry) }}</georss:polygon>
     {% if 'SENTINEL'in entry.collection_id-%}
     {# Define an Atom link with rel="up" for a product's collection. -#}
