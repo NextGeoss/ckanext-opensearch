@@ -13,7 +13,10 @@
                 <param:Parameter {{ param.attrs|xmlattr(False)|escape }}>
                 {# The free text query parameter ('q' by default) needs a search profile #}
                 {% if param.attrs.name == 'q' %}
-                    <atom:link title="This parameter follows CKAN's free text search syntax, which is based on Solr's query syntax." rel="profile" href="https://docs.ckan.org/en/latest/api/index.html#ckan.logic.action.get.package_search"/>
+                    <atom:link rel="profile" title="This parameter follows CKAN's free text search syntax, which is based on Solr's query syntax." href="https://docs.ckan.org/en/latest/api/index.html#ckan.logic.action.get.package_search"/>
+                {% endif %}
+                {% if param.attrs.name == 'geom' %}
+                    <atom:link rel="profile" title="This service accepts WKT Polygons" href="http://www.opengis.net/wkt/POLYGON" />
                 {% endif %}
                 {# A parameter may have zero or more Options #}
                 {% if param.options %}
