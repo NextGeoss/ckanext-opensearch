@@ -16,7 +16,9 @@
                     <atom:link rel="profile" title="This parameter follows CKAN's free text search syntax, which is based on Solr's query syntax." href="https://docs.ckan.org/en/latest/api/index.html#ckan.logic.action.get.package_search"/>
                 {% endif %}
                 {% if param.attrs.name == 'geom' %}
-                    <atom:link rel="profile" title="This service accepts WKT Polygons" href="http://www.opengis.net/wkt/POLYGON" />
+                    <atom:link rel="profile" href="http://www.opengis.net/wkt/LINESTRING" title="This service accepts WKT LineStrings"/>
+                 	<atom:link rel="profile" href="http://www.opengis.net/wkt/POINT" title="This service accepts WKT Points"/>
+                    <atom:link rel="profile" href="http://www.opengis.net/wkt/POLYGON" title="This service accepts WKT Polygons"/>
                 {% endif %}
                 {# A parameter may have zero or more Options #}
                 {% if param.options %}
@@ -29,7 +31,6 @@
             <param:Parameter {{ param.attrs|xmlattr(False)|escape }}/>
             {% endif %}
         {% endfor %}
-    </opensearch:Url>
     {# We may have more than one example and each example may have more than one parameter #}
     {% if examples %}
         {% for example in examples %}
