@@ -113,6 +113,8 @@ def make_parameters(document_type):
         attrs["name"] = param
         attrs["value"] = "{%s:%s}" % (details["namespace"], details["os_name"])
         attrs["title"] = details.get("title")
+        attrs["minimum"] = details.get("minimum")
+        attrs["maximum"] = details.get("maximum")
         attrs["minInclusive"] = details.get("min_inclusive")
         attrs["maxExclusive"] = details.get("max_exclusive")
 
