@@ -40,6 +40,7 @@
     <atom:link {{ {'href': "{}/opensearch/description.xml?osdd={}".format(site_url, entry.collection_id), 'rel': 'search',
             'type': 'application/opensearchdescription+xml'}|xmlattr(False)|escape }}/>
     {% endif -%}
+    <atom:link href="{{ h.url_for(controller='package', action='read', id=entry.id, qualified=True)}}" type="text/html" rel="describedBy" title="CKAN page of the dataset"/>
     <dc:publisher>{{ entry.organization.title|default("No publisher information provided.") }}</dc:publisher>
     <atom:published>{{ entry.metadata_created }}</atom:published>
     <atom:updated>{{ entry.metadata_modified }}</atom:updated>
