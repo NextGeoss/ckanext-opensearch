@@ -31,6 +31,7 @@
             <param:Parameter {{ param.attrs|xmlattr(False)|escape }}/>
             {% endif %}
         {% endfor %}
+    </opensearch:Url>
     {# We may have more than one example and each example may have more than one parameter #}
     {% if examples %}
         {% for example in examples %}
