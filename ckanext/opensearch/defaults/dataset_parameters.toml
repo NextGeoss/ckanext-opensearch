@@ -127,3 +127,10 @@ maximum = 1
   [[productType.options]]
   value = "METNO-GLO-SEAICE_CONC-SOUTH-L4-NRT-OBS"
   label = "Antarctic Ocean Observed Sea Ice Concentration"
+
+[clientId]
+title = "Non-variable identifier provided by the client"
+os_name = "source"
+namespace = "referrer"
+minimum = 0
+maximum = 1
