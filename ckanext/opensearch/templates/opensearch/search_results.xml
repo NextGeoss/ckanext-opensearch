@@ -43,7 +43,7 @@
     <atom:published>{{ entry.metadata_created }}</atom:published>
     <atom:updated>{{ entry.metadata_modified }}</atom:updated>
     <atom:summary>{{ entry.notes|default("No summary available.")|safe }}</atom:summary>
-    <dc:date>{{ entry.StartTime or entry.timerange_start }}/{{ entry.StopTime or timerange_end }}</dc:date>
+    <dc:date>{{ entry.timerange_start }}/{{ entry.timerange_end }}</dc:date>
     <georss:polygon>{{ h.os_make_entry_polygon(entry) }}</georss:polygon>
     <atom:link href="{{ h.url_for(controller='package', action='read', id=entry.id, qualified=True)}}" type="text/html" rel="alternate"/>
     {% if 'SENTINEL'in entry.collection_id-%}
