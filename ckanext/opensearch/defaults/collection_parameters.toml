@@ -76,6 +76,10 @@ namespace = "eo"
 minimum = 0
 maximum = 1
   [[productType.options]]
+  value = "SENTINEL1_L0_RAW"
+  label = "Sentinel-1 Level-0 (RAW)"
+
+  [[productType.options]]
   value = "SENTINEL1_L1_SLC"
   label = "Sentinel-1 Level-1 (SLC)"
   [[productType.options]]
