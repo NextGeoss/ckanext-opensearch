@@ -107,7 +107,6 @@ def process_query(search_type, param_dict, request_url, context):
     data_dict = translate_os_query(param_dict, search_type)
     start = data_dict['start_index']
     del data_dict['start_index']
-    print data_dict
 
     results_dict = search(data_dict, search_type, context)
 
@@ -118,6 +117,7 @@ def process_query(search_type, param_dict, request_url, context):
     total_results = results_dict["count"]
     requested_rows = results_dict["items_per_page"]
     expected_results = requested_rows * current_page
+    osdd = param_dict.get('productType', 'dataset')
 
     if expected_results >= total_results:
         next_page = None
@@ -146,6 +146,7 @@ def process_query(search_type, param_dict, request_url, context):
     results_dict["feed_updated"] = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
     results_dict["start_index"] = start
     results_dict["query_attrs"] = make_query_dict(param_dict, search_type)
+    results_dict["osdd"] = osdd
     results_dict["feed_box"] = make_feed_box(results_dict)
     results_dict["site_url"] = SITE_URL
     results_dict["search_url"] = "{}/opensearch/description.xml".format(SITE_URL)
