@@ -14,7 +14,6 @@
   {% if feed_box -%}
   <georss:box>{{ feed_box }}</georss:box>
   {% endif -%}
-  {% set osdd = query_attrs.get("custom:collection_id", "dataset") -%}
   <atom:link {{ {'title': "{} description document".format(osdd.title()), 'rel': 'search',
             'type': 'application/opensearchdescription+xml',
             'href': "{}/opensearch/description.xml?osdd={}".format(site_url, osdd)}|xmlattr(False)|escape }}/>
