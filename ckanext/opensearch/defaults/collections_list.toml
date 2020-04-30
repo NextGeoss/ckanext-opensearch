@@ -567,3 +567,15 @@ description = "Contains L1TP scenes not meeting Tier 1 criteria and all Systemat
 [LANDSAT_8_T1]
 name = "Landsat-8 T1"
 description = "Contains the highest quality Level-1 Precision Terrain (L1TP) data considered suitable for time-series analysis. The georegistration is consistent and within prescribed tolerances [<12m root mean square error (RMSE)]."
+
+[S1_ARCTIC_SEAICEEDGE_CLASSIFICATION]
+name = "Sentinel-1 HH/HV based ice/water classification"
+description = "Sea ice and water classification in the Arctic using Sentinel-1. These datasets have been generated with support from the European Commission in the Horizon 2020 NextGEOSS project (grant agreement No 730329). The algorithms used for Sentinel-1 SAR noise removal and sea ice classification have been developed in the Research Council of Norway project SONARC (Project No 243608) and the Horizon 2020 SPICES project (grant agreement No 640161)."
+
+[S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_INTAROS_2018]
+name = "Sea ice and water classification in the Arctic for INTAROS 2018 field experiment"
+description = 'Sea ice and water classification in the Arctic, for INTAROS 2018 field experiment, using Sentinel-1 SAR. Extended Wide (EW) swath images at medium resolution (GRDM). Prior to classification, a thermal noise reduction algorithm is applied. A machine learning algorithm is then used to classify sea ice and open water in the noise corrected images. This data is made freely available by NERSC. User must display this citation in any publication or product using data: "These data were produced with support from the Horizon 2020 NextGEOSS project (Grant Agreement No 730329), and made freely available by NERSC (ref. Frode Monsen, Torill Hamre and Mohamed Babiker at NERSC)."'
+
+[S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_CAATEX_INTAROS_2019]
+name = "Sea ice and water classification in the Arctic for CAATEX/INTAROS 2019 field experiment"
+description = 'Sea ice and water classification in the Arctic, for CAATEX/INTAROS 2019 field experiment, using Sentinel-1 SAR. Extended Wide (EW) swath images at medium resolution (GRDM). Prior to classification, a thermal noise reduction algorithm is applied. A machine learning algorithm is then used to classify sea ice and open water in the noise corrected images. This data is made freely available by NERSC. User must display this citation in any publication or product using data: "These data were produced with support from the Horizon 2020 NextGEOSS project (Grant Agreement No 730329), and made freely available by NERSC (ref. Frode Monsen, Torill Hamre and Mohamed Babiker at NERSC)."'

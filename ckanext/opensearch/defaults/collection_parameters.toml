@@ -431,6 +431,16 @@ maximum = 1
   value = "LANDSAT_8_T1"
   label = "Landsat-8 T1"
 
+  [[productType.options]]
+  value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION"
+  label = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION"
+  [[productType.options]]
+  value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_INTAROS_2018
+  label = "Sea ice and water classification in the Arctic for INTAROS 2018 field experiment"
+  [[productType.options]]
+  value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_CAATEX_INTAROS_2019"
+  label = "Sea ice and water classification in the Arctic for CAATEX/INTAROS 2019 field experiment"
+
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"
