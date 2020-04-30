@@ -433,9 +433,9 @@ maximum = 1
 
   [[productType.options]]
   value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION"
-  label = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION"
+  label = "Sentinel-1 HH/HV based ice/water classification"
   [[productType.options]]
-  value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_INTAROS_2018
+  value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_INTAROS_2018"
   label = "Sea ice and water classification in the Arctic for INTAROS 2018 field experiment"
   [[productType.options]]
   value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_CAATEX_INTAROS_2019"
