@@ -421,6 +421,16 @@ maximum = 1
   value = "CGS_S1_GRD_L1"
   label = "CGS S1 GRD L1"
 
+  [[productType.options]]
+  value = "LANDSAT_8_RT"
+  label = "Landsat-8 RT"
+  [[productType.options]]
+  value = "LANDSAT_8_T2"
+  label = "Landsat-8 T2"
+  [[productType.options]]
+  value = "LANDSAT_8_T1"
+  label = "Landsat-8 T1"
+
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"
