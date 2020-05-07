@@ -421,6 +421,26 @@ maximum = 1
   value = "CGS_S1_GRD_L1"
   label = "CGS S1 GRD L1"
 
+  [[productType.options]]
+  value = "LANDSAT_8_RT"
+  label = "Landsat-8 RT"
+  [[productType.options]]
+  value = "LANDSAT_8_T2"
+  label = "Landsat-8 T2"
+  [[productType.options]]
+  value = "LANDSAT_8_T1"
+  label = "Landsat-8 T1"
+
+  [[productType.options]]
+  value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION"
+  label = "Sentinel-1 HH/HV based ice/water classification"
+  [[productType.options]]
+  value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_INTAROS_2018"
+  label = "Sea ice and water classification in the Arctic for INTAROS 2018 field experiment"
+  [[productType.options]]
+  value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_CAATEX_INTAROS_2019"
+  label = "Sea ice and water classification in the Arctic for CAATEX/INTAROS 2019 field experiment"
+
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"
