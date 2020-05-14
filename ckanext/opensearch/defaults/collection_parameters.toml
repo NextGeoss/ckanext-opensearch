@@ -473,6 +473,10 @@ maximum = 1
   name = "SCENT_KIFISOS_TEMPERATURE"
   label = "SCENT Kifisos Temperature"
 
+  [[productType.options]]
+  name = "ECDPC_COVID_19"
+  label = "ECDPC COVID-19"
+
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"

@@ -613,3 +613,8 @@ description = "Using SCENT Explore and SCENT Measure apps, 511 volunteers from t
 [SCENT_KIFISOS_TEMPERATURE]
 name = "SCENT Kifisos Temperature"
 description = "Using SCENT Explore and SCENT Measure apps, 511 volunteers from the local community collected more than 5225 pieces of important information about Kifisos river parameters, such as measurements of air temperature."
+
+# COVID-19
+[ECDPC_COVID_19]
+name = "ECDPC COVID-19"
+description = "Latest available public data on COVID-19 by ECDPC"
