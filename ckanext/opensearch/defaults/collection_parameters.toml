@@ -441,6 +441,38 @@ maximum = 1
   value = "S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_CAATEX_INTAROS_2019"
   label = "Sea ice and water classification in the Arctic for CAATEX/INTAROS 2019 field experiment"
 
+  [[productType.options]]
+  value = "SCENT_DANUBE_IMAGE"
+  label = "SCENT Danube Image"
+
+  [[productType.options]]
+  value = "SCENT_DANUBE_VIDEO"
+  label = "SCENT Danube Video"
+
+  [[productType.options]]
+  name = "SCENT_DANUBE_MOISTURE"
+  label = "SCENT Danube Moisture"
+
+  [[productType.options]]
+  name = "SCENT_DANUBE_TEMPERATURE"
+  label = "SCENT Danube Temperature"
+
+  [[productType.options]]
+  name = "SCENT_KIFISOS_IMAGE"
+  label = "SCENT Kifisos Image"
+
+  [[productType.options]]
+  name = "SCENT_KIFISOS_VIDEO"
+  label = "SCENT Kifisos Video"
+
+  [[productType.options]]
+  name = "SCENT_KIFISOS_MOISTURE"
+  label = "SCENT Kifisos Moisture"
+
+  [[productType.options]]
+  name = "SCENT_KIFISOS_TEMPERATURE"
+  label = "SCENT Kifisos Temperature"
+
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"
@@ -495,4 +527,4 @@ os_name = "source"
 namespace = "referrer"
 minimum = 0
 maximum = 1
- 
+

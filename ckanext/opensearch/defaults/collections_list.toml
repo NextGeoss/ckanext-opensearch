@@ -579,3 +579,37 @@ description = 'Sea ice and water classification in the Arctic, for INTAROS 2018 
 [S1_ARCTIC_SEAICEEDGE_CLASSIFICATION_CAATEX_INTAROS_2019]
 name = "Sea ice and water classification in the Arctic for CAATEX/INTAROS 2019 field experiment"
 description = 'Sea ice and water classification in the Arctic, for CAATEX/INTAROS 2019 field experiment, using Sentinel-1 SAR. Extended Wide (EW) swath images at medium resolution (GRDM). Prior to classification, a thermal noise reduction algorithm is applied. A machine learning algorithm is then used to classify sea ice and open water in the noise corrected images. This data is made freely available by NERSC. User must display this citation in any publication or product using data: "These data were produced with support from the Horizon 2020 NextGEOSS project (Grant Agreement No 730329), and made freely available by NERSC (ref. Frode Monsen, Torill Hamre and Mohamed Babiker at NERSC)."'
+
+
+# SCENT
+[SCENT_DANUBE_IMAGE]
+name = "SCENT Danube Image"
+description = "Using SCENT Explore and SCENT Measure apps, volunteers competed collecting important information about Danube Delta parameters, such as images of land-cover/land-use."
+
+[SCENT_DANUBE_VIDEO]
+name = "SCENT Danube Video"
+description = "Using SCENT Explore and SCENT Measure apps, volunteers competed collecting important information about Danube Delta parameters, such as as water level and surface flow velocity."
+
+[SCENT_DANUBE_MOISTURE]
+name = "SCENT Danube Moisture"
+description = "Using SCENT Explore and SCENT Measure apps, volunteers competed collecting important information about Danube Delta parameters, such as measurements of soil moisture."
+
+[SCENT_DANUBE_TEMPERATURE]
+name = "SCENT Danube Temperature"
+description = "Using SCENT Explore and SCENT Measure apps, volunteers competed collecting important information about Danube Delta parameters, such as measurements of air temperature."
+
+[SCENT_KIFISOS_IMAGE]
+name = "SCENT Kifisos Image"
+description = "Using SCENT Explore and SCENT Measure apps, 511 volunteers from the local community collected more than 5225 pieces of important information about Kifisos river parameters, such as images of land-cover/land-use."
+
+[SCENT_KIFISOS_VIDEO]
+name = "SCENT Kifisos Video"
+description = "Using SCENT Explore and SCENT Measure apps, 511 volunteers from the local community collected more than 5225 pieces of important information about Kifisos river parameters, such as water level and surface flow velocity."
+
+[SCENT_KIFISOS_MOISTURE]
+name = "SCENT Kifisos Moisture"
+description = "Using SCENT Explore and SCENT Measure apps, 511 volunteers from the local community collected more than 5225 pieces of important information about Kifisos river parameters, such as measurements of soil moisture."
+
+[SCENT_KIFISOS_TEMPERATURE]
+name = "SCENT Kifisos Temperature"
+description = "Using SCENT Explore and SCENT Measure apps, 511 volunteers from the local community collected more than 5225 pieces of important information about Kifisos river parameters, such as measurements of air temperature."
