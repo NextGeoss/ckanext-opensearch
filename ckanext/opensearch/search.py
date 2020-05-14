@@ -104,6 +104,7 @@ def process_query(search_type, param_dict, request_url, context):
     """
     # Translate the query parameters into a CKAN data_dict so we
     # can query the DB.
+    client_id = param_dict.pop('clientId', None)
     data_dict = translate_os_query(param_dict, search_type)
     start = data_dict['start_index']
     del data_dict['start_index']
@@ -132,7 +133,6 @@ def process_query(search_type, param_dict, request_url, context):
     last_page = int(math.ceil(total_results / float(requested_rows)))
     if last_page == 0:
         last_page = 1
-
     results_dict["namespaces"] = {
         "xmlns:{0}".format(key): value for key, value in NAMESPACES.items()
     }
@@ -364,11 +364,11 @@ def make_nav_url(query_url, page):
         return None
     else:
         if "page=" not in query_url:
-            nav_url = "{0}&page={1}".format(query_url, page)
+            nav_url = "{0}?page={1}".format(query_url, page)
         else:
             halves = re.compile(r"page=\d*").split(query_url)
             if len(halves) == 1:
-                nav_url = "{0}&page={1}".format(halves[0], page)
+                nav_url = "{0}?page={1}".format(halves[0], page)
             else:
                 nav_url = "{0}page={1}{2}".format(halves[0], page, halves[1])
 

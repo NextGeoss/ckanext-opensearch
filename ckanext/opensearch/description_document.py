@@ -54,7 +54,7 @@ def make_osdd_description(document_type):
 
 def make_osdd_tags():
     """Return a string of tags for the OSDD's tags element."""
-    default = "open data CKAN opendata"
+    default = "open data CKAN opendata CEOS-OS-BP-V1.1/L2"
     # TODO: Add a way to set custom tags in the settings
     custom = None
 

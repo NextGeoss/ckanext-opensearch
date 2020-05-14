@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<atom:feed {{ namespaces|xmlattr(False)|escape }}>
+<atom:feed esipdiscovery:version="1.2" {{ namespaces|xmlattr(False)|escape }}>
   <atom:title>{{ feed_title }}</atom:title>
   <atom:subtitle>{{ feed_subtitle }}</atom:subtitle>
   <atom:id>{{ feed_id }}</atom:id>
@@ -8,6 +8,7 @@
     <atom:name>No author information available</atom:name>
   </atom:author>
   <atom:updated>{{ feed_updated }}</atom:updated>
+  <opensearch:Query role="request" searchTerms="cat" startPage="1" />
   <opensearch:totalResults>{{ count }}</opensearch:totalResults>
   <opensearch:startIndex>{{ start_index }}</opensearch:startIndex>
   <opensearch:itemsPerPage>{{ items_per_page }}</opensearch:itemsPerPage>
@@ -18,6 +19,7 @@
             'type': 'application/opensearchdescription+xml',
             'href': "{}/opensearch/description.xml?osdd={}".format(site_url, osdd)}|xmlattr(False)|escape }}/>
   <atom:link href="{{ self_url }}" type="application/atom+xml" rel="self" title="self"/>
+  <atom:link href="{{ site_url }}/opensearch/collection_search.atom?" type="application/atom+xml" rel="up" title="Collection search, first step of the two-step search"/>
   <atom:link href="{{ first_url }}" type="application/atom+xml" rel="first" title="first"/>
   {% if next_url -%}
   <atom:link href="{{ next_url }}" type="application/atom+xml" rel="next" title="next"/>
@@ -33,18 +35,20 @@
     <atom:id>{{ site_url }}/opensearch/search.atom?identifier={{ entry.identifier }}</atom:id>
     <dc:identifier>{{ entry.identifier }}</dc:identifier>
     {# atom:link implementation at request of Terradue. -#}
-    <atom:link {{ {"href": "{}&identifier={}".format(base_url, entry.identifier), "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
+    <atom:link {{ {"href": "{}&identifier={}".format(base_url, entry.identifier), "type": "application/atom+xml", "rel": "self", "title": "self"}|xmlattr(False)|escape }}/>
     {% if entry.collection_id -%}
-    {# Define an Atom link with rel="up" for a product's collection. -#}
-    <atom:link {{ {"href": "{}/opensearch/search.atom?productType={}".format(site_url, entry.collection_id), "type": "application/atom+xml", "rel": "up", "title": "Link to collection"}|xmlattr(False)|escape }}/>
+    {# Define an Atom link with rel="search" for a product's collection. -#}
+    <atom:link {{ {'href': "{}/opensearch/description.xml?osdd={}".format(site_url, entry.collection_id), 'rel': 'search',
+            'type': 'application/opensearchdescription+xml'}|xmlattr(False)|escape }}/>
     {% endif -%}
+    <atom:link href="{{ h.url_for(controller='package', action='read', id=entry.id, qualified=True)}}" type="text/html" rel="describedBy" title="CKAN page of the dataset"/>
     <dc:publisher>{{ entry.organization.title|default("No publisher information provided.") }}</dc:publisher>
     <atom:published>{{ entry.metadata_created }}</atom:published>
     <atom:updated>{{ entry.metadata_modified }}</atom:updated>
     <atom:summary>{{ entry.notes|default("No summary available.")|safe }}</atom:summary>
-    <dc:date>{{ entry.StartTime or entry.timerange_start }}/{{ entry.StopTime or timerange_end }}</dc:date>
+    <dc:date>{{ entry.StartTime or entry.timerange_start }}/{{ entry.StopTime or entry.timerange_end }}</dc:date>
     <georss:polygon>{{ h.os_make_entry_polygon(entry) }}</georss:polygon>
-    <atom:link href="{{ h.url_for(controller='package', action='read', id=entry.id, qualified=True)}}" type="text/html" rel="alternate"/>
+    <georss:box>-90.0 -180.0 90.0 180.0</georss:box>
     {% if 'SENTINEL'in entry.collection_id-%}
     {# Define an Atom link with rel="up" for a product's collection. -#}
     <eo:swathIdentifier>{{ entry.Swath }}</eo:swathIdentifier>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-<atom:feed {{ namespaces|xmlattr(False)|escape }}>
+<atom:feed esipdiscovery:version="1.2" {{ namespaces|xmlattr(False)|escape }}>
   <atom:title>{{ feed_title }}</atom:title>
   <atom:subtitle>{{ feed_subtitle }}</atom:subtitle>
   <atom:id>{{ self_url }}</atom:id>
@@ -9,6 +9,7 @@
   </atom:author>
   <atom:updated>{{ feed_updated }}</atom:updated>
   <opensearch:totalResults>{{ count }}</opensearch:totalResults>
+  <opensearch:Query role="request" searchTerms="cat" startPage="1" />
   <opensearch:startIndex>{{ start_index }}</opensearch:startIndex>
   <opensearch:itemsPerPage>{{ items_per_page }}</opensearch:itemsPerPage>
   {%- if feed_box %}
@@ -36,13 +37,14 @@
     {#- We don't have the data required for dc:date, which should reflect the timespan of the collection (i.e., the dates of the earliest and latest products in the collection) so we're faking it for now. #}
     <dc:date>1900-01-01T00:00:00.000Z/{{ entry.updated }}</dc:date>
     {#- We don't have the data required for georss:box, which should reflect bounding box of the collection itself, so we're faking it for now. #}
-    <georss:box>-180.0 -90.0 180.0 90.0</georss:box>
+    <georss:box>-90.0 -180.0 90.0 180.0</georss:box>
     {#- We don't have the data required for georss:polygon, which should reflect the polygon that encloses the collection itself, so we're faking it for now. #}
     <georss:polygon>-180 -90 -180 90 180 90 180 -90 -180 90</georss:polygon>
     <atom:summary>{{ entry.count }} matching products found in the {{ entry.name }} collection. }}|safe</atom:summary>
     <atom:content type="text">{{ entry.description|default("No description available") }}</atom:content>
     <atom:link href="{{ site_url }}/opensearch/description.xml?osdd={{ entry.id }}" type="application/opensearchdescription+xml" rel="search"/>
     <atom:link {{ h.os_make_collection_via(entry)|xmlattr(False)|escape }}/>
+    <atom:link href="{{ site_url }}/opensearch/collection_search.atom?" type="application/atom+xml" rel="up"/>
   </atom:entry>
   {%- endfor -%}
 </atom:feed>
