@@ -26,7 +26,8 @@ class OpensearchPlugin(plugins.SingletonPlugin):
             "os_make_collection_via": helpers.make_collection_via,
             "os_make_entry_polygon": helpers.make_entry_polygon,
             "os_make_entry_resource": helpers.make_entry_resource,
-            'get_extra_names': helpers.get_extra_names
+            'get_extra_names': helpers.get_extra_names,
+            "os_spatial_type": helpers.spatial_type,
         }
 
     # IRoutes
