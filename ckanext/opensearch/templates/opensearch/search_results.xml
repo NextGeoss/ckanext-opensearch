@@ -47,12 +47,8 @@
     <atom:updated>{{ entry.metadata_modified }}</atom:updated>
     <atom:summary>{{ entry.notes|default("No summary available.")|safe }}</atom:summary>
     <dc:date>{{ entry.StartTime or entry.timerange_start }}/{{ entry.StopTime or entry.timerange_end }}</dc:date>
-    {% set type = h.os_spatial_type %}
-    {% if type == 'Polygon' %}
     <georss:polygon>{{ h.os_make_entry_polygon(entry) }}</georss:polygon>
-    {% else %}
-    <georss:point>{{ h.os_make_entry_polygon(entry) }}</georss:point>
-    {% endif %}
+    <georss:point>{{ h.os_make_entry_point(entry) }}</georss:point>
     <georss:box>-90.0 -180.0 90.0 180.0</georss:box>
     {% if 'SENTINEL'in entry.collection_id-%}
     {# Define an Atom link with rel="up" for a product's collection. -#}

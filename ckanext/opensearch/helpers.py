@@ -69,7 +69,22 @@ def make_entry_polygon(entry):
                 coord_list.append(str(i[1]))
             coord_str = " ".join(coord_list)
 
-        elif spatial_type == 'Point':
+        else:
+            coord_str = ""
+
+        return coord_str
+
+
+def make_entry_point(entry):
+    """Define a GEORSS polygon element based on an entry's spatial value."""
+    #spatial = get_pkg_dict_extra(entry, "noa_expiration_date", "")
+    spatial = entry['spatial'] if 'spatial' in entry else None
+
+    if spatial is not None:
+        spatial = json.loads(spatial)
+        spatial_type = spatial.get('type')
+
+        if spatial_type == 'Point':
             coordinates = spatial["coordinates"]
             coord_list = []
             for i in coordinates:
@@ -80,6 +95,7 @@ def make_entry_polygon(entry):
             coord_str = ""
 
         return coord_str
+
 
 
 def make_entry_resource(resource):
