@@ -42,24 +42,60 @@ def string_extras_to_extras_list(pkg_dict):
     return pkg_dict
 
 
+def spatial_type(entry):
+    spatial = entry['spatial'] if 'spatial' in entry else None
+
+    if spatial is not None:
+        spatial = json.loads(spatial)
+        spatial_type = spatial.get('type')
+
+    return spatial_type
+
+
 def make_entry_polygon(entry):
     """Define a GEORSS polygon element based on an entry's spatial value."""
     #spatial = get_pkg_dict_extra(entry, "noa_expiration_date", "")
-    if 'spatial' in entry.keys():
-        spatial = entry['spatial']
+    spatial = entry['spatial'] if 'spatial' in entry else None
 
-        if spatial:
-            spatial = json.loads(spatial)
+    if spatial is not None:
+        spatial = json.loads(spatial)
+        spatial_type = spatial.get('type')
+
+        if spatial_type == 'Polygon':
             coordinates = spatial["coordinates"][0]
             coord_list = []
             for i in coordinates:
                 coord_list.append(str(i[0]))
                 coord_list.append(str(i[1]))
             coord_str = " ".join(coord_list)
+
         else:
             coord_str = ""
 
         return coord_str
+
+
+def make_entry_point(entry):
+    """Define a GEORSS polygon element based on an entry's spatial value."""
+    #spatial = get_pkg_dict_extra(entry, "noa_expiration_date", "")
+    spatial = entry['spatial'] if 'spatial' in entry else None
+
+    if spatial is not None:
+        spatial = json.loads(spatial)
+        spatial_type = spatial.get('type')
+
+        if spatial_type == 'Point':
+            coordinates = spatial["coordinates"]
+            coord_list = []
+            for i in coordinates:
+                coord_list.append(str(i))
+            coord_str = " ".join(coord_list)
+
+        else:
+            coord_str = ""
+
+        return coord_str
+
 
 
 def make_entry_resource(resource):
