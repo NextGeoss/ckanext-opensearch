@@ -107,7 +107,7 @@ def make_entry_resource(resource):
     default = "application/octet-stream"
     mime_type = resource.get("mimetype") or default
     name = resource.get("name", "Untitled")
-    if name.startswith("Product Download"):
+    if name.startswith("Metadata Download"):
         link = {"href": resource["url"], "title": name, "rel": "via", "type": mime_type}
     elif name.startswith("Thumbnail Download"):
         link = {
