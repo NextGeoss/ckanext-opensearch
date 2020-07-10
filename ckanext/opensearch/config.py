@@ -97,8 +97,8 @@ except IOError:
 
 PARAMETERS = {}
 PARAMETERS["dataset"] = load_settings("dataset_parameters")
-if COLLECTIONS:
-    PARAMETERS["collection"] = load_settings("collection_parameters")
+PARAMETERS["collection"] = load_settings("collection_parameters")
+
 for _id, details in COLLECTIONS.items():
     PARAMETERS[_id] = dict(PARAMETERS["dataset"])
     additional_parameters = details.get("additional_parameters", [])
