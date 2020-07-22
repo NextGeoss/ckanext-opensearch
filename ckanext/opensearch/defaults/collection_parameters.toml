@@ -477,6 +477,10 @@ maximum = 1
   name = "ECDPC_COVID_19"
   label = "ECDPC COVID-19"
 
+  [[productType.options]]
+  name = "CLIMATE_SYSTEMS_ANALYSIS_GROUP_SOUTH_AFRICA"
+  label = "Climate Systems Analysis Group (South Africa)"
+
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"

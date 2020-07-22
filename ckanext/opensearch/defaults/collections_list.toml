@@ -618,3 +618,8 @@ description = "Using SCENT Explore and SCENT Measure apps, 511 volunteers from t
 [ECDPC_COVID_19]
 name = "ECDPC COVID-19"
 description = "Latest available public data on COVID-19 by ECDPC"
+
+# SAEON
+[CLIMATE_SYSTEMS_ANALYSIS_GROUP_SOUTH_AFRICA]
+name = "Climate Systems Analysis Group (South Africa)"
+description = "A collection of datasets produced by the Climate Systems Analysis Group, University of Cape Town. The data were harvested through the SAEON Open Data Platform. The collection contains model runs produced by downscaling Global Climate Models (GCMs) using the Self-Organising Map (SOM) technique. SOM is a leading empirical downscaled technique and provides meteorological station level response to global climate change forcing. The SOM technique was employed to project rainfall and temperature changes for 1950-1999 (current climate), 2046–2065 (near future) and 2080–2100 (far future) periods for South Africa."
