@@ -25,9 +25,11 @@ def make_results_feed(search_type, params, request_url, context):
     abort_if_collection_id_invalid(params)
     abort_if_collections_not_configured(search_type)
 
+    PARAMETERS = get_params(params, search_type)
+
     param_dict = make_param_dict(params, search_type)
 
-    validate_params(param_dict, PARAMETERS[search_type])
+    validate_params(param_dict, PARAMETERS)
 
     results_dict = process_query(search_type, param_dict, request_url, context)
 
@@ -57,6 +59,29 @@ def abort_if_collections_not_configured(search_type):
     """
     if search_type == "collection" and not COLLECTIONS:
         abort(400, "Collection search is unavailable.")
+
+
+def get_params(params, search_type):
+    """
+    Get the list of parameters according to search of productType
+    """
+    try:
+        collection_id = params.get('productType', None)
+    except:
+        collection_id = params['productType'] or None
+    print collection_id
+
+    if collection_id is not None:
+        for _id, details in COLLECTIONS.items():
+            if _id == collection_id:
+                PARAMETERS[collection_id] = dict(PARAMETERS["dataset"])
+                additional_parameters = details.get("additional_parameters", [])
+                for parameters_file in additional_parameters:
+                    PARAMETERS[collection_id].update(load_settings(parameters_file))
+                    return PARAMETERS[collection_id]
+    else:
+        prams = PARAMETERS.get(search_type)
+        return params
 
 
 def validate_params(submitted_params, expected_params):
@@ -167,9 +192,10 @@ def make_param_dict(params, search_type):
     Exclude empty parameters.
     """
     param_dict = UnicodeMultiDict(MultiDict(), encoding="utf-8")
+    PARAMETERS = get_params(params, search_type)
 
     for param, value in params.items():
-        if param != "amp" and param in PARAMETERS.get(search_type, {}) and value:
+        if param != "amp" and param in PARAMETERS and value:
             param_dict.add(param, value)
 
     return param_dict
@@ -243,6 +269,7 @@ def add_filters(param_dict, search_type):
     Some parameters map directly to filter queries; we can just append them.
     """
     filters = ""
+    PARAMETERS = get_params(param_dict, search_type)
 
     for (param, value) in param_dict.items():
         # TODO: the params to skip should be defined elsewhere.
@@ -251,7 +278,7 @@ def add_filters(param_dict, search_type):
                 "cloud_coverage", "family_name"}
 
         if param not in skip:
-            for converter in PARAMETERS[search_type][param].get("converters", []):
+            for converter in PARAMETERS[param].get("converters", []):
                 value = getattr(converters, converter)(value)
             names = helpers.get_extra_names()
             if param in names:
@@ -272,8 +299,6 @@ def search(data_dict, search_type, context):
     # Query the DB.
     if search_type == "collection":
         data_dict["facet.field"] = ["collection_id"]
-
-    print data_dict
 
     results_dict = logic.get_action("package_search")(context, data_dict)
 
@@ -329,11 +354,13 @@ def make_query_dict(param_dict, search_type):
     """
     query_dict = OrderedDict()
 
+    PARAMETERS = get_params(param_dict, search_type)
+
     # XML attributes are unique per element, so parameters that occur more
     # than once in a query must be combined into a space-delimited string.
     for (param, value) in param_dict.items():
-        os_name = PARAMETERS[search_type][param]["os_name"]
-        namespace = PARAMETERS[search_type][param]["namespace"]
+        os_name = PARAMETERS[param]["os_name"]
+        namespace = PARAMETERS[param]["namespace"]
         if namespace == "opensearch":
             os_param = os_name
         else:
