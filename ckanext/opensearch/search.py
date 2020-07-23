@@ -13,7 +13,7 @@ from webob.multidict import MultiDict, UnicodeMultiDict
 from ckan.lib.base import abort, render
 import ckan.logic as logic
 
-from .config import COLLECTIONS, NAMESPACES, PARAMETERS, SHORT_NAME, SITE_URL
+from .config import COLLECTIONS, NAMESPACES, PARAMETERS, SHORT_NAME, SITE_URL, load_settings
 import converters
 from plugin import OpenSearchError
 import validators
@@ -69,7 +69,6 @@ def get_params(params, search_type):
         collection_id = params.get('productType', None)
     except:
         collection_id = params['productType'] or None
-    print collection_id
 
     if collection_id is not None:
         for _id, details in COLLECTIONS.items():
