@@ -71,15 +71,19 @@ def get_params(params, search_type):
         collection_id = params['productType'] or None
 
     if collection_id is not None:
+        params = dict(PARAMETERS["dataset"])
         for _id, details in COLLECTIONS.items():
             if _id == collection_id:
-                PARAMETERS[collection_id] = dict(PARAMETERS["dataset"])
                 additional_parameters = details.get("additional_parameters", [])
                 for parameters_file in additional_parameters:
-                    PARAMETERS[collection_id].update(load_settings(parameters_file))
-                    return PARAMETERS[collection_id]
+                    params.update(load_settings(parameters_file))
+        return params
     else:
-        prams = PARAMETERS.get(search_type)
+        if search_type == 'dataset':
+            params = dict(PARAMETERS["dataset"])
+        if search_type == 'collection':
+            params = dict(PARAMETERS["collection"])
+
         return params
 
 
