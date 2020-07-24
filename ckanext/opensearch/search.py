@@ -79,7 +79,11 @@ def get_params(params, search_type):
                     params.update(load_settings(parameters_file))
         return params
     else:
-        prams = PARAMETERS.get(search_type)
+        if search_type == 'dataset':
+            params = dict(PARAMETERS["dataset"])
+        if search_type == 'collection':
+            params = dict(PARAMETERS["collection"])
+
         return params
 
 
