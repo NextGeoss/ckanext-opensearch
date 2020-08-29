@@ -623,3 +623,19 @@ description = "Latest available public data on COVID-19 by ECDPC"
 [CLIMATE_SYSTEMS_ANALYSIS_GROUP_SOUTH_AFRICA]
 name = "Climate Systems Analysis Group (South Africa)"
 description = "A collection of datasets produced by the Climate Systems Analysis Group, University of Cape Town. The data were harvested through the SAEON Open Data Platform. The collection contains model runs produced by downscaling Global Climate Models (GCMs) using the Self-Organising Map (SOM) technique. SOM is a leading empirical downscaled technique and provides meteorological station level response to global climate change forcing. The SOM technique was employed to project rainfall and temperature changes for 1950-1999 (current climate), 2046–2065 (near future) and 2080–2100 (far future) periods for South Africa."
+
+# SATCEN
+[S1_ACD_SATCEN_BETTER]
+name =  "Sentinel-1 ACD BETTER project"
+description = "SAR sensors are a valuable tool to detect changes over man-made and natural structures: especially in equatorial regions, where clouds are present throughout the whole year thus limiting the use of optical sensors, SAR sensors could be used as complementary source of information. This collection provides RGB composites of the backscatter of two Sentinel-1 images at different dates, a ready-to-analysis product for the identification of changes. The RGB structure is R: image1 backscatter, G: image! Backscatter, B: image2 backscatter. Yellow pixels means that the backscatter has decreased while blue pixel means that it has increased."
+
+[S2_MINERAL_INDEX_SATCEN_BETTER]
+name = "Sentinel-2 Mineral Index BETTER project"
+description = "The use of Sentinel-2 for geological mapping has been proved effective thanks for the presence of bands in the short-wave part of the spectrum. In particular, understanding the pattern of hydrothermal alteration can be often associated to gold prospect locations. The products are RGB composites at 10 m resolution for the identification of possible illegal mining activities (e.g. gold extraction). The structure of the RGB is the ratio of Sentinel-2 bands: R: (11/12); G: (4/2): B: (4/11)."
+
+[S2_VEGETAION_MASK_SATCEN_BETTER]
+name = "Sentinel-2 Vegetation mask BETTER project"
+description = "A product with six bands containing the following information: Band 1 (NDVI_class); Band 2 (BSI_class); Band 3 (Mask); Band 4 (Vegetation_mask); Band 5 (BSI_mask); Band 6 (NDVI_mask). It has been computed using Sentinel-2 images."
+
+
+
