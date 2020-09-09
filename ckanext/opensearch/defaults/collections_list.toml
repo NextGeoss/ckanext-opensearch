@@ -633,7 +633,7 @@ description = "SAR sensors are a valuable tool to detect changes over man-made a
 name = "Sentinel-2 Mineral Index BETTER project"
 description = "The use of Sentinel-2 for geological mapping has been proved effective thanks for the presence of bands in the short-wave part of the spectrum. In particular, understanding the pattern of hydrothermal alteration can be often associated to gold prospect locations. The products are RGB composites at 10 m resolution for the identification of possible illegal mining activities (e.g. gold extraction). The structure of the RGB is the ratio of Sentinel-2 bands: R: (11/12); G: (4/2): B: (4/11)."
 
-[S2_VEGETAION_MASK_SATCEN_BETTER]
+[S2_VEGETATION_MASK_SATCEN_BETTER]
 name = "Sentinel-2 Vegetation mask BETTER project"
 description = "A product with six bands containing the following information: Band 1 (NDVI_class); Band 2 (BSI_class); Band 3 (Mask); Band 4 (Vegetation_mask); Band 5 (BSI_mask); Band 6 (NDVI_mask). It has been computed using Sentinel-2 images."
 
