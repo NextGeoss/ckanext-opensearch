@@ -504,6 +504,23 @@ maximum = 1
   [[productType.options]]
   name = "CAMS_RADIATION_GRIDDED_DATA"
   label = "CAMS Radiation gridded data"
+
+  [[productType.options]]
+  name = "MELOA_WAVY_MEASUREMENTS_LITTORAL"
+  label = "MELOA Wavy Measurements - Littoral"
+
+  [[productType.options]]
+  name = "MELOA_WAVY_MEASUREMENTS_OCEAN"
+  label = "MELOA Wavy Measurements - Ocean"
+
+  [[productType.options]]
+  name = "MELOA_WAVY_MEASUREMENTS_BASIC"
+  label = "MELOA Wavy Measurements - Basic"
+
+  [[productType.options]]
+  name = "ICEYE_PUBLIC_ARCHIVE_SAR_IMAGE"
+  label = "ICEYE Public Archive SAR Image"
+
   
 [timerange_start]
 title = "Beginning of time range that results should cover"
