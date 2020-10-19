@@ -481,6 +481,30 @@ maximum = 1
   name = "CLIMATE_SYSTEMS_ANALYSIS_GROUP_SOUTH_AFRICA"
   label = "Climate Systems Analysis Group (South Africa)"
 
+  [[productType.options]]
+  name = "S1_ACD_SATCEN_BETTER"
+  label = "Sentinel-1 ACD BETTER project"
+
+  [[productType.options]]
+  name = "S2_MINERAL_INDEX_SATCEN_BETTER"
+  label = "Sentinel-2 Mineral Index BETTER project"
+
+  [[productType.options]]
+  name = "S2_VEGETAION_MASK_SATCEN_BETTER"
+  label = "Sentinel-2 Vegetation mask BETTER project"
+
+  [[productType.options]]
+  name = "S1_CAMP_CONSTRUCTION_FLOOD_MONITORING"
+  label = "Sentinel-1 for Camp Construction and Flood Monitoring"
+
+  [[productType.options]]
+  name = "EUNIS_HABITAT_SUITABILITY_MODELS"
+  label = "EUNIS habitat suitability models"
+
+  [[productType.options]]
+  name = "CAMS_RADIATION_GRIDDED_DATA"
+  label = "CAMS Radiation gridded data"
+  
 [timerange_start]
 title = "Beginning of time range that results should cover"
 os_name = "start"
