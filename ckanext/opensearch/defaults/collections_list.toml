@@ -664,8 +664,7 @@ description = "In-situ Data collected using extra light surface drifters (WAVYs)
 
 [ICEYE_PUBLIC_ARCHIVE_SAR_IMAGE]
 name = "ICEYE Public Archive SAR Image"
-description = "The collection contains image previews and sample products taken with ICEYE SAR (https://www.iceye.com/) and made available as ICEYE Public Archive (https://www.iceye.com/lp/iceye-18000-public-archive). This public archive is a selection of roughly 18.000 images taken with ICEYE SAR satellites from mid-2019 to late-2020. These images have not gone through the full quality assurance procedures for new image orders. The archive can be opened in Google Earth Pro (KMZ), QGIS (GeoJSON).
-This Public Archive does not contain the full catalog of ICEYE imagery. The ICEYE SAR data associated with the preview images presented in this Public Archive can be ordered in the ICEYE standard image formats by following the order process described in the ICEYE Product Guide (https://www.iceye.com/hubfs/Downloadables/ICEYE-SAR-Product-Guide.pdf). ICEYE sales (https://www.iceye.com/lp/contact-us) will assist new customers to set up an account for image orders."
+description = "The collection contains image previews and sample products taken with ICEYE SAR (https://www.iceye.com/) and made available as ICEYE Public Archive (https://www.iceye.com/lp/iceye-18000-public-archive). This public archive is a selection of roughly 18.000 images taken with ICEYE SAR satellites from mid-2019 to late-2020. These images have not gone through the full quality assurance procedures for new image orders. The archive can be opened in Google Earth Pro (KMZ), QGIS (GeoJSON). This Public Archive does not contain the full catalog of ICEYE imagery. The ICEYE SAR data associated with the preview images presented in this Public Archive can be ordered in the ICEYE standard image formats by following the order process described in the ICEYE Product Guide (https://www.iceye.com/hubfs/Downloadables/ICEYE-SAR-Product-Guide.pdf). ICEYE sales (https://www.iceye.com/lp/contact-us) will assist new customers to set up an account for image orders."
 
 ## NOA
 [NOA_VIIRS_PRODUCTS]
@@ -682,7 +681,7 @@ description = "Advanced Very High Resolution Radiometer (AVHRR/3) products colle
 
 [NOA_AIRS_PRODUCTS]
 name = "NOA AIRS Products"
-description = " Atmospheric InfraRed Sounder (AIRS) products collected from the premises of the National Observatory of Athens (NOA)."
+description = "Atmospheric InfraRed Sounder (AIRS) products collected from the premises of the National Observatory of Athens (NOA)."
 
 [NOA_MERSI_PRODUCTS]
 name = "NOA MERSI Products"
