@@ -521,6 +521,25 @@ maximum = 1
   name = "ICEYE_PUBLIC_ARCHIVE_SAR_IMAGE"
   label = "ICEYE Public Archive SAR Image"
 
+  [[productType.options]]
+  name = "NOA_VIIRS_PRODUCTS"
+  label = "NOA VIIRS Products"
+
+  [[productType.options]]
+  name = "NOA_MODIS_PRODUCTS"
+  label = "NOA MODIS Products"
+
+  [[productType.options]]
+  name = "NOA_AVHRR_PRODUCTS"
+  label = "NOA AVHRR/3 Products"
+
+  [[productType.options]]
+  name = "NOA_AIRS_PRODUCTS"
+  label = "NOA AIRS Products"
+
+  [[productType.options]]
+  name = "NOA_MERSI_PRODUCTS"
+  label = "NOA MERSI Products"
   
 [timerange_start]
 title = "Beginning of time range that results should cover"
