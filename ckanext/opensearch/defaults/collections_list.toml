@@ -640,3 +640,31 @@ description = "A product with six bands containing the following information: Ba
 [S1_CAMP_CONSTRUCTION_FLOOD_MONITORING]
 name = "Sentinel-1 for Camp Construction and Flood Monitoring"
 description = "Orthorectified, terrain corrected, backscatter coefficient from Sentinel-1 imagery for the monitoring of the camp construction and detection of eventual flooding during the monsoon season. SAR sensors are a valuable tool to monitor certain scenarios due to their independence from weather and illumination conditions. The conditions of this scenario, due to the weather conditions specially the persistence of clouds during the monsoon season, make Sentinel 1 as the more suitable sensor for the scenario. The datasets include relevant assets used to monitor the construction of the camp that Bangladeshi government built to resettle Rohingya refugees. Also, to monitor the Security of the population displaced to the camp. In particular, the aim is to monitor possible flooding reaching the camp, since the island is partially under water during the monsoon season (June-September)."
+
+[EUNIS_HABITAT_SUITABILITY_MODELS]
+name = "EUNIS habitat suitability models"
+description = "The EUNIS habitat suitability models are created with Maxent 3.4.1, using plot observation data as in situ entities, derived from the European Vegetation Archive (http://euroveg.org/eva-database) on the one hand, and predictors on the other hand. As predictors for the modelling there are several GIS layers available with a resolution of 1x1 km. These include climate predictors derived from Worldclim data, topography layers like distance to water and elevation, several soil layers derived from Soilgrids.org, and a number of RS-enabled EBV’s, mainly derived from Sentinel data. Finally there is population density as predictor, which is a meaningful asset when dealing with habitats that are largely determined by human impact. The results of the modelling include fraction and threshold grid map (1x1km resolution), graphs showing the predicted probability for each predictor, and other statistics like AUC."
+
+[CAMS_RADIATION_GRIDDED_DATA]
+name = "CAMS Radiation gridded data"
+description = "Time series of gridded data from Copernicus Atmosphere (CAMS) Radiation Service providing Global and Direct Irradiation over the Meteosat Second Generation (MSG) coverage."
+
+## MELOA
+[MELOA_WAVY_MEASUREMENTS_LITTORAL]
+name = "MELOA Wavy Measurements - Littoral"
+description = "In-situ Data collected using extra light surface drifters (WAVYs) in all water environments. The data produced have far-reaching applications, directly providing valuable information that will help to derive answers to diverse scientific, environmental and societal needs and achieving multiple objectives, from complementing observational gaps in ocean observation, to delivering validation datasets to satellite ground-truthing, along with the real possibility of their effective use by the common citizen. A dataset in MELOA is the collection of data samples acquired by a WAVY during a campaign. The contents of the data samples depend on the type of WAVY drifter. The common information for all the types is the GNSS (Time, position, velocity and direction) and the battery power. This collection contains datasets collected by a WAVY Littoral."
+
+[MELOA_WAVY_MEASUREMENTS_OCEAN]
+name = "MELOA Wavy Measurements - Ocean"
+description = "In-situ Data collected using extra light surface drifters (WAVYs) in all water environments. The data produced have far-reaching applications, directly providing valuable information that will help to derive answers to diverse scientific, environmental and societal needs and achieving multiple objectives, from complementing observational gaps in ocean observation, to delivering validation datasets to satellite ground-truthing, along with the real possibility of their effective use by the common citizen. A dataset in MELOA is the collection of data samples acquired by a WAVY during a campaign. The contents of the data samples depend on the type of WAVY drifter. The common information for all the types is the GNSS (Time, position, velocity and direction) and the battery power. This collection contains datasets collected by a WAVY Ocean."
+
+[MELOA_WAVY_MEASUREMENTS_BASIC]
+name = "MELOA Wavy Measurements - Basic"
+description = "In-situ Data collected using extra light surface drifters (WAVYs) in all water environments. The data produced have far-reaching applications, directly providing valuable information that will help to derive answers to diverse scientific, environmental and societal needs and achieving multiple objectives, from complementing observational gaps in ocean observation, to delivering validation datasets to satellite ground-truthing, along with the real possibility of their effective use by the common citizen. A dataset in MELOA is the collection of data samples acquired by a WAVY during a campaign. The contents of the data samples depend on the type of WAVY drifter. The common information for all the types is the GNSS (Time, position, velocity and direction) and the battery power. This collection contains datasets collected by a WAVY Basic."
+
+[ICEYE_PUBLIC_ARCHIVE_SAR_IMAGE]
+name = "ICEYE Public Archive SAR Image"
+description = "The collection contains image previews and sample products taken with ICEYE SAR (https://www.iceye.com/) and made available as ICEYE Public Archive (https://www.iceye.com/lp/iceye-18000-public-archive). This public archive is a selection of roughly 18.000 images taken with ICEYE SAR satellites from mid-2019 to late-2020. These images have not gone through the full quality assurance procedures for new image orders. The archive can be opened in Google Earth Pro (KMZ), QGIS (GeoJSON).
+This Public Archive does not contain the full catalog of ICEYE imagery. The ICEYE SAR data associated with the preview images presented in this Public Archive can be ordered in the ICEYE standard image formats by following the order process described in the ICEYE Product Guide (https://www.iceye.com/hubfs/Downloadables/ICEYE-SAR-Product-Guide.pdf). ICEYE sales (https://www.iceye.com/lp/contact-us) will assist new customers to set up an account for image orders."
+
+
