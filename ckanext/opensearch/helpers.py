@@ -128,6 +128,31 @@ def make_entry_resource(resource):
     return link
 
 
+def make_noa_entry_resource(package):
+    """
+    Define an Atom element describing a link to a datset's resource.
+
+    There can be more than one resource link in an entry.
+    """
+    package_id = package.get('name')
+    link = {}
+    # get list of NOA resources
+    from ckanext.nextgeoss.helpers import get_noa_linker_resources_for_package
+
+    noa_resources = get_noa_linker_resources_for_package(package)
+
+    if len(noa_resources) > 0:
+        noa_links = noa_resources.get(package_id or [])
+
+        for resource in noa_links[:-1]:
+            default = "application/octet-stream"
+            mime_type = default
+            name = "NOA Sentinel Linker Service resource"
+            link = {"href": resource, "title": name, "rel": "enclosure", "type": mime_type}
+
+    return link
+
+
 def get_extra_names():
     """
     Return a dictionary of new names for use with the subs parameter of

@@ -27,6 +27,7 @@ class OpensearchPlugin(plugins.SingletonPlugin):
             "os_make_entry_polygon": helpers.make_entry_polygon,
             "os_make_entry_point": helpers.make_entry_point,
             "os_make_entry_resource": helpers.make_entry_resource,
+            "os_make_noa_entry_resource": helpers.make_noa_entry_resource,
             'get_extra_names': helpers.get_extra_names,
             "os_spatial_type": helpers.spatial_type,
         }
