@@ -540,6 +540,18 @@ maximum = 1
   [[productType.options]]
   name = "NOA_MERSI_PRODUCTS"
   label = "NOA MERSI Products"
+
+  [[productType.options]]
+  name = "MARIS_INTAROS"
+  label = "MARIS/INTAROS"
+
+  [[productType.options]]
+  name = "CAS_GMELT"
+  label = "CAS-GMELT"
+
+  [[productType.options]]
+  name = "NOA_INTERFEROGRAMS"
+  label = "NOA Interferograms"
   
 [timerange_start]
 title = "Beginning of time range that results should cover"

@@ -55,8 +55,10 @@
     <eo:swathIdentifier>{{ entry.Swath }}</eo:swathIdentifier>
     <eo:orbitDirection>{{ entry.OrbitDirection }}</eo:orbitDirection>
     <eo:polarisationChannels>{{ entry.TransmitterReceiverPolarisation }}</eo:polarisationChannels>
-    <eo:CloudCoverage>{{ entry.CloudCoverage }}</eo:CloudCoverage>
     {% endif -%}
+    {% if 'SENTINEL2'in entry.collection_id-%}
+    <eo:CloudCoverage>{{ entry.CloudCoverage }}</eo:CloudCoverage>
+    {% endif %}
     {% for tag in entry.tags -%}
     <atom:category term="{{ tag.name }}"/>
     {% endfor -%}

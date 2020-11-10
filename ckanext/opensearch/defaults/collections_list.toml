@@ -686,3 +686,15 @@ description = "Atmospheric InfraRed Sounder (AIRS) products collected from the p
 [NOA_MERSI_PRODUCTS]
 name = "NOA MERSI Products"
 description = "Medium Resolution Spectral Imager (MERSI) products collected from the premises of the National Observatory of Athens (NOA)."
+
+[MARIS_INTAROS]
+name = "MARIS/INTAROS"
+description = ""
+
+[CAS_GMELT]
+name = "CAS-GMELT"
+description = ""
+
+[NOA_INTERFEROGRAMS]
+name = "NOA Interferograms"
+description = ""
