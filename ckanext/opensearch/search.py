@@ -284,6 +284,7 @@ def add_filters(param_dict, search_type):
             for converter in PARAMETERS[param].get("converters", []):
                 value = getattr(converters, converter)(value)
             names = helpers.get_extra_names()
+
             if param in names:
                 param = names[param]
             if param == 'productType':

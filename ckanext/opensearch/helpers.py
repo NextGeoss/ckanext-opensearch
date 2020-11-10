@@ -138,7 +138,8 @@ def get_extra_names():
         'swath': 'Swath',
         'orbit_direction': 'OrbitDirection',
         'polarisation': 'TransmitterReceiverPolarisation',
-        'product_type': 'ProductType'
+        'product_type': 'ProductType',
+        'cloud_coverage': 'CloudCoverage'
     }
 
     return new_names
