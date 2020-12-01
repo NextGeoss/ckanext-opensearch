@@ -26,7 +26,7 @@ product_type = ["GRD"]
 [SENTINEL1_L2_OCN]
 name = "Sentinel-1 Level-2 (OCN)"
 description = "The Sentinel-1 Level-2 OCN products include components for Ocean Swell spectra (OSW) providing continuity with ERS and ASAR WV and two new components: Ocean Wind Fields (OWI) and Surface Radial Velocities (RVL). The OSW is a two-dimensional ocean surface swell spectrum and includes an estimate of the wind speed and direction per swell spectrum. The OWI is a ground range gridded estimate of the surface wind speed and direction at 10 m above the surface derived from internally generated Level-1 GRD images of SM, IW or EW modes. The RVL is a ground range gridded difference between the measured Level-2 Doppler grid and the Level-1 calculated geometrical Doppler."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_parameters", "sentinel-1-l2_params"]
 tags = ["Sentinel-1"]
 product_type = ["OCN"]
 
@@ -60,14 +60,14 @@ tags = ["Sentinel-3", "Level-1", "CAL"]
 [SENTINEL3_SRAL_L1_SRA]
 name = "Sentinel-3 SRAL Level-1 SRA"
 description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a Level 1 SRA product."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 tags = ["Sentinel-3", "Level-1", "SRA"]
 
 
 [SENTINEL3_SRAL_L2_LAN]
 name = "Sentinel-3 SRAL Level-2 Land"
 description = "SENTINEL-3 is the first Earth Observation Altimetry mission to provide 100% SAR altimetry coverage where LRM is maintained as a back-up operating mode. This is a product of Level 2 processing and geographical coverage over land."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 tags = ["Sentinel-3", "Level-2", "Land"]
 
 
@@ -81,36 +81,36 @@ tags = ["Sentinel-3", "Level-2", "Water"]
 [SENTINEL3_OLCI_L1_EFR]
 name = "Sentinel-3 OLCI Level-1 Full Resolution"
 description = "SENTINEL-3 OLCI Level-1 product provides radiances for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. The output of this product is during EO processing mode for Full Resolution."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 tags = ["Sentinel-3", "Level-2", "Water"]
 
 
 [SENTINEL3_OLCI_L1_ERR]
 name = "Sentinel-3 OLCI Level-1 Reduced Resolution"
 description = "SENTINEL-3 OLCI Level-1 product provides radiances for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. The output of this product is during EO processing mode for Reduced Resolution."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 tags = ["Sentinel-3"]
 product_type = ["OL_1_EFR___"]
 
 [SENTINEL3_OLCI_L2_LFR]
 name = "Sentinel-3 OLCI Level-2 Land Full Resolution"
 description = "SENTINEL-3 OLCI level-2 land product provides land and atmospheric geophysical parameters computed for full Resolution."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 
 [SENTINEL3_OLCI_L2_LRR]
 name = "Sentinel-3 OLCI Level-2 Land Reduced Resolution"
 description = "SENTINEL-3 OLCI level-2 land product provides land and atmospheric geophysical parameters computed for reduced Resolution."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 
 [SENTINEL3_SLSTR_L1_RBT]
 name = "Sentinel-3 SLSTR Level-1 Radiances and Brightness Temperatures"
 description = "SENTINEL-3 SLSTR Level-1 product provides radiances and brightness temperatures for each pixel in a regular image grid, each view and each SLSTR channel, plus annotations data associated with SLSTR pixels."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 
 [SENTINEL3_SLSTR_L2_LST]
 name = "Sentinel-3 SLSTR Level-2 Land Surface Temperature"
 description = "SENTINEL-3 SLSTR Level-2 LST product provides land surface parameters generated on the wide 1 km measurement grid."
-additional_parameters = ["sentinel_base_parameters"]
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 
 [SENTINEL5P_OFFL_L1B]
 name = "Sentinel-5P OFFL Level-1B"
@@ -135,10 +135,12 @@ description = "Correspondence and collocation grids between OLCI/SLSTR L1b produ
 [SENTINEL3_SY_2_SYN]
 name = "Sentinel-3 Synergy Level-2 SYN"
 description = "Surface Reflectance and Aerosol parameters over Land."
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 
 [SENTINEL3_SY_2_VGP]
 name = "Sentinel-3 Synergy Level-2 VGP"
 description = "1 km VEGETATION-Like product (~VGT-P) - TOA Reflectance."
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 
 [SENTINEL3_SY_2_VGK]
 name = "Sentinel-3 Synergy Level-2 VGK"
@@ -147,10 +149,12 @@ description = "Surface reflectance over Land– used as input for VG-S product."
 [SENTINEL3_SY_2_VG1]
 name = "Sentinel-3 Synergy Level-2 VG1"
 description = "1 km VEGETATION-Like product (~VGT-S1) 1 day synthesis surface reflectance and NDVI."
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 
 [SENTINEL3_SY_2_V10]
 name = "Sentinel-3 Synergy Level-2 V10"
 description = "1 km VEGETATION-Like product (~VGT-S10) 10 day synthesis surface reflectance and NDVI."
+additional_parameters = ["sentinel_base_parameters", "sentinel_additional_params"]
 
 [METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2]
 name = "Global Observed Sea Surface Temperature"

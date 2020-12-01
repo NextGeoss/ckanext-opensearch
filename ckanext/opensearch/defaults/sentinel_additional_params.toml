@@ -1,0 +1,12 @@
+[orbit_direction]
+title = "A string identifying the acquisition orbit direction. Possible values are: ASCENDING, DESCENDING"
+os_name = "orbitDirection"
+namespace = "eo"
+minimum = 0
+maximum = 1
+  [[orbit_direction.options]]
+  value = "ASCENDING"
+  label = "ASCENDING acquisition orbit direction"
+  [[orbit_direction.options]]
+  value = "DESCENDING"
+  label = "DESCENDING acquisition orbit direction"
