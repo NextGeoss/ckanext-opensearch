@@ -728,3 +728,8 @@ description = "The SAR-based Change Detection refers to an amplitude change dete
 name = "	Air Quality Megacities Pollution and Covid19 Timeseries"
 description = "Air Quality Megacities Pollution and Covid19 Timeseries', true, 0, 'satellite', 'Timeseries of tropospheric NO2 over the given bounding box as derived from the MetOp-B/GOME-2 instrument. Only space-borne observation over build-up areas (where the Global Urban Footprint (GUF) is non-zero) are taken into consideration. Moreover, for the year 2020 (year of the Covid-19 pandemia), the countrywide number of Covid-19 cases (monthly aggregated) is taken into consideration. This dataset contains the pure observations from the EO mission and linear and weatherhead trend analyses to depict the evolution of tropospheric over the user-selected area."
 
+## OSCAR
+[WMO_INTEGRATED_OBSERVING_SYSTEM_SURFACE_BASED]
+name = "WMO Integrated Observing System (surface-based part)"
+description = "Metadata describing observations collected under the auspices of the WMO WIGOS covering atmosphere, land and ocean. Metadata are stored in OSCAR/Surface that refers to data hosted at different data centers distributed globally."
+
