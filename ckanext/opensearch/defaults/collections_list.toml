@@ -733,3 +733,72 @@ description = "Air Quality Megacities Pollution and Covid19 Timeseries', true, 0
 name = "WMO Integrated Observing System (surface-based part)"
 description = "Metadata describing observations collected under the auspices of the WMO WIGOS covering atmosphere, land and ocean. Metadata are stored in OSCAR/Surface that refers to data hosted at different data centers distributed globally."
 
+## FSSCAT
+[FSSCAT_GRF_L1C_SCI]
+name = "FSSCAT GNSS Reflectometer L1C Science"
+description = ""
+
+[FSSCAT_GRF_L1B_CAL]
+name = "FSSCAT GNSS Reflectometer L1B Calibration"
+description = ""
+
+[FSSCAT_GRF_L1B_SCI]
+name = "FSSCAT GNSS Reflectometer L1B Calibration"
+description = ""
+
+[FSSCAT_GRF_L2__SIE]
+name = "FSSCAT GNSS Reflectometer L1B Science"
+description = ""
+
+[FSSCAT_GRF_L3__SIE]
+name = "FSSCAT GNSS Reflectometer L3 Ice Map"
+description = ""
+
+[FSSCAT_MWR_L1B_SCI]
+name = "FSSCAT Microwave Radiometer L1B Science"
+description = ""
+
+[FSSCAT_MWR_L1C_SCI]
+name = "FSSCAT Microwave Radiometer L1C Science"
+description = ""
+
+[FSSCAT_MWR_L2A_TB_]
+name = "FSSCAT Microwave Radiometer L2A Brightness Temperature"
+description = ""
+
+[FSSCAT_MWR_L2B_SIT]
+name = "FSSCAT Microwave Radiometer L2B Sea Ice Thickness"
+description = ""
+
+[FSSCAT_MWR_L2B_SM_]
+name = "FSSCAT Microwave Radiometer L2B Soil Moisture"
+description = ""
+
+[FSSCAT_MWR_L3__TB_]
+name = "FSSCAT Microwave Radiometer L3 Ice/Land Brightness Temperature"
+description = ""
+
+[FSSCAT_MWR_L3__SIT]
+name = "FSSCAT Microwave Radiometer L3 Sea Ice Thickness"
+description = ""
+
+[FSSCAT_MWR_L3__SM_]
+name = "FSSCAT Microwave Radiometer L3 Soil Moisture"
+description = ""
+
+[FSSCAT_MWR_L4__SM_]
+name = "FSSCAT Microwave Radiometer L4 Downscaled Soil Moisture"
+description = ""
+
+[FSSCAT_HPS_L1C_SCI]
+name = "FSSCAT Hyperscout L1C Science"
+description = ""
+
+[FSSCAT_HPS_L2__RDI]
+name = "FSSCAT Hyperscout L2 Radiometric Indexes"
+description = ""
+
+[FSSCAT_SYN_L4__SM_]
+name = "FSSCAT Synergy L4 Downscaled Soil Moisture"
+description = ""
+
