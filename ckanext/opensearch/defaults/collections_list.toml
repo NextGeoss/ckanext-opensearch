@@ -803,14 +803,6 @@ name = "FSSCAT Synergy L4 Downscaled Soil Moisture"
 description = ""
 
 ## SWOS GeoWetlands
-[SWOS_GEOWETLANDS_DONANA_2014]
-name = "SWOS GEOWetlands Donana 2014"
-description = "Surface Water Dynamics time series"
-
-[SWOS_GEOWETLANDS_DONANA_2018]
-name = "SWOS GEOWetlands Donana 2018"
-description = "Surface Water Dynamics time series"
-
-[SWOS_GEOWETLANDS_DONANA_2019]
-name = "SWOS GEOWetlands Donana 2019"
+[SWOS_GEOWETLANDS_DONANA]
+name = "SWOS GEOWetlands Donana"
 description = "Surface Water Dynamics time series"
