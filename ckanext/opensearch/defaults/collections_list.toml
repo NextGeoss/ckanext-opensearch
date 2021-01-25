@@ -563,6 +563,27 @@ description = "TBD"
 name = "CGS S1 GRD L1"
 description = "Level-1 Ground Range Detected (GRD) products consist of focused SAR data that has been detected, multi-looked and projected to ground range using the Earth ellipsoid model WGS84. The ellipsoid projection of the GRD products is corrected using the terrain height specified in the product general annotation. The terrain height used varies in azimuth but is constant in range (but can be different for each IW/EW sub-swath)."
 
+[SENTINEL_2_TOC_V2]
+name = "Sentinel-2 TOC V2"
+description = ""
+
+[TERRASCOPE_SENTINEL_2_LAI_V2]
+name = "Terrascope Sentinel-2 LAI V2"
+description = ""
+
+[TERRASCOPE_SENTINEL_2_NDVI_V2]
+name = "Terrascope Sentinel-2 NDVI V2"
+description = ""
+
+[TERRASCOPE_SENTINEL_2_FAPAR_V2]
+name = "Terrascope Sentinel-2 FAPAR V2"
+description = ""
+
+[TERRASCOPE_SENTINEL_2_FCOVER_V2]
+name = "Terrascope Sentinel-2 FCOVER V2"
+description = ""
+
+
 # Landsat-8
 [LANDSAT_8_RT]
 name = "Landsat-8 RT"
