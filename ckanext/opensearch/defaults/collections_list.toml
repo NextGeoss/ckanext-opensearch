@@ -871,5 +871,5 @@ description = "A 10-years’ time-series of environmental, meteorological and ge
 
 ## Landsaf
 [EUMETSAT_LAND_SURFACE_ANALYSIS]
-name = "Eumetsat Land Surface Analysis"
+name = "EUMETSAT Land Surface Analysis"
 description = "The LSA SAF (Satellite Application Facility on Land Surface Analysis) is part of the distributed EUMETSAT (European Organization for the Exploitation of Meteorological Satellites) Application Ground Segment. It is focused on the development and processing of satellite products that characterize the continental surfaces, such as radiation products, vegetation, evapotranspiration and wild fires."
