@@ -855,3 +855,21 @@ description = "FMPL-2 L4 Neural Network Soil Moisture Maps"
 [SWOS_GEOWETLANDS_DONANA]
 name = "SWOS GEOWetlands Donana"
 description = "Surface Water Dynamics time series"
+
+## NOA Epidemics
+[EYWA_AEDES_PRODUCTS]
+name = "EYWA (NOA-BEYOND) Aedes Products"
+description = "A 10-years’ time-series of environmental, meteorological and geomorphological data for every mosquito-trap in five countries, regarding Aedes mosquitoes. Satellite indices created and opened by EYWA. For more information please visit: http://beyond-eocenter.eu/index.php/web-services/eywa"
+
+[EYWA_CULEX_PRODUCTS]
+name = "EYWA (NOA-BEYOND) Culex Products"
+description = "A 10-years’ time-series of environmental, meteorological and geomorphological data for every mosquito-trap in five countries, regarding Culex mosquitoes. Satellite indices created and opened by EYWA. For more information please visit: http://beyond-eocenter.eu/index.php/web-services/eywa"
+
+[EYWA_ANOPHELES_PRODUCTS]
+name = "EYWA (NOA-BEYOND) Anopheles Products"
+description = "A 10-years’ time-series of environmental, meteorological and geomorphological data for every mosquito-trap in five countries, regarding Anopheles mosquitoes. Satellite indices created and opened by EYWA. For more information please visit: http://beyond-eocenter.eu/index.php/web-services/eywa"
+
+## Landsaf
+[EUMETSAT_LAND_COVER_SURFACE_ANALYSIS]
+name = "Eumetsat Land Cover Surface Analysis"
+description = "The LSA SAF (Satellite Application Facility on Land Surface Analysis) is part of the distributed EUMETSAT (European Organization for the Exploitation of Meteorological Satellites) Application Ground Segment. It is focused on the development and processing of satellite products that characterize the continental surfaces, such as radiation products, vegetation, evapotranspiration and wild fires."
