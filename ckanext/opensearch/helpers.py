@@ -117,7 +117,7 @@ def make_entry_resource(resource):
             "type": mime_type,
         }
     else:
-        if str(resource.get("size", "")) == None:
+        if str(resource.get("size", "")) == "None":
             link = {
                 "href": resource["url"],
                 "title": name,
