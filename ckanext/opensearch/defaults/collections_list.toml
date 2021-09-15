@@ -914,3 +914,8 @@ description = "The LSA SAF (Satellite Application Facility on Land Surface Analy
 [GREEK_NATIONAL_MONITORING_NETWORK]
 name = "Greek National Monitoring Network"
 description = "Water quality data measured by two monitoring stations from the Greek National Monitoring Network in the Thermaikos Gulf. The following parameters are available: Water temperature, DO, Conductivity, pH, nutrient concentration (total phosphorus, dissolved phosphorus, Total Nitrogen, NO2, NO3, Ammonium), TSS, Turbidity, Secchi depth, colour."
+
+## World Bank - Energy Data
+[ENERGYDATA_INFO]
+name = "EnergyData Info"
+description = "ENERGYDATA.INFO is an open data platform providing access to datasets and data analytics that are relevant to the energy sector. ENERGYDATA.INFO has been developed as a public good to share data and analytics that can help achieving the United Nations’ Sustainable Development Goal 7 of ensuring access to affordable, reliable, sustainable and modern energy for all."
