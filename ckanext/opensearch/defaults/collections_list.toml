@@ -887,6 +887,10 @@ description = "FMPL-2 L3 Neural Network Soil Moisture Maps"
 name = "FSSCAT Neural Network L4 Soil Moisture"
 description = "FMPL-2 L4 Neural Network Soil Moisture Maps"
 
+[FSSCAT_HS2_L1C_SCI]
+name = "FSSCAT HyperScout L1C Science"
+description = "HyperScout-2 L1 data cubes"
+
 ## SWOS GeoWetlands
 [SWOS_GEOWETLANDS_DONANA]
 name = "SWOS GEOWetlands Donana"
